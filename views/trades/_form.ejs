@@ -1,0 +1,40 @@
+<!--
+  Step 1: The form must be sharable between the new and edit views.
+-->
+<form action="<%= (typeof actionPath === 'undefined') ? '/trades' : actionPath %>", method="POST">
+  <% if (typeof actionPath !== 'undefined') { %> 
+  <input type="hidden" name="id" value="<%= formData.id %>">
+  <% } %> 
+  <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" name="title" class="form-control" value="<%= formData.title %>">
+  </div>
+  <div class="form-group">
+      <label for="trade">Trade</label>
+      <textarea name="trade" class="form-control summernote"><%= formData.trade %></textarea>
+  </div>
+  <div class="form-group">
+    <label for="buyNow">Buy Now Amount(Coins):</label>
+    <textarea name="buyNow" class="form-control summernote"><%= formData.buyNow %></textarea>
+  </div>
+  
+  <div class="form-group">
+    <label for="tradeType">Trade Type</label>
+    <select name="tradeType" class="form-control">
+        <option value="Trading">Trading</option>
+        <option <%= formData.tradeType && formData.tradeType === 'Looking For' ? 'selected' : null %> value="Looking For">Looking For</option>
+    </select>
+</div>
+
+  <div class="form-group">
+      <label for="tradeStatus">Trade Status</label>
+      <select name="tradeStatus" class="form-control">
+          <option value="Available">Available</option>
+          <option <%= formData.tradeStatus && formData.tradeStatus === 'Traded' ? 'selected' : null %> value="Traded">Traded</option>
+      </select>
+  </div>
+
+  <div class="form-group">
+      <button class="btn btn-dark">Submit</button>
+  </div>
+</form>

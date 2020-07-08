@@ -1,0 +1,31 @@
+<!--
+  Step 1: This is your descretion how you would like to display data,
+  but you must list display only one document based on the passed ID.
+-->
+<%- include ('../partials/header') %>
+
+<div class="container my-5">
+    <header>
+        <!-- This will grab the blog title from the id thats returned... -->
+        <h1><%= trade.title %>
+            <a href="/trades/<%= trade.id %>/edit">
+                <i class="fa fa-edit"></i>
+            </a>
+        </h1>
+        <br>
+        <small>
+            <%= (trade.updatedAt.toLocaleString("en-CA")) %>
+        </small>
+        <p><strong>By: <%= trade.user.fullName %></strong></p>
+    </header>
+    <hr>
+    <div class="content">
+        <!-- use a '-' to output the proper html... no syntax -->
+        <%- trade.trade %> 
+        <%- trade.buyNow %> 
+        <%- trade.tradeType %> 
+        <%- trade.tradeStatus %> 
+    </div>
+</div>
+
+<%- include ('../partials/footer') %>

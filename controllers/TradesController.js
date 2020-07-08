@@ -25,7 +25,7 @@ exports.index = async (req, res) => {
     const trades = await Trade.find().populate('user').sort({updatedAt: 'desc'});
     res.render(`${viewPath}/index`, {
       pageTitle: 'Active Trades',
-      trades: trade
+      trades: trades
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);
@@ -89,8 +89,9 @@ exports.update = async (req, res) => {
     if(!trade) throw new Error('Trade could not be found');
 
     const attributes = {user : user._id, ...req.body};
-    await Trade.validate(attributes);
-    await Trade.updateOne({_id: req.body.id}, req.body);
+    await Trade.validate(attributes);    
+    await Trade.findByIdAndUpdate(req.body.id, req.body);
+    //await Trade.updateOne({_id: req.body.id}, req.body);
 
     req.flash('success', 'Trade was successfully updated!');
     res.redirect(`/trades/${req.body.id}`);

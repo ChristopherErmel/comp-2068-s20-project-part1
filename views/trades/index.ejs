@@ -1,0 +1,55 @@
+<!--
+  Step 1: This is your descretion how you would like to display data,
+  but you must list all the documents in your resource collection.
+-->
+<%- include ('../partials/header') %>
+
+<div class="container my-5">
+    <header>
+        <h1>All Trades</h1>
+        <br>
+    </header>
+    <hr>
+    <div class="content">
+        <% for (let trade of trades) { %> 
+            <div class="card my-3">
+                <div class="card-header clearfix">
+                    <div class="float-left">
+                        <h5 class="card-title"><%= trade.title  %> </h5>
+                        <% if (typeof trade.user !== 'undefined') {%> 
+                            <small>~ <%= trade.user.fullName %></small>
+                            <% } %>
+                    </div>                    
+                    <div class="float-right">
+                        <small><%= trade.updatedAt %></small>
+                    </div>
+                </div>
+                <div class="card-img-top">
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                      <%=// synopsis %> 
+                  </p>
+                  <a href="/trades/<%= trade.id %>">more...</a>
+                </div>
+
+                <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
+                    <div class="card-footer">
+                        <a href="/trades/<%= trade.id %>/edit">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    &nbsp;/&nbsp;
+                    <form class="form-inline" action="/trades/delete" method="post" onsubmit="return confirm('Are you sure you want to delete this trade? This can not be undone!');">
+                    <input type="hidden" value="<%= trade.id %>" name="id">
+                    <button type="submit" class="delete">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                    </form>     
+                    </div>
+                <% } %>
+              </div>
+        <% } %> 
+    </div>
+</div>
+
+<%- include ('../partials/footer') %>

@@ -27,11 +27,10 @@ const TradeSchema = new mongoose.Schema({
   },
   trade: {
     type: String,
-    required: true
+    require: true
   },
   buyNow: {
     type: Number,
-    required: false,
     default: 0
   },
   tradeStatus: {
@@ -41,7 +40,7 @@ const TradeSchema = new mongoose.Schema({
   }, 
   tradeType: {
     type: String,
-    enum: ['Trading For', 'Trading'],
+    enum: ['Looking For', 'Trading'],
     default: 'Trading'
   }
 }, {
