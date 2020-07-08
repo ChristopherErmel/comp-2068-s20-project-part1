@@ -22,7 +22,7 @@
     - /views/resources/new.js
     - /views/resources/edit.js
     - /views/resources/_form.js
-    - /routes/resources.js
+    - /routes/resources.js - checked
   
   GOAL:
     Create an application that utilizes the User as an
