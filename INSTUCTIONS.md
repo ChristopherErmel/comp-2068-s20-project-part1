@@ -13,7 +13,7 @@
     - /app.js - CHECKED
     - /routes.js - Check
     - /controllers/SessionsController.js - CHECKED
-    - /controllers/UsersController.js
+    - /controllers/UsersController.js - i think checked
     - /controllers/ResourcesController.js
     - /models/User.js
     - /models/Resource.js
