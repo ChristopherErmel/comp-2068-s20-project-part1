@@ -14,9 +14,9 @@
     - /routes.js - Check
     - /controllers/SessionsController.js - CHECKED
     - /controllers/UsersController.js - i think checked
-    - /controllers/ResourcesController.js
-    - /models/User.js
-    - /models/Resource.js
+    - /controllers/ResourcesController.js - checked
+    - /models/User.js - checked
+    - /models/Resource.js - checked
     - /views/resources/index.js
     - /views/resources/show.js
     - /views/resources/new.js
