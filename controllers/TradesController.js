@@ -17,7 +17,7 @@
 
 const viewPath = ('trades');
 
-const Trade = require('../models/trade');
+const Trade = require('../models/Trade');
 const User = require('../models/User');
 
 exports.index = async (req, res) => {
@@ -54,7 +54,7 @@ exports.new = (req, res) => {
 };
 
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   try {
     const {user : email} = req.session.passport;
     const user = await User.findOne({email : email});

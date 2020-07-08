@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
     req.flash('success', 'The user was successfully created');
     res.redirect(`/login`);
   } catch (error) {
-    console.log('Errors');
+    console.log(error);
     req.flash('danger', error.message);
 
     req.session.formData = req.body;

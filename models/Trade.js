@@ -69,5 +69,6 @@ TradeSchema.query.available = function () {
   });
 };
 
-module.exports = mongoose.model('Trade', TradeSchema);
+//module.exports = mongoose.model('Trade', TradeSchema);
 
+module.exports = mongoose.models.Trade || mongoose.model('Trades', TradeSchema);
