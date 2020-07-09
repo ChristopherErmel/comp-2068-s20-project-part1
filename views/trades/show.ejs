@@ -32,7 +32,7 @@
           <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
           <form action="<%= (typeof actionPath === 'undefined') ? '/trades/comment' : actionPath %>", method="POST">
             <input type="hidden" name="id" value="<%= trade.id %>">
-            <input type="hidden" name="user" value="<%= trade.user.firstName %>">
+            <input type="hidden" name="user" value="<%= user.firstName %>">
             <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Inquire about trade</label></h5>
               <input style="margin: 1em; margin-top: -1em; width: 97%;" type="text" name="comment" id="comment">                         
             <div class="form-group">
@@ -41,11 +41,18 @@
           </form>
           </div>
         <% } %> 
+        <% if(!authorized) { %>
+          <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
+          <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Inquire about trade</label></h5>
+            <p style="margin-left: 1em;">Please log in to post a comment.</p>
+          </div>
+        <% } %> 
 
 
-        <div class="card" style="width: 62.75rem; min-height: 19.5em; margin: 1.3em; margin-bottom: 1em; float: left;">
+        <div class="card" style="width: 62.75rem; min-height: 6em; margin: 1.3em; margin-bottom: 1em; float: left;">
           <h5 class="card-title" style="height: 3em;"><p style="margin: 1em;">Comments</p></h5>
-          <% for (i = trade.tradeComments.length - 1; i >= 0; i--)  {%> 
+          <hr>
+          <% for (i = trade.tradeComments.length - 1; i >= 1; i--)  {%> 
             <p style="margin: none; margin-left: 1em;"><%= trade.tradeComments[i]; %> </p>
             <hr>
           <% } %> 

@@ -40,9 +40,7 @@ exports.show = async (req, res) => {
 
     const trade = await Trade.findById(req.params.id).populate('user');
 
-    const user = new User(req.body);
-    console.log(user);
-
+    const user = await User.findById(req.user);
 
     res.render(`${viewPath}/show`, {
       pageTitle: trade.title,
@@ -126,16 +124,15 @@ exports.delete = async (req, res) => {
 //this will add comments to the trade id...
 exports.comment = async (req, res) => {
   try {
-    //const user = await User.findOne({email : email});
-    console.log(req.body);
+   // console.log(req.body);
     //fix the form of msg and add the user to it before inputing it in the db...
     const message = String(`${req.body.user}: ${req.body.comment}`);
-    console.log(message);
+    //console.log(message);
 
   await Trade.findByIdAndUpdate({_id: req.body.id}, {$push: { "tradeComments": message } });
 
    req.flash('success', 'Trade comment has been posted!');
-   res.redirect('/trades');
+   res.redirect(`/trades/${req.body.id}`);
   } catch (error) {
     console.log(error);
   }
