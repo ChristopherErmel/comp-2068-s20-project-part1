@@ -3,15 +3,30 @@
   but you must list all the documents in your resource collection.
 -->
 <%- include ('../partials/header') %>
+<% //window.addEventListener('DOMContentLoaded', myTrades, false); %> 
+<script>
+ 
+  
+</script>   
+ 
+
 
 <div class="container my-5">
     <header>
         <h1>All Trades</h1>
+        <!-- <div class="div" id="myTrades" style="float: right; cursor: pointer;" onclick='myTrade();'>
+          <h4>My Trades</h4>
+        </div> -->
         <br>
     </header>
     <hr>
+
+
+    
     <div class="content">
+      <% //if(myTrades == false){ %> 
         <% for (let trade of trades) { %>
+          <!-- <% //if() { } %>  -->
           <div class="card" style="width: 20rem; height: 18.5rem; margin: 1.3em; float: left;">
             <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
             <div class="card-body">
@@ -41,6 +56,26 @@
             </div>   
           </div>         
           <% } %>
+        <%// } %> 
           
 
 <%- include ('../partials/footer') %>
+<!-- 
+<script>
+  function myTrade(){ 
+   const myT = document.getElementById("myTrades"); 
+   myT.style.cursor = "pointer";
+   if(myTrades == false){ 
+     myT.style["color"] = "lightgrey"; 
+     myT.style["float"] = "right";
+     myTrades = true;
+     
+   }else{
+     myTrades = false;
+     myT.style["color"] = "black"; 
+     myT.style["float"] = "right";
+
+   }
+   
+}; 
+</script> -->

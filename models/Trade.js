@@ -50,8 +50,8 @@ const TradeSchema = new mongoose.Schema({
   }, 
   tradeType: {
     type: String,
-    enum: ['Looking For', 'Trading For'],
-    default: 'Trading For'
+    enum: ['Looking For', 'Trading'],
+    default: 'Trading'
   },
   tradeComments: {
     type: Array,

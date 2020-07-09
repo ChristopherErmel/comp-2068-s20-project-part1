@@ -48,6 +48,7 @@ exports.index = async (req, res) => {
     res.render(`${viewPath}/index`, {
       pageTitle: 'Active Trades',
       trades: trades
+      // myTrades: false
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);
