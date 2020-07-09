@@ -35,10 +35,19 @@ exports.index = async (req, res) => {
 
 exports.show = async (req, res) => {
   try {
+
+    
+
     const trade = await Trade.findById(req.params.id).populate('user');
+
+    const user = new User(req.body);
+    console.log(user);
+
+
     res.render(`${viewPath}/show`, {
       pageTitle: trade.title,
-      trade: trade
+      trade: trade,
+      user: user
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying this trade: ${error}`);

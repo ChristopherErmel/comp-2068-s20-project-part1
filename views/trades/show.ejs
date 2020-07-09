@@ -26,13 +26,10 @@
             </div>   
           </div> 
           
-          <div class="card" style="width: 40rem; height: 19.5em; margin: 1.3em; float: left;">
-          <h5 class="card-title" style="height: 3em;"><p style="margin: 1em;">Comments</p></h5>
           
-        </div>
 
-        <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
-          <div class="card" style="width: 62.75rem; margin: 1.3em; float: left;">
+        <% if(authorized) { %>
+          <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
           <form action="<%= (typeof actionPath === 'undefined') ? '/trades/comment' : actionPath %>", method="POST">
             <input type="hidden" name="id" value="<%= trade.id %>">
             <input type="hidden" name="user" value="<%= trade.user.firstName %>">
@@ -44,6 +41,15 @@
           </form>
           </div>
         <% } %> 
+
+
+        <div class="card" style="width: 62.75rem; min-height: 19.5em; margin: 1.3em; margin-bottom: 1em; float: left;">
+          <h5 class="card-title" style="height: 3em;"><p style="margin: 1em;">Comments</p></h5>
+          <% for (i = trade.tradeComments.length - 1; i >= 0; i--)  {%> 
+            <p style="margin: none; margin-left: 1em;"><%= trade.tradeComments[i]; %> </p>
+            <hr>
+          <% } %> 
+        </div>
         
 
 
