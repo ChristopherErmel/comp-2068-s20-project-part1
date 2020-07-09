@@ -20,6 +20,28 @@ const viewPath = ('trades');
 const Trade = require('../models/Trade');
 const User = require('../models/User');
 
+//this is our player data
+const fs = require('fs'); 
+const csv = require('csv-parse');
+
+const playerData = fs.createReadStream('./assets/players/players.csv')
+.pipe(csv())
+.on('data', function(data){
+    try {
+        //console.log(data);
+        //console.log(data[10]);
+    }
+    catch(error) {
+        console.log(error);
+    }
+})
+.on('end',function(){
+}); 
+
+
+
+
+
 exports.index = async (req, res) => {
   try {
     const trades = await Trade.find().populate('user').sort({updatedAt: 'desc'});
@@ -35,9 +57,6 @@ exports.index = async (req, res) => {
 
 exports.show = async (req, res) => {
   try {
-
-    
-
     const trade = await Trade.findById(req.params.id).populate('user');
 
     const user = await User.findById(req.user);

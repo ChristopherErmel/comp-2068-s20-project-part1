@@ -16,6 +16,12 @@ header:not(.home-cta), .alert {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-x:hidden!important;
+  overflow-y:hidden!important;
+}
+
+.home-cta::-webkit-scrollbar {
+  display: none;
 }
 
 .home-cta::after {

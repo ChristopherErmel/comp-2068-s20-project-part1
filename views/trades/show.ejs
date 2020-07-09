@@ -10,7 +10,7 @@
           <div class="card" style="width: 20rem; margin: 1.3em; float: left;">
             <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
             <div class="card-body">
-              <h5 class="card-title" style="height: 3em;"><p><%= trade.tradeType %> <%= trade.title %></p></h5>
+              <h5 class="card-title" style="height: 3em;"><p><%= trade.tradeType %> <%= trade.cardLevel %> <%= trade.title %></p></h5>
               <% if (typeof trade.user !== 'undefined') {%> 
                 <small style="font-weight: bold;">by <%= trade.user.shortName %></small>
                 <% } %>  
@@ -50,7 +50,7 @@
 
 
         <div class="card" style="width: 62.75rem; min-height: 6em; margin: 1.3em; margin-bottom: 1em; float: left;">
-          <h5 class="card-title" style="height: 3em;"><p style="margin: 1em;">Comments</p></h5>
+          <h5 class="card-title" style="height: 3em;"><p style="margin: 1em;">Trade Comments</p></h5>
           <hr>
           <% for (i = trade.tradeComments.length - 1; i >= 1; i--)  {%> 
             <p style="margin: none; margin-left: 1em;"><%= trade.tradeComments[i]; %> </p>

@@ -35,6 +35,10 @@ const TradeSchema = new mongoose.Schema({
     required: true,
     default: 'Base'
   },
+  cardLevel: {
+    type: Number,
+    required: true
+  },
   buyNow: {
     type: Number,
     default: 0

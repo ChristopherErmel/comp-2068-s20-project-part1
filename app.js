@@ -103,6 +103,10 @@ app.use('/', routes);
 app.use('/css', express.static('assets/css'));
 app.use('/js', express.static('assets/js'));
 app.use('/images', express.static('assets/images'));
+app.use('/players', express.static('assets/players'));
+app.use('/playersImages', express.static('assets/players/images'));
+
+
 
 
 /*

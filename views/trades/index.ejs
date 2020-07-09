@@ -15,7 +15,7 @@
           <div class="card" style="width: 20rem; height: 18.5rem; margin: 1.3em; float: left;">
             <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
             <div class="card-body">
-              <h5 class="card-title" style="height: 3em;"><p><%= trade.tradeType %> <%= trade.title %></p></h5>
+              <h5 class="card-title" style="height: 3em;"><p><%= trade.tradeType %> <%= trade.cardLevel %> <%= trade.title %></p></h5>
               <% if (typeof trade.user !== 'undefined') {%> 
                 <small style="font-weight: bold;">by <%= trade.user.shortName %></small>
                 <% } %>  
