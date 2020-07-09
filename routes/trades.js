@@ -1,5 +1,5 @@
 
- const {new: _new, index, show, create, edit, update, delete: _delete} = require('../controllers/TradesController');
+ const {new: _new, index, show, create, comment, edit, update, delete: _delete} = require('../controllers/TradesController');
 
  //to check for loged in status
  function auth (req, res, next) {    
@@ -17,7 +17,8 @@
      router.post('/trades', auth, create); //authenticated
      router.post('/trades/update', auth, update); //authenticated
      router.post('/trades/delete', auth, _delete);//authenticated
-     
-     router.get('/trades/:id/edit', auth, edit); //authenticated
+       
+     router.post('/trades/comment', auth, comment);
+     router.get('/trades/:id/edit', auth, edit); //authenticated   
      router.get('/trades/:id', show); //public
  };

@@ -56,6 +56,11 @@ UserSchema.virtual('fullName')
   return `${this.firstName} ${this.lastName}`
 });
 
+UserSchema.virtual('shortName').get(function (){
+  const fullname = this.firstName + this.lastName;
+
+  return fullname.replace(/(<([^>]+)>)/ig, "").substring(0, 20);
+});
 
 UserSchema.plugin(passportLocalMongoose, {
   usernameField: 'email'

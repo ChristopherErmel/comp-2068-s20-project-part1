@@ -1,4 +1,5 @@
 console.clear();
+
 /*
   Step 1: Create a new express app
 */

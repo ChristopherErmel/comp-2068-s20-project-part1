@@ -49,7 +49,8 @@ exports.show = async (req, res) => {
 
 exports.new = (req, res) => {
   res.render(`${viewPath}/new`, {
-    pageTitle: 'New Trade'
+    pageTitle: 'New Trade',
+    cardTypes:  ['Awards', 'Drafts', 'TOTS', 'TOTW', 'SCP', 'MSP', 'Base']
   });
 };
 
@@ -110,5 +111,23 @@ exports.delete = async (req, res) => {
   } catch (error) {
     req.flash('danger', `There was an error deleting this trade: ${error}`);
     res.redirect('/trades');
+  }
+}
+
+//this will add comments to the trade id...
+exports.comment = async (req, res) => {
+  try {
+    //const user = await User.findOne({email : email});
+    console.log(req.body);
+    //fix the form of msg and add the user to it before inputing it in the db...
+    const message = String(`${req.body.user}: ${req.body.comment}`);
+    console.log(message);
+
+  await Trade.findByIdAndUpdate({_id: req.body.id}, {$push: { "tradeComments": message } });
+
+   req.flash('success', 'Trade comment has been posted!');
+   res.redirect('/trades');
+  } catch (error) {
+    console.log(error);
   }
 }

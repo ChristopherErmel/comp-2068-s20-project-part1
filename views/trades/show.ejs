@@ -6,26 +6,45 @@
 
 <div class="container my-5">
     <header>
-        <!-- This will grab the blog title from the id thats returned... -->
-        <h1><%= trade.title %>
-            <a href="/trades/<%= trade.id %>/edit">
-                <i class="fa fa-edit"></i>
-            </a>
-        </h1>
-        <br>
-        <small>
-            <%= (trade.updatedAt.toLocaleString("en-CA")) %>
-        </small>
-        <p><strong>By: <%= trade.user.fullName %></strong></p>
-    </header>
-    <hr>
-    <div class="content">
-        <!-- use a '-' to output the proper html... no syntax -->
-        <%- trade.trade %> 
-        <%- trade.buyNow %> 
-        <%- trade.tradeType %> 
-        <%- trade.tradeStatus %> 
-    </div>
-</div>
+      <div class="content">
+          <div class="card" style="width: 20rem; margin: 1.3em; float: left;">
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="card-body">
+              <h5 class="card-title" style="height: 3em;"><p><%= trade.tradeType %> <%= trade.title %></p></h5>
+              <% if (typeof trade.user !== 'undefined') {%> 
+                <small style="font-weight: bold;">by <%= trade.user.shortName %></small>
+                <% } %>  
+              <small style="float: right;"><%= trade.updatedAt.toLocaleString("en-US") %></small>
+              <hr>
+              <h6>Trade Card List:</h6>
+              <%- trade.trade %> 
+              <hr>
+
+              <p class="card-text">Buy Now: <%= trade.buyNow %>c</p>
+              <p class="card-text">Currently: <%= trade.tradeStatus %></p>
+              
+            </div>   
+          </div> 
+          
+          <div class="card" style="width: 40rem; height: 19.5em; margin: 1.3em; float: left;">
+          <h5 class="card-title" style="height: 3em;"><p style="margin: 1em;">Comments</p></h5>
+          
+        </div>
+
+        <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
+          <div class="card" style="width: 62.75rem; margin: 1.3em; float: left;">
+          <form action="<%= (typeof actionPath === 'undefined') ? '/trades/comment' : actionPath %>", method="POST">
+            <input type="hidden" name="id" value="<%= trade.id %>">
+            <input type="hidden" name="user" value="<%= trade.user.firstName %>">
+            <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Inquire about trade</label></h5>
+              <input style="margin: 1em; margin-top: -1em; width: 97%;" type="text" name="comment" id="comment">                         
+            <div class="form-group">
+                <button style="margin-left: 1em;" class="btn btn-dark">Submit</button>
+            </div>
+          </form>
+          </div>
+        <% } %> 
+        
+
 
 <%- include ('../partials/footer') %>

@@ -6,25 +6,42 @@
   <input type="hidden" name="id" value="<%= formData.id %>">
   <% } %> 
   <div class="form-group">
-      <label for="title">Title</label>
+      <label for="title">Player Name</label>
       <input type="text" name="title" class="form-control" value="<%= formData.title %>">
   </div>
+
   <div class="form-group">
-      <label for="trade">Trade</label>
+    <label for="cardType">Card Type</label>
+    <select name="cardType" class="form-control">
+        <option value="Base">Base</option>
+        <option value="MSP">MSP</option>
+        <option value="SCP">SCP</option>
+        <option value="TOTW">TOTW</option>
+        <option value="TOTS">TOTS</option>
+        <option value="Drafts">Drafts</option>
+        <option value="Awards">Awards</option>
+        </select>
+  </div>
+
+
+  <div class="form-group">
+    <label for="tradeType">Trade Type</label>
+    <select name="tradeType" class="form-control">
+        <option value="Trading For">Trading For</option>
+        <option <%= formData.tradeType && formData.tradeType === 'Looking For' ? 'selected' : null %> value="Looking For">Looking For</option>
+    </select>
+</div>
+
+  <div class="form-group">
+      <label for="trade">TT Card List:</label>
       <textarea name="trade" class="form-control summernote"><%= formData.trade %></textarea>
   </div>
   <div class="form-group">
     <label for="buyNow">Buy Now Amount(Coins):</label>
-    <textarea name="buyNow" class="form-control summernote"><%= formData.buyNow %></textarea>
+    <input type="number" name="buyNow" class="form-control summernote" value="<%= formData.buyNow %>">
   </div>
   
-  <div class="form-group">
-    <label for="tradeType">Trade Type</label>
-    <select name="tradeType" class="form-control">
-        <option value="Trading">Trading</option>
-        <option <%= formData.tradeType && formData.tradeType === 'Looking For' ? 'selected' : null %> value="Looking For">Looking For</option>
-    </select>
-</div>
+
 
   <div class="form-group">
       <label for="tradeStatus">Trade Status</label>

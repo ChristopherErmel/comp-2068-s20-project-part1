@@ -17,11 +17,11 @@
     - /controllers/ResourcesController.js - checked
     - /models/User.js - checked
     - /models/Resource.js - checked
-    - /views/resources/index.js
-    - /views/resources/show.js
-    - /views/resources/new.js
-    - /views/resources/edit.js
-    - /views/resources/_form.js
+    - /views/resources/index.js - checked
+    - /views/resources/show.js - checked
+    - /views/resources/new.js - checked
+    - /views/resources/edit.js - checked
+    - /views/resources/_form.js - checked
     - /routes/resources.js - checked
   
   GOAL:

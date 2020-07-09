@@ -11,45 +11,36 @@
     </header>
     <hr>
     <div class="content">
-        <% for (let trade of trades) { %> 
-            <div class="card my-3">
-                <div class="card-header clearfix">
-                    <div class="float-left">
-                        <h5 class="card-title"><%= trade.title  %> </h5>
-                        <% if (typeof trade.user !== 'undefined') {%> 
-                            <small>~ <%= trade.user.fullName %></small>
-                            <% } %>
-                    </div>                    
-                    <div class="float-right">
-                        <small><%= trade.updatedAt %></small>
-                    </div>
-                </div>
-                <div class="card-img-top">
-                </div>
-                <div class="card-body">
-                  <p class="card-text">
-                      <%=// synopsis %> 
-                  </p>
-                  <a href="/trades/<%= trade.id %>">more...</a>
-                </div>
-
-                <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
-                    <div class="card-footer">
-                        <a href="/trades/<%= trade.id %>/edit">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    &nbsp;/&nbsp;
-                    <form class="form-inline" action="/trades/delete" method="post" onsubmit="return confirm('Are you sure you want to delete this trade? This can not be undone!');">
+        <% for (let trade of trades) { %>
+          <div class="card" style="width: 20rem; margin: 1.3em; float: left;">
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="card-body">
+              <h5 class="card-title" style="height: 3em;"><p><%= trade.tradeType %> <%= trade.title %></p></h5>
+              <% if (typeof trade.user !== 'undefined') {%> 
+                <small style="font-weight: bold;">by <%= trade.user.shortName %></small>
+                <% } %>  
+              <small style="float: right;"><%= trade.updatedAt.toLocaleString("en-US") %></small>
+              <hr>
+              <p class="card-text">Buy Now: <%= trade.buyNow %>c</p>
+              <p class="card-text">Currently: <%= trade.tradeStatus %></p>
+              <hr>
+              <a class="btn btn-primary" href="/trades/<%= trade.id %>">View</a>                
+              <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>       
+                <form style="background: none; display: inline-block; float: right;" class="form-inline" action="/trades/delete" method="post" onsubmit="return confirm('Are you sure you want to delete this trade? This can not be undone!');">
                     <input type="hidden" value="<%= trade.id %>" name="id">
-                    <button type="submit" class="delete">
-                        <i class="fa fa-trash"></i>
+                    <button type="submit" class="delete" style="border: none;
+                    background-color: white; size: 10%">
+                      <a class="btn btn-danger" aria-label="Delete">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </a>
                     </button>
-                    </form>     
-                    </div>
-                <% } %>
-              </div>
-        <% } %> 
-    </div>
-</div>
+                    </form>                     
+                    <a class="btn btn-default btn-sm" href="/trades/<%= trade.id %>/edit" style="display: inline-block; float: right; background-color: ghostwhite!important;">
+                      <i class="fa fa-cog"></i> Edit</a>
+            <% } %>
+            </div>   
+          </div>         
+          <% } %>
+          
 
 <%- include ('../partials/footer') %>

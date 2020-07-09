@@ -29,6 +29,12 @@ const TradeSchema = new mongoose.Schema({
     type: String,
     require: true
   },
+  cardType: {
+    type: String,
+    enum: ['Awards', 'Drafts', 'TOTS', 'TOTW', 'SCP', 'MSP', 'Base'],
+    required: true,
+    default: 'Base'
+  },
   buyNow: {
     type: Number,
     default: 0
@@ -40,9 +46,13 @@ const TradeSchema = new mongoose.Schema({
   }, 
   tradeType: {
     type: String,
-    enum: ['Looking For', 'Trading'],
-    default: 'Trading'
-  }
+    enum: ['Looking For', 'Trading For'],
+    default: 'Trading For'
+  },
+  tradeComments: {
+    type: Array,
+    default: 'Comments:'
+  },
 }, {
   timestamps: true
 });
@@ -66,6 +76,16 @@ TradeSchema.query.available = function () {
   return this.where({
     tradeStatus: 'Available'
   });
+};
+
+TradeSchema.query.addTradeComments = function (comment) {
+  if(typeof comment === 'string'){
+    this.tradeComments.push(comment);
+    return true;
+  }else{
+    return false;
+  }
+  
 };
 
 //module.exports = mongoose.model('Trade', TradeSchema);
