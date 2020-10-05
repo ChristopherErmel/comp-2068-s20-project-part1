@@ -84,9 +84,18 @@ app.use('/', (req, res, next) => {
 
     //authentication helper
     res.locals.authorized = req.isAuthenticated();
+
+    
     if(res.locals.authorized){
-        res.locals.email = req.session.passport.user;
+        res.locals.email = req.session.passport.user; 
+        //if logged in
+        //grabs the users type and adds it to the userAccountLevel global
+        res.locals.userAccountLevel = req.user.userType;       
+    }else{
+      //else just use n/a
+      res.locals.userAccountLevel = "n/a";
     }
+   
 
 
     //this will jump to the next middleware now

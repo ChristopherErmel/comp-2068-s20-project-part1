@@ -1,0 +1,54 @@
+<!-- home after login template-->
+<%- include ('../partials/header') %>
+<div class="container my-5">
+    <header>
+        <h1>Home</h1>
+        <br>
+    </header>
+    <hr>
+   
+    <div class="row homeOptionsOne">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body homeOptionCards">
+            <h5 class="card-title">The Block</h5>
+            <p class="card-text">View all cards on The Block.</p>
+            <a href="/trades" class="btn btn-primary">The Block</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body homeOptionCards">
+            <h5 class="card-title">My Trading Block</h5>
+            <p class="card-text">View all cards on your block.</p>
+            <a href="#" class="btn btn-primary">My Block</a>
+          </div>
+        </div>        
+      </div>
+    </div>
+
+    <div class="row homeOptionsTwo">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body homeOptionCards">
+            <h5 class="card-title">Add to Trading Block</h5>
+            <p class="card-text">Place a new card on the block.</p>
+            <a href="/trades/new" class="btn btn-primary">New Trade</a>            
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body homeOptionCards">
+            <h5 class="card-title">My Stats</h5>
+            <p class="card-text">View your stats.</p>
+            <a href="#" class="btn btn-primary">My Stats</a>
+          </div>
+        </div>        
+      </div>
+    </div>
+
+
+
+<%- include ('../partials/footer') %>

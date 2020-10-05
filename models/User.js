@@ -21,7 +21,30 @@ const UserSchema = new mongoose.Schema({
       },
       message: props => `${props.value} doesn't match the email confirmation`
     }
+  }, 
+  userType: {
+    type: String,
+    enum: ['normal', 'pro', 'proPlus', 'super'],
+    required: true,
+    default: 'normal'
+  },
+  successfulTrades: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  unSuccessfulTrades: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  myTrades: {
+    type: Array,
+    required: false
   }
+},{
+    timestamps: true,
+    getters: true
 });
 
 // Virtuals
@@ -49,6 +72,22 @@ UserSchema.virtual('passwordConfirmation')
   if (this.password !== value) this.invalidate('password', 'Password and password confirmation must match');
   this._passwordConfirmation = value;
 });
+
+
+//Virtuals for account permission levels:
+UserSchema.virtual('userAccountType')
+.get(function () {  
+  return this.userType;
+})
+.set(function (value) {
+  this.userType = value;
+});
+
+UserSchema.virtual('totalTrades')
+.get(function () {  
+  return this.successfulTrades + this.unSuccessfulTrades;
+})
+
 
 // Step 2: Create a virtual attribute that returns the fullname of the user
 UserSchema.virtual('fullName')

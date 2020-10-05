@@ -39,3 +39,26 @@ header:not(.home-cta), .alert {
   text-align: center;
   z-index: 1;
 }
+
+
+/* nav link buttons once logged in */
+.dropdown-menu.extraLinks{
+  min-width: 8rem!important;
+}
+
+.nav-link.extraLinks:hover{
+  background-color: antiquewhite;
+}
+
+/* .btn.btn-secondary.dropdown-toggle.extraLinks{
+  max-height: ;
+} */
+
+/* Trade home options */
+.row.homeOptionsTwo{
+  margin-top: 2vh;
+}
+
+.card-body.homeOptionCards{
+  min-height: 8vh;
+}

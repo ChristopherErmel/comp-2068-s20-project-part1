@@ -41,6 +41,20 @@ const playerData = fs.createReadStream('./assets/players/players.csv')
 
 
 
+exports.home = async (req, res) => {
+  try {
+    const trades = await Trade.find().populate('user').sort({updatedAt: 'desc'});
+    res.render(`${viewPath}/home`, {
+      pageTitle: 'Active Trades',
+      trades: trades
+      // myTrades: false
+    });
+  } catch (error) {
+    req.flash('danger', `There was an error displaying the trades: ${error}`);
+    res.redirect('/');
+  }
+};
+
 
 exports.index = async (req, res) => {
   try {
@@ -55,6 +69,7 @@ exports.index = async (req, res) => {
     res.redirect('/');
   }
 };
+
 
 exports.show = async (req, res) => {
   try {
