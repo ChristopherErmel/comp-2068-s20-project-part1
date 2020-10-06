@@ -16,15 +16,14 @@ require('dotenv').config();
 */
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DB_URI, {
-    auth: {
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS
-    },
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
+  auth: {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS
+  },
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
 }).catch(err => console.error(`Error: ${err}`));
-
 
 
 /*
@@ -33,9 +32,9 @@ mongoose.connect(process.env.DB_URI, {
 const passport = require('passport');
 const session = require('express-session');
 app.use(session({
-    secret: 'any salty secret here',
-    resave: true,
-    saveUninitialized: false
+  secret: 'any salty secret here',
+  resave: true,
+  saveUninitialized: false
 }));
 
 app.use(passport.initialize());
@@ -60,7 +59,7 @@ app.set('view engine', 'ejs');
 */
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 /*
@@ -70,37 +69,39 @@ const flash = require('connect-flash');
 app.use(flash());
 
 app.use('/', (req, res, next) => {
-    //setting the default local vars
-    //this will effect every page...
-    res.locals.pageTitle = "Untitled";
+  //setting the default local vars
+  //this will effect every page...
+  res.locals.pageTitle = "Untitled";
 
-    //this will take all the flash msgs and store them in a local var
-    res.locals.flash = req.flash();
+  //this will take all the flash msgs and store them in a local var
+  res.locals.flash = req.flash();
 
-    //if we have form data we will see it, if not nothing
-    res.locals.formData = req.session.formData || {};
-    //we need to clear the formdata after refresh of page
-    req.session.formData = {};
+  //if we have form data we will see it, if not nothing
+  res.locals.formData = req.session.formData || {};
+  //we need to clear the formdata after refresh of page
+  req.session.formData = {};
 
-    //authentication helper
-    res.locals.authorized = req.isAuthenticated();
-
-    
-    if(res.locals.authorized){
-        res.locals.email = req.session.passport.user; 
-        //if logged in
-        //grabs the users type and adds it to the userAccountLevel global
-        res.locals.userAccountLevel = req.user.userType;       
-    }else{
-      //else just use n/a
-      res.locals.userAccountLevel = "n/a";
-    }
-   
+  //authentication helper
+  res.locals.authorized = req.isAuthenticated();
 
 
-    //this will jump to the next middleware now
-    next();
+  if (res.locals.authorized) {
+    res.locals.email = req.session.passport.user;
+    //if logged in
+    //grabs the users type and adds it to the userAccountLevel global
+    res.locals.userAccountLevel = req.user.userType;
+  } else {
+    //else just use n/a
+    res.locals.userAccountLevel = "n/a";
+  }
+
+
+
+  //this will jump to the next middleware now
+  next();
 });
+
+
 
 
 /*
@@ -118,8 +119,59 @@ app.use('/playersImages', express.static('assets/players/images'));
 
 
 
+/* Setting up atlas search */
+const { MongoClient, ObjectID } = require("mongodb");
+const Cors = require("cors");
+app.use(Cors());
+var client = new MongoClient("mongodb+srv://chrisermel:w0rdOfTHEP@33@cluster0.f7r2y.mongodb.net/project?retryWrites=true&w=majority");
+const server = express();
+var collection;
+
+
+
+
 /*
   Step 8: Start the server
 */
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port 3000`));
+app.listen(port, async () => {
+  try {
+    console.log(`Listening on port 3000`)
+    await client.connect();
+    collection = client.db("project").collection("playerinfos");
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+//search index of player database...
+app.get("/search", async (req, res) => {
+  try {
+    let result = await collection.aggregate([
+      {
+        "$search": {
+          "index": "PlayerNames",
+          "autocomplete": {
+            "query": `${req.query.term}`,
+            "path": "playerName",
+            "fuzzy": {
+              "maxEdits": 1
+            }
+          }
+        }
+      }
+    ]).toArray();
+    res.send(result)
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// app.get("get/:id", async (req, res) => {
+//   try{
+//     let result = await collection.findOne({"_id": ObjectID(req.params.id)});
+//     res.send(result);
+//   }catch(e){
+//     console.log(e);
+//   }
+// });

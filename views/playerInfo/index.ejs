@@ -1,0 +1,17 @@
+<%- include ('../partials/header') %>
+<header class="home-cta">
+  <h1>Hut Players</h1>
+</header>
+<div class="d-flex flex-wrap">
+    <% for (let playerInfo of playerInfos) { %>
+        <%= JSON.stringify(playerInfo, null, 2) %> 
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><%= playerInfo.playerName %></h5>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+
+<%- include ('../partials/footer') %>

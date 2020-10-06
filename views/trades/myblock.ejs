@@ -1,0 +1,62 @@
+<!--
+  Step 1: This is your descretion how you would like to display data,
+  but you must list all the documents in your resource collection.
+-->
+<%- include ('../partials/header') %>
+<% //window.addEventListener('DOMContentLoaded', myTrades, false); %> 
+<script>
+ 
+  
+</script>   
+ 
+
+
+<div class="container my-5">
+    <header>
+        <h1>My Block</h1>
+        <!-- <div class="div" id="myTrades" style="float: right; cursor: pointer;" onclick='myTrade();'>
+          <h4>My Trades</h4>
+        </div> -->
+        <br>
+    </header>
+    <hr>
+
+
+    
+    <div class="content">
+      <% //if(myTrades == false){ %> 
+        <% for (let trade of trades) { %>
+          <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>  
+          <!-- <% //if() { } %>  -->
+          <div class="card" style="width: 20rem; height: 18.5rem; margin: 1.3em; float: left;">
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="card-body">
+              <h5 class="card-title" style="height: 3em;"><p><%= trade.tradeType %> <%= trade.cardLevel %> <%= trade.title %></p></h5>
+              <% if (typeof trade.user !== 'undefined') {%> 
+                <small style="font-weight: bold;">by <%= trade.user.shortName %></small>
+                <% } %>  
+              <small style="float: right;"><%= trade.updatedAt.toLocaleString("en-US") %></small>
+              <hr>
+              <p class="card-text">Buy Now: <%= trade.buyNow %>c</p>
+              <p class="card-text">Currently: <%= trade.tradeStatus %></p>
+              <hr>
+              <a class="btn btn-primary" href="/trades/<%= trade.id %>">View</a>                
+                   
+                <form style="background: none; display: inline-block; float: right;" class="form-inline" action="/trades/delete" method="post" onsubmit="return confirm('Are you sure you want to delete this trade? This can not be undone!');">
+                    <input type="hidden" value="<%= trade.id %>" name="id">
+                    <button type="submit" class="delete" style="border: none;
+                    background-color: white; size: 10%">
+                      <a class="btn btn-danger" aria-label="Delete">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </a>
+                    </button>
+                    </form>                     
+                    <a class="btn btn-default btn-sm" href="/trades/<%= trade.id %>/edit" style="display: inline-block; float: right; background-color: ghostwhite!important;">
+                      <i class="fa fa-cog"></i> Edit</a>
+            <% } %>
+            </div>   
+          </div>         
+          <% } %>
+          
+
+<%- include ('../partials/footer') %>

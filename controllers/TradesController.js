@@ -19,6 +19,7 @@ const viewPath = ('trades');
 
 const Trade = require('../models/Trade');
 const User = require('../models/User');
+const PlayerInfo = require('../models/playerInfo');
 
 //this is our player data
 const fs = require('fs'); 
@@ -70,6 +71,21 @@ exports.index = async (req, res) => {
   }
 };
 
+exports.myblock = async (req, res) => {
+  try {
+    const trades = await Trade.find().populate('user').sort({updatedAt: 'desc'});
+    res.render(`${viewPath}/myblock`, {
+      trades: trades
+      // myTrades: false
+    });
+  } catch (error) {
+    req.flash('danger', `There was an error displaying your block: ${error}`);
+    res.redirect('/');
+  }
+};
+
+
+
 
 exports.show = async (req, res) => {
   try {
@@ -89,10 +105,15 @@ exports.show = async (req, res) => {
 };
 
 
-exports.new = (req, res) => {
+exports.new = async (req, res) => {
+
+  const playerCards = User.findById(req.user);
+
+
   res.render(`${viewPath}/new`, {
     pageTitle: 'New Trade',
-    cardTypes:  ['Awards', 'Drafts', 'TOTS', 'TOTW', 'SCP', 'MSP', 'Base']
+    cardTypes:  ['Awards', 'Drafts', 'TOTS', 'TOTW', 'SCP', 'MSP', 'Base'],
+    playerCards: playerCards
   });
 };
 
@@ -112,11 +133,21 @@ exports.create = async (req, res) => {
 
 exports.edit = async (req, res) => {
   try {
+    const {user : email} = req.session.passport;
+
     const trade = await Trade.findById(req.params.id);
-    res.render(`${viewPath}/edit`, {
-      pageTitle: trade.title,
-      formData: trade
-    });
+    const user = await User.findOne({email : email});
+    //checks to see if the user who made the trade is the one trying to edit it
+    if(trade.user == user.id){
+      res.render(`${viewPath}/edit`, {
+        pageTitle: trade.title,
+        formData: trade
+      });
+    }else{
+      throw new Error('You do not have permission to Edit that trade.');
+    }
+
+    
   } catch (error) {
     req.flash('danger', `There was an error accessing this trade: ${error}`);
     res.redirect('/');
@@ -130,11 +161,14 @@ exports.update = async (req, res) => {
     let trade = await Trade.findById(req.body.id);
     
     if(!trade) throw new Error('Trade could not be found');
-
-    const attributes = {user : user._id, ...req.body};
-    await Trade.validate(attributes);    
-    await Trade.findByIdAndUpdate(req.body.id, req.body);
-    //await Trade.updateOne({_id: req.body.id}, req.body);
+    //checks to see if the user who made the trade is the one trying to edit it
+    if(trade.user == user.id){
+      const attributes = {user : user._id, ...req.body};
+      await Trade.validate(attributes);    
+      await Trade.findByIdAndUpdate(req.body.id, req.body);
+    }else{
+      throw new Error('You do not have permission to Edit this trade.');
+    }    
 
     req.flash('success', 'Trade was successfully updated!');
     res.redirect(`/trades/${req.body.id}`);
@@ -147,9 +181,18 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    await Trade.deleteOne({_id: req.body.id});
-    req.flash('success', 'This Trade was deleted!');
-    res.redirect('/trades');
+
+    const {user : email} = req.session.passport;
+    const trade = await Trade.findById(req.params.id);
+    const user = await User.findOne({email : email});
+    //checks to see if the user who made the trade is the one trying to edit it
+    if(trade.user == user.id){
+      await Trade.deleteOne({_id: req.body.id});
+      req.flash('success', 'This Trade was deleted!');
+      res.redirect('/trades');
+    }else{
+      throw new Error('You do not have permission to Delete that trade.');
+    }    
   } catch (error) {
     req.flash('danger', `There was an error deleting this trade: ${error}`);
     res.redirect('/trades');
