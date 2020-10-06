@@ -21,56 +21,77 @@ const TradeSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  title: {
+  // playerCard: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'playerInfo',
+  //   required: true
+  // },
+  tradeStatus: {
     type: String,
+    enum: ['Traded', 'Available', 'Canceled'],
+    default: 'Available',
+    required: true
+  }, 
+  tradeType: {
+    type: String,
+    enum: ['Looking For', 'On the Block'],
+    default: 'On the Block',
     required: true
   },
-  trade: {
-    type: String,
-    require: true
-  },
-  cardType: {
-    type: String,
-    enum: ['Awards', 'Drafts', 'TOTS', 'TOTW', 'SCP', 'MSP', 'Base'],
-    required: true,
-    default: 'Base'
-  },
-  cardLevel: {
-    type: Number,
+  tradeComments: {
+    type: Array,
+    default: 'Comments:',
     required: true
-  },
+  },  
   buyNow: {
     type: Number,
     default: 0
   },
-  tradeStatus: {
+  cardId: {
     type: String,
-    enum: ['Traded', 'Available'],
-    default: 'Available'
-  }, 
-  tradeType: {
-    type: String,
-    enum: ['Looking For', 'Trading'],
-    default: 'Trading'
+    required: true
   },
-  tradeComments: {
+  cardList1: {
+    type: String    
+  },
+  cardList2: {
+    type: String    
+  },
+  cardList3: {
+    type: String    
+  },
+  cardList4: {
+    type: String    
+  },
+  trades: {
     type: Array,
-    default: 'Comments:'
-  },
+    default: 'Trades:',
+    required: true
+  }
+
 }, {
   timestamps: true
 });
 
-TradeSchema.query.tradingFor = function () {
+TradeSchema.virtual('addCardOnTheBlock').set(function (cardID){
+  try {
+    this.cardIds.set('cardIds.onTheBlock', cardID);
+    return "Card Added"
+  } catch (e) {
+    console.log(e);
+  }  
+});
+
+TradeSchema.query.onTheBlock = function () {
   return this.where({
-    tradeType: 'Trading For'
+    tradeType: 'On the Block'
   });
 };
-TradeSchema.query.Trading = function () {
-  return this.where({
-    tradeType: 'Trading'
-  });
-};
+// TradeSchema.query.Trading = function () {
+//   return this.where({
+//     tradeType: 'Trading'
+//   });
+// };
 TradeSchema.query.traded = function () {
   return this.where({
     tradeStatus: 'Traded'
@@ -91,6 +112,16 @@ TradeSchema.query.addTradeComments = function (comment) {
   }
   
 };
+
+// TradeSchema.query.addCardId1 = function (id) {
+//   if(typeof id === 'string'){
+//     this.cardList.push(id);
+//     return true;
+//   }else{
+//     return false;
+//   }
+  
+// };
 
 //module.exports = mongoose.model('Trade', TradeSchema);
 

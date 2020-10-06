@@ -1,0 +1,33 @@
+
+ 
+<div class="ui-widget">
+    <!-- <label for="playerNames">HUT Card Search</label> -->
+    <input id="playerNames4" class="searchBar2" placeholder="HUT Card Search">
+
+    <ul id="players4"></ul>
+
+  </div>
+  <script>
+    $(document).ready(function(){
+      $("#playerNames4").autocomplete({
+        source: async function(req, res){
+          let data = await fetch(`http://localhost:3000/search?term=${req.term}`)
+          .then(results => results.json())
+          .then(results => results.map(result => {
+            return {lable: result.playerName, value: `${result.playerName} || ${result.card} || ${result.overall}` , id: result.cardID, card: result};
+          }));
+          res(data);
+        },
+        minLength: 3,
+        //function is what we want to do with the data, we can save it to a trade block here...
+        select: function(event, ui){
+            //this will send the selected card to the function...
+            //updateHUTCard(ui.item.card);
+            //updateHUTCard(ui.item.card);
+
+            //console.log(ui.item.card.cardID);
+            document.getElementById('cardList3').value = ui.item.card.cardID;
+        }
+      });
+    });
+  </script>

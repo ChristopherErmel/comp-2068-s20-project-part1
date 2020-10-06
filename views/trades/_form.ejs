@@ -1,103 +1,252 @@
 <!--
   Step 1: The form must be sharable between the new and edit views.
 -->
-<form action="<%= (typeof actionPath === 'undefined') ? '/trades' : actionPath %>", method="POST">
-  <% if (typeof actionPath !== 'undefined') { %> 
+<script>
+  let hideSearch;
+</script>
+<form id="form" action="<%= (typeof actionPath === 'undefined') ? '/trades' : actionPath %>" , method="POST">
+  <% if (typeof actionPath !== 'undefined') { %>
   <input type="hidden" name="id" value="<%= formData.id %>">
-  <% } %> 
+  <% } %>
 
 
-    <div class="ui-widget">
-      <label for="playerNames">PlayerName:</label>
-      <input id="playerNames">
+  <label for="tradeType" id="tradeTypeLable">Trade Type</label>
+  <!-- <div class="form-group tradeType">    -->
+  <hr />
+  <!-- <form> -->
+  <div id="tradeTypeDiv">
+    <label>
+      <input type="radio" id="tradeType" name="tradeType" value="On the Block" checked>
+      Add Card to My Block</label><br>
+  </div>
+  <div id="tradeTypeDiv2">
+    <label>
+      <input type="radio" id="tradeType2" name="tradeType" value="Looking For">
+      Looking For</label><br>
+  </div>
+  <!-- </form> -->
 
-      <ul id="players"></ul>
 
+  <!-- <select name="tradeType" id="tradeType" class="form-control">
+      <option value="On the Block">Add Card to My Block</option>
+      <option <%= formData.tradeType && formData.tradeType === 'Looking For' ? 'selected' : null %> value="Looking For">
+        Looking For</option>
+    </select> -->
+
+  <!-- </div> -->
+  <script>
+    document.getElementById('tradeType').onchange = function () {
+      if (document.getElementById('tradeType').value = "On the Block") {
+        document.getElementById('lookingForSearch').style.display = 'block';
+        document.getElementById('buyNow').style.display = 'block';
+        hideSearch = false;
+      }
+    };
+    document.getElementById('tradeType2').onchange = function () {
+      if (document.getElementById('tradeType2').value = "Looking For") {
+        document.getElementById('lookingForSearch').style.display = 'none';
+        document.getElementById('buyNow').style.display = 'none';
+        hideSearch = true;
+      }
+    };
+  </script>
+
+
+
+
+  <%- include ('../partials/search') %>
+
+  <hr />
+  <div class="form-group">
+    <label for="hutCard">
+      <h5>HUT Card Information</h5>
+    </label>
+    <div class="row hutCard">
+      <div class="col hutCardItem">Name:</div>
+      <div class="col" id="cardName">---</div>
+      <div class="col hutCardItem">OVR:</div>
+      <div class="col" id="cardOVR">---</div>
+      <div class="col hutCardItem">aOVR:</div>
+      <div class="col" id="cardaOVR">---</div>
     </div>
-    <script>
-      $(document).ready(function(){
-        $("#playerNames").autocomplete({
-          source: async function(req, res){
-            let data = await fetch(`http://localhost:3000/search?term=${req.term}`)
-            .then(results => results.json())
-            .then(results => results.map(result => {
-              return {lable: result.playerName, value: result.playerName, id: result.cardID, card: result};
-            }));
-            res(data);
-          },
-          minLength: 3,
-          //function is what we want to do with the data, we can save it to a trade block here...
-          select: function(event, ui){
-            $("#players").append(`<li>${ui.item.card.playerName}</li>`);
+    <div class="row hutCard">
+      <div class="col hutCardItem">FS:</div>
+      <div class="col" id="cardFS">---</div>
+      <div class="col hutCardItem">CARD:</div>
+      <div class="col" id="cardCARD">---</div>
+      <div class="col hutCardItem">POS:</div>
+      <div class="col" id="cardPOS">---</div>
+    </div>
 
-            //everything is working, just need to find a way to grab the
-            // card id from above and search for that record in mongodb. then i can return the specific card
-            //and show the user/ add it to the list of cards.
-            //might need to use just the name and show all cards with same name...
-            //then they pick the card and a script will auto create the block...
-            console.log(playerCards);
-          }
-        });
-      });
-    </script>
+    <div class="row hutCard">
+      <div class="col hutCardItem">TYPE:</div>
+      <div class="col" id="cardTYPE">---</div>
+      <div class="col hutCardItem">HAND:</div>
+      <div class="col" id="cardHAND">---</div>
+      <div class="col hutCardItem">DEK:</div>
+      <div class="col" id="cardDEK">---</div>
+    </div>
 
-
-
-
-  <!-- <div class="form-group">
-    <label for="tradeType">Trade Type</label>
-    <select name="tradeType" class="form-control">
-        <option value="Trading">Trading</option>
-        <option <%= formData.tradeType && formData.tradeType === 'Looking For' ? 'selected' : null %> value="Looking For">Looking For</option>
-    </select>
-</div>
-
-  <div class="form-group">
-      <label for="title">Player Name</label>
-      <input type="text" name="title" class="form-control" value="<%= formData.title %>">
+    <div class="row hutCard">
+      <div class="col hutCardItem">HAE:</div>
+      <div class="col" id="cardHAE">---</div>
+      <div class="col hutCardItem">PAS:</div>
+      <div class="col" id="cardPAS">---</div>
+      <div class="col hutCardItem">SSA:</div>
+      <div class="col" id="cardSSA">---</div>
+    </div>
+    <div class="row hutCard">
+      <div class="col hutCardItem">SSP:</div>
+      <div class="col" id="cardSSP">---</div>
+      <div class="col hutCardItem">WSA:</div>
+      <div class="col" id="cardWSA">---</div>
+      <div class="col hutCardItem">ACC:</div>
+      <div class="col" id="cardACC">---</div>
+    </div>
+    <div class="row hutCard">
+      <div class="col hutCardItem">AGI:</div>
+      <div class="col" id="cardAGI">---</div>
+      <div class="col hutCardItem">BAL:</div>
+      <div class="col" id="cardBAL">---</div>
+      <div class="col hutCardItem">END:</div>
+      <div class="col" id="cardEND">---</div>
+    </div>
+    <div class="row hutCard">
+      <div class="col hutCardItem">SPD:</div>
+      <div class="col" id="cardSPD">---</div>
+      <div class="col hutCardItem">DIS:</div>
+      <div class="col" id="cardDIS">---</div>
+      <div class="col hutCardItem">OAW:</div>
+      <div class="col" id="cardOAW">---</div>
+    </div>
+    <div class="row hutCard">
+      <div class="col hutCardItem">DAW:</div>
+      <div class="col" id="cardDAW">---</div>
+      <div class="col hutCardItem">FO:</div>
+      <div class="col" id="cardFO">---</div>
+      <div class="col hutCardItem">BLK:</div>
+      <div class="col" id="cardBLK">---</div>
+    </div>
+    <div class="row hutCard">
+      <div class="col hutCardItem">SCH:</div>
+      <div class="col" id="cardSCH">---</div>
+      <div class="col hutCardItem">AGR:</div>
+      <div class="col" id="cardAGR">---</div>
+      <div class="col hutCardItem">CHK:</div>
+      <div class="col" id="cardCHK">---</div>
+    </div>
+    <div class="row hutCard">
+      <div class="col hutCardItem">SYN:</div>
+      <div class="col" id="cardSYN">---</div>
+      <div class="col hutCardItem">STR:</div>
+      <div class="col" id="cardSTR">---</div>
+      <div class="col hutCardItem">DUR:</div>
+      <div class="col" id="cardDUR">---</div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="cardLevel">Card Level</label>
-    <input type="number" name="cardLevel" class="form-control" value="<%= formData.cardLevel %>">
-</div>
 
-  <div class="form-group">
-    <label for="cardType">Card Type</label>
-    <select name="cardType" class="form-control">
-        <option value="Base">Base</option>
-        <option value="MSP">MSP</option>
-        <option value="SCP">SCP</option>
-        <option value="TOTW">TOTW</option>
-        <option value="TOTS">TOTS</option>
-        <option value="Drafts">Drafts</option>
-        <option value="Awards">Awards</option>
-        </select>
+  <div class="form-group" id="lookingForSearch">
+    <hr />
+    <label for="trade">Looking For in Return:</label> <br />
+    <label for="trade">Card 1:</label>
+    <%- include ('../partials/searchLF') %>
+    <label for="trade">Card 2:</label>
+    <%- include ('../partials/searchLF1') %>
+    <label for="trade">Card 3:</label>
+    <%- include ('../partials/searchLF2') %>
+    <label for="trade">Card 4:</label>
+    <%- include ('../partials/searchLF3') %>
+
+ 
+
   </div>
 
 
-  
 
-  <div class="form-group">
-      <label for="trade">TT Card List:</label>
-      <textarea name="trade" class="form-control summernote"><%= formData.trade %></textarea>
-  </div>
-  <div class="form-group">
-    <label for="buyNow">Buy Now Amount(Coins):</label>
-    <input type="number" name="buyNow" class="form-control summernote" value="<%= formData.buyNow %>">
-  </div>
-  
+  <div class="form-group" id="buyNow">
+    <label for="buyNow">Buy Now Price(coins):</label>
+
+    <input type="text" id="input-txt-bin" name="buyNow">
+    <input type="button" class="btn btn-outline-success" id="input-btn-bin" value="Coins">
+    <input type="button" class="btn btn-outline-dark" id="input-btn-no-bin" value="No BIN">
 
 
-  <div class="form-group">
-      <label for="tradeStatus">Trade Status</label>
-      <select name="tradeStatus" class="form-control">
-          <option value="Available">Available</option>
-          <option <%= formData.tradeStatus && formData.tradeStatus === 'Traded' ? 'selected' : null %> value="Traded">Traded</option>
-      </select>
+    <!-- <input type="number" name="buyNow" class="form-control summernote" value="<%= formData.buyNow %>"> -->
   </div>
 
+
+  <!-- <input type="hidden" id="allCardIds" name="allCardIds" value=""> -->
+
+
+  <input hidden name="cardId" id="cardId" value=""></input>
+  <input hidden name="cardList1" id="cardList1" value=""></input>
+  <input hidden name="cardList2" id="cardList2" value=""></input>
+  <input hidden name="cardList3" id="cardList3" value=""></input>
+  <input hidden name="cardList4" id="cardList4" value=""></input>
+
   <div class="form-group">
-      <button class="btn btn-dark">Submit</button>
+    <button class="btn btn-dark" type="submit" form="form" value="Submit">Submit</button>
   </div>
-</form> -->
+</form>
+
+
+
+<script>
+  function updateHUTCard(ui) {
+    console.log(ui);
+
+
+
+    document.getElementById('cardName').innerHTML = ui.playerName;
+    document.getElementById('cardOVR').innerHTML = ui.overall;
+    document.getElementById('cardaOVR').innerHTML = ui.averageOverAll;
+    document.getElementById('cardCARD').innerHTML = ui.card;
+    document.getElementById('cardPOS').innerHTML = ui.postition;
+    document.getElementById('cardTYPE').innerHTML = ui.playerType;
+    document.getElementById('cardHAND').innerHTML = ui.handedness;
+    document.getElementById('cardDEK').innerHTML = ui.deking;
+    document.getElementById('cardHAE').innerHTML = ui.handEye;
+    document.getElementById('cardPAS').innerHTML = ui.passing;
+    document.getElementById('cardSSA').innerHTML = ui.slapShotAccuracy;
+    document.getElementById('cardSSP').innerHTML = ui.slapShotPower;
+    document.getElementById('cardWSA').innerHTML = ui.wristShotAccuracy;
+    document.getElementById('cardACC').innerHTML = ui.wristShotPower;
+    document.getElementById('cardAGI').innerHTML = ui.agility;
+    document.getElementById('cardBAL').innerHTML = ui.balance;
+    document.getElementById('cardEND').innerHTML = ui.endurance;
+    document.getElementById('cardSPD').innerHTML = ui.speed;
+    document.getElementById('cardDIS').innerHTML = ui.discipline;
+    document.getElementById('cardOAW').innerHTML = ui.offensiveAwareness;
+    document.getElementById('cardDAW').innerHTML = ui.defensiveAwareness;
+    document.getElementById('cardFO').innerHTML = ui.faceOffs;
+    document.getElementById('cardBLK').innerHTML = ui.shotBlocking;
+    document.getElementById('cardSCH').innerHTML = ui.stickChecking;
+    document.getElementById('cardAGR').innerHTML = ui.aggression;
+    document.getElementById('cardCHK').innerHTML = ui.bodyChecking;
+    document.getElementById('cardDUR').innerHTML = ui.durability;
+    document.getElementById('cardFS').innerHTML = ui.fightingSkill;
+    document.getElementById('cardSTR').innerHTML = ui.strength;
+
+
+    document.getElementById('cardSYN').innerHTML = ui.synergies;
+
+
+    
+  }  
+
+
+
+
+
+  document.getElementById('input-btn-bin').addEventListener('click', function () {
+			document.getElementById('input-txt-bin').classList.add('active');
+    });
+    
+    document.getElementById('input-btn-no-bin').addEventListener('click', function () {
+      document.getElementById('input-txt-bin').classList.remove('active');
+      document.getElementById('input-txt-bin').value = "";
+		});
+
+
+</script>

@@ -106,20 +106,17 @@ exports.show = async (req, res) => {
 
 
 exports.new = async (req, res) => {
-
-  const playerCards = User.findById(req.user);
-
-
   res.render(`${viewPath}/new`, {
-    pageTitle: 'New Trade',
-    cardTypes:  ['Awards', 'Drafts', 'TOTS', 'TOTW', 'SCP', 'MSP', 'Base'],
-    playerCards: playerCards
+    pageTitle: 'New Trade Block'
   });
 };
 
 
 exports.create = async (req, res) => {
   try {
+    console.log(`${JSON.stringify(req.body)}`);
+
+
     const {user : email} = req.session.passport;
     const user = await User.findOne({email : email});
     const trade = await Trade.create({user: user._id, ...req.body});

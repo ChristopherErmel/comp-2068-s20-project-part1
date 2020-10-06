@@ -62,3 +62,76 @@ header:not(.home-cta), .alert {
 .card-body.homeOptionCards{
   min-height: 8vh;
 }
+
+#playerNames.searchBar{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+#playerNames2{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+#playerNames3{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+#playerNames4{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+#playerNames5{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+.row.hutCard{
+  border-style: solid;
+  border-width: 1;
+}
+
+.col.hutCardItem{
+  font-weight: 600;
+}
+
+
+
+
+#tradeTypeLable{
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  font-size: 2em;
+}
+#tradeTypeDiv{
+  display: inline;
+  float: left;
+}
+#tradeTypeDiv2{
+  display: inline;
+  float: right;
+}
+
+#tradeTypeForm{
+  border-style: solid;
+  border-width: 1;
+}
+
+
+#cardListItem1{
+  display: none;
+}
+
+
+#input-txt-bin {
+  width: 0;
+  transition: width 1s ease-in;
+}
+
+#input-txt-bin.active {
+  width: 250px;
+}
