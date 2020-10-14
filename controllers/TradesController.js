@@ -287,7 +287,8 @@ exports.comment = async (req, res) => {
         cardListO4: req.body.cardListO4,
         offerUserID: req.body.offerUserID,
         offerUserName: req.body.offerUserName,
-        tradeId: req.body.tradeId
+        tradeId: req.body.tradeId,
+        tradeOffers: ""
       }
     } } });
 
@@ -298,4 +299,27 @@ exports.comment = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+}
+
+//this will add comments to the trade id...
+exports.tradeComment = async (req, res) => {
+  try {
+    // console.log(req.body);
+     //fix the form of msg and add the user to it before inputing it in the db...
+     const message = String(`${req.body.user}: ${req.body.comment}`);
+     //console.log(message);
+ 
+ // await Trade.findByIdAndUpdate({_id: req.body.id}, {$push: { "tradeOffers": message } });
+    let tradeNum = "tradeOffers." + `${req.body.tradeNumber}` + ".offers.tradeComments";
+   // console.log(tradeNum);
+  await Trade.findByIdAndUpdate({_id: req.body.id}, {$push: { [tradeNum] : message}})
+
+
+  
+//console.log(te);
+    req.flash('success', 'Trade comment has been posted!');
+    res.redirect(`/trades/${req.body.id}`);
+   } catch (error) {
+     console.log(error);
+   }
 }

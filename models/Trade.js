@@ -32,12 +32,7 @@ const TradeSchema = new mongoose.Schema({
     enum: ['Looking For', 'On the Block'],
     default: 'On the Block',
     required: true
-  },
-  tradeComments: {
-    type: Array,
-    default: 'Comments:',
-    required: true
-  },
+  },  
   tradeOffers: {
     type: Array,
     offers: [

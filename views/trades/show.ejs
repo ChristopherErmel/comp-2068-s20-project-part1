@@ -194,6 +194,8 @@
           <% } %>
 
 
+          <!-- if the card isnt sold/traded -->
+          <% if(trade.tradeStatus != "Traded"){ %> 
 
           <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
           <hr />
@@ -494,18 +496,51 @@
           <hr>
 
 
-        <!-- comments section -->
+          <!-- comments section -->
 
-<div class="card" style="width: 34.5rem; min-height: 6em; margin: 1.3em; margin-bottom: 1em; float: left;">
-        <h5 class="card-title" style="height: 3em;">
-          <p style="margin: 1em;">Trade Comments</p>
-        </h5>
-        <hr>
-        <!-- <% for (i = trade.tradeComments.length - 1; i >= 1; i--)  {%>
-          <p style="margin: none; margin-left: 1em;"><%= trade.tradeComments[i]; %> </p>
-          <hr>
-          <% } %> -->
-        </div>
+          <div class="card" style="width: 34.5rem; min-height: 6em; margin: 1.3em; margin-bottom: 1em; float: left;">
+            <h5 class="card-title" style="height: 3em;">
+              <p style="margin: 1em;">Trade Comments</p>
+            </h5>
+
+
+            <hr>
+            <% if(typeof tradeOffer.offers.tradeComments !== 'undefined'){ %>
+            <%// console.log(tradeOffer.offers.tradeComments); %>
+            <% for (i = 0; i < tradeOffer.offers.tradeComments.length; i++)  {%>
+            <% //console.log("hit"); %>
+            <p style="margin: none; margin-left: 1em;"><%= tradeOffer.offers.tradeComments[i]; %> </p>
+            <hr>
+            <% } %>
+            <% } %>
+            <hr>
+
+
+
+
+
+            <form action="<%= (typeof actionPath === 'undefined') ? '/trades/tradeComment' : actionPath %>" ,
+              method="POST">
+              <input type="hidden" name="id" value="<%= trade.id %>">
+              <input type="hidden" name="user" value="<%= user.userName %>">
+              <input type="hidden" name="tradeNumber" value="<%= ii %>">
+              <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Talk</label></h5>
+              <input style="margin: 1em; margin-top: -1em; width: 75%;" type="text" name="comment" id="comment">
+              <div class="form-group" style="display: inline;">
+                <button style="margin-top: -.5em;" class="btn btn-dark">Submit</button>
+              </div>
+            </form>
+
+
+
+
+
+
+
+
+          </div>
+
+
 
 
 
@@ -519,7 +554,7 @@
 
           var divCard = document.getElementById("tempOfferCard");
           divCard.setAttribute("id", i + 1000);
-          console.log(divCard);
+          //console.log(divCard);
           var div = document.getElementById("temp");
           div.setAttribute("id", i);
 
@@ -529,9 +564,9 @@
         </script>
         <script>
           function showOffer(id) {
-            console.log(id);
-            iid = (10 + id);
-            console.log(id);
+            //console.log(parseInt(id));
+            iid = (1000 + parseInt(id));
+            // console.log(id);
             if (document.getElementById(iid).style.display === "block") {
               document.getElementById(iid).style.display = "none";
               document.getElementById(id).style.color = "black";
@@ -573,10 +608,18 @@
         <p style="margin-left: 1em;">Please log in to post a comment.</p>
       </div>
       <% } %>
-
-
       
 
+    <% } else { %> 
+
+    </div>
+    </div>
+    <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
+      <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This Trade Has Been Completed!</label></h5>
+      <p style="margin-left: 1em;">Please visit The Block for other options...</p>
+    </div>
+
+  <% } %> 
 
 
       <%- include ('../partials/footer') %>
