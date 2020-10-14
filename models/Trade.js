@@ -21,17 +21,12 @@ const TradeSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  // playerCard: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'playerInfo',
-  //   required: true
-  // },
   tradeStatus: {
     type: String,
     enum: ['Traded', 'Available', 'Canceled'],
     default: 'Available',
     required: true
-  }, 
+  },
   tradeType: {
     type: String,
     enum: ['Looking For', 'On the Block'],
@@ -42,7 +37,62 @@ const TradeSchema = new mongoose.Schema({
     type: Array,
     default: 'Comments:',
     required: true
-  },  
+  },
+  tradeOffers: {
+    type: Array,
+    offers: [
+      {
+        id: { 
+          type    : mongoose.Schema.Types.ObjectId,
+          default : mongoose.Types.ObjectId,
+          index   : { unique: true },
+          required: true
+        },
+        tradeId: {
+          type: String
+        },
+         offerUserName: { 
+          type: String,
+          required: true
+        },
+        offerUserID: {
+          type: String,
+          required: true
+        },
+        cardListO1: {
+          type: String
+        },
+        cardListO2: {
+          type: String
+        },
+        cardListO3: {
+          type: String
+        },
+        cardListO4: {
+          type: String
+        },
+        coinsOffer: {
+          type: Number
+        },
+        tradeComments: {
+          type: Array,
+          default: 'Comments:',
+          required: true
+        }
+        // ,
+        // tradeStatus: {
+        //   type: String,
+        //   enum: ['Accepted', 'Declined', 'Neutral'],
+        //   default: 'Neutral',
+        //   required: true
+        // }
+      }
+ ],
+    required: true
+  },
+
+
+  
   buyNow: {
     type: Number,
     default: 0
@@ -52,34 +102,38 @@ const TradeSchema = new mongoose.Schema({
     required: true
   },
   cardList1: {
-    type: String    
+    type: String
   },
   cardList2: {
-    type: String    
+    type: String
   },
   cardList3: {
-    type: String    
+    type: String
   },
   cardList4: {
-    type: String    
+    type: String
   },
   trades: {
     type: Array,
     default: 'Trades:',
     required: true
+  },
+  console: {
+    type: String,
+    enum: ['Xbox', 'PS'],
+    required: true
   }
-
 }, {
   timestamps: true
 });
 
-TradeSchema.virtual('addCardOnTheBlock').set(function (cardID){
+TradeSchema.virtual('addCardOnTheBlock').set(function (cardID) {
   try {
     this.cardIds.set('cardIds.onTheBlock', cardID);
     return "Card Added"
   } catch (e) {
     console.log(e);
-  }  
+  }
 });
 
 TradeSchema.query.onTheBlock = function () {
@@ -104,13 +158,13 @@ TradeSchema.query.available = function () {
 };
 
 TradeSchema.query.addTradeComments = function (comment) {
-  if(typeof comment === 'string'){
+  if (typeof comment === 'string') {
     this.tradeComments.push(comment);
     return true;
-  }else{
+  } else {
     return false;
   }
-  
+
 };
 
 // TradeSchema.query.addCardId1 = function (id) {
@@ -120,7 +174,7 @@ TradeSchema.query.addTradeComments = function (comment) {
 //   }else{
 //     return false;
 //   }
-  
+
 // };
 
 //module.exports = mongoose.model('Trade', TradeSchema);

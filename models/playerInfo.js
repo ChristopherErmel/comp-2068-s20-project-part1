@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { db } = require('./User');
 
 const PlayerInfoSchema = new mongoose.Schema({
 
@@ -140,6 +141,10 @@ const PlayerInfoSchema = new mongoose.Schema({
 });
 
 
+PlayerInfoSchema.virtual.findCard = function (id) {
+    return("hit")    
+    // db.collection.find({_id : id})
+  };
 
 
 module.exports = mongoose.model('PlayerInfo', PlayerInfoSchema);

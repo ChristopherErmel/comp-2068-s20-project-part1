@@ -2,14 +2,14 @@
  
 <div class="ui-widget">
     <!-- <label for="playerNames">HUT Card Search</label> -->
-    <input id="playerNames4" class="searchBar2" placeholder="HUT Card Search">
+    <input id="playerNamesO4" class="searchBar2" placeholder="HUT Card Search">
 
-    <ul id="players4"></ul>
+    <ul id="playersO4"></ul>
 
   </div>
   <script>
     $(document).ready(function(){
-      $("#playerNames4").autocomplete({
+      $("#playerNamesO4").autocomplete({
         source: async function(req, res){
           let data = await fetch(`http://localhost:3000/search?term=${req.term}`)
           .then(results => results.json())
@@ -26,7 +26,7 @@
             //updateHUTCard(ui.item.card);
 
             //console.log(ui.item.card.cardID);
-            document.getElementById('cardList3').value = ui.item.card._id;
+            document.getElementById('cardListO3').value = ui.item.card._id;
         }
       });
     });

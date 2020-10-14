@@ -89,6 +89,28 @@ header:not(.home-cta), .alert {
   display: block;
 }
 
+
+#playerNamesO2{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+#playerNamesO3{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+#playerNamesO4{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+#playerNamesO5{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
 .row.hutCard{
   border-style: solid;
   border-width: 1;
@@ -97,6 +119,7 @@ header:not(.home-cta), .alert {
 .col.hutCardItem{
   font-weight: 600;
 }
+
 
 
 
@@ -135,3 +158,120 @@ header:not(.home-cta), .alert {
 #input-txt-bin.active {
   width: 250px;
 }
+
+.switch-toggle {
+  /* width: 10em; */
+}
+
+.switch-toggle label:not(.disabled) {
+  cursor: pointer;
+  color: black;
+}
+
+.switch-candy input:checked + label{
+  /* opacity:0.4; */
+  /* color: black; */
+  border-style: solid;
+  border-width: 3;
+}
+
+.showCard {
+  display: none;
+}
+
+.showCardName:hover .showCard {
+  display: block;
+  z-index: 1000;
+  background-color: #f8f8ff;
+  font-size: 2vh;
+  
+}
+
+.showCardNameL:hover .showCard {
+  display: block;
+  z-index: 1000;
+  background-color:#f8f8ff;
+  font-size: 2vh;
+  overflow: hidden;
+  
+}
+
+.hutCardShortL{
+  border-style: solid;
+  border-width: 1;
+  background-color:#f8f8ff;
+  font-size: 1.5vh;
+}
+
+.hutCardShort{
+  border-style: solid;
+  border-width: 1;
+  background-color:#f8f8ff;
+}
+
+
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+.dropdown-item.onhoverDIO:hover{
+  background-color: #DCDCDC;
+}
+
+#offerForSearch{
+  display: none;
+
+}
+
+#offerCoinsForSearch{
+  display: none;
+}
+
+#coinsOfferInput{
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+
+#offerSubmitButton{
+  display: none;
+}
+
+
+.tradeTabs{
+  width: 5em;
+  display: inline-block;
+  border-style: solid;
+  border-width: 2;
+  border-color: #915c83;
+  border-radius: 5px;
+  background-color:#f0ead6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: .25em;
+  color: black;
+}
+
+.tradeOfferSlab{
+  display: block;
+  float: left!important;
+  color: green;
+}
+
+.cardTempOfferCard{
+  display: none;
+}
+
+.cardOfferTitle{
+  font-weight: 600;
+  text-align: center;
+}
+

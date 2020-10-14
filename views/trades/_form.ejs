@@ -167,13 +167,34 @@
   <div class="form-group" id="buyNow">
     <label for="buyNow">Buy Now Price(coins):</label>
 
-    <input type="text" id="input-txt-bin" name="buyNow">
+    <input type="number" id="input-txt-bin" name="buyNow">
     <input type="button" class="btn btn-outline-success" id="input-btn-bin" value="Coins">
     <input type="button" class="btn btn-outline-dark" id="input-btn-no-bin" value="No BIN">
 
 
     <!-- <input type="number" name="buyNow" class="form-control summernote" value="<%= formData.buyNow %>"> -->
   </div>
+
+
+
+  
+  <label>Pick A Console:</label>
+<div class="switch-toggle switch-2 switch-candy">
+  <input id="xbox" class="consolePicker" name="console" value="Xbox" type="radio" />
+  <label for="xbox" class="consolePicker" onclick="" style="background-color: #107C10;">Xbox</label>
+ 
+  <input id="ps" class="consolePicker" name="console" value="PS" type="radio" />
+  <label for="ps" class="consolePicker" onclick="" style="background-color: #003087;">PS</label>
+
+  <a></a>
+</div>
+
+
+
+
+
+
+
 
 
   <!-- <input type="hidden" id="allCardIds" name="allCardIds" value=""> -->
@@ -185,6 +206,7 @@
   <input hidden name="cardList3" id="cardList3" value=""></input>
   <input hidden name="cardList4" id="cardList4" value=""></input>
 
+<hr />
   <div class="form-group">
     <button class="btn btn-dark" type="submit" form="form" value="Submit">Submit</button>
   </div>

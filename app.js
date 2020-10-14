@@ -96,6 +96,8 @@ app.use('/', (req, res, next) => {
   }
 
 
+  //local db
+  res.locals.db = mongoose.connection;
 
   //this will jump to the next middleware now
   next();
@@ -166,12 +168,3 @@ app.get("/search", async (req, res) => {
     console.log(e);
   }
 });
-
-// app.get("get/:id", async (req, res) => {
-//   try{
-//     let result = await collection.findOne({"_id": ObjectID(req.params.id)});
-//     res.send(result);
-//   }catch(e){
-//     console.log(e);
-//   }
-// });
