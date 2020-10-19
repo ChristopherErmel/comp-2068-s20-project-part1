@@ -46,7 +46,7 @@
         <hr style="height: .1em;background-color: #003087;">
         <% } %>
         <% if(trade.buyNow){ %>
-        <p class="card-text"><span style="font-weight: 700;">Buy Now: <%= trade.buyNow %></span><span
+        <p class="card-text"><span style="font-weight: 700;">Buy Now: <%= trade.buyNow.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span><span
             style="color: orange; font-weight: 700;">c</span></p>
         <% }else{ %>
         <p class="card-text">Buy Now: N/A</p>

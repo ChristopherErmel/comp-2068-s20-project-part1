@@ -28,6 +28,8 @@ exports.update = async (req, res) => {
             playerName: playerInfo.playerName,
             card: playerInfo.card,
             postition: playerInfo.postition,
+            height: playerInfo.height,
+            weight: playerInfo.weight,
             playerType: playerInfo.playerType,
             handedness: playerInfo.handedness,
             synergies: playerInfo.synergies,
@@ -113,51 +115,58 @@ async function scrapeIt(url) {
             const playerScrape = document.querySelectorAll('.odd, .even');
 
             const playerInfos = [];
+           
 
             //console.log("Player Info Count: ", playerScrape.length);
             for (let playerInfo of playerScrape) {
                 //info grabbing
-                const playerName = playerInfo.childNodes[4].innerText;
                 const card = playerInfo.childNodes[0].innerText;
-
                 const postition = playerInfo.childNodes[1].innerText;
                 const playerType = playerInfo.childNodes[2].innerText;
                 const handedness = playerInfo.childNodes[3].innerText;
-                const synergies = playerInfo.childNodes[5].innerText;
-                const overall = playerInfo.childNodes[6].innerText;
-                const averageOverAll = playerInfo.childNodes[7].innerText;
-                const deking = playerInfo.childNodes[8].innerText;
-                const handEye = playerInfo.childNodes[9].innerText;
-                const passing = playerInfo.childNodes[10].innerText;
-                const puckControl = playerInfo.childNodes[11].innerText;
-                const slapShotAccuracy = playerInfo.childNodes[12].innerText;
-                const slapShotPower = playerInfo.childNodes[13].innerText;
-                const wristShotAccuracy = playerInfo.childNodes[14].innerText;
-                const wristShotPower = playerInfo.childNodes[15].innerText;
-                const acceleration = playerInfo.childNodes[16].innerText;
-                const agility = playerInfo.childNodes[17].innerText;
-                const balance = playerInfo.childNodes[18].innerText;
-                const endurance = playerInfo.childNodes[19].innerText;
-                const speed = playerInfo.childNodes[20].innerText;
-                const discipline = playerInfo.childNodes[21].innerText;
-                const offensiveAwareness = playerInfo.childNodes[22].innerText;
-                const defensiveAwareness = playerInfo.childNodes[23].innerText;
-                const faceOffs = playerInfo.childNodes[24].innerText;
-                const shotBlocking = playerInfo.childNodes[25].innerText;
-                const stickChecking = playerInfo.childNodes[26].innerText;
-                const aggression = playerInfo.childNodes[27].innerText;
-                const bodyChecking = playerInfo.childNodes[28].innerText;
-                const durability = playerInfo.childNodes[29].innerText;
-                const fightingSkill = playerInfo.childNodes[30].innerText;
-                const strength = playerInfo.childNodes[31].innerText;
+                const height = playerInfo.childNodes[4].innerText;
+                const weight = playerInfo.childNodes[5].innerText;
+                const playerName = playerInfo.childNodes[6].innerText;
+                const synergies = playerInfo.childNodes[7].innerText;
+                const overall = playerInfo.childNodes[8].innerText;
+                const averageOverAll = playerInfo.childNodes[9].innerText;
+                
+                const acceleration = playerInfo.childNodes[10].innerText;
+                const agility = playerInfo.childNodes[11].innerText;
+                const balance = playerInfo.childNodes[12].innerText;
+                const endurance = playerInfo.childNodes[13].innerText;
+                const speed = playerInfo.childNodes[14].innerText;
+                const slapShotAccuracy = playerInfo.childNodes[15].innerText;
+                const slapShotPower = playerInfo.childNodes[16].innerText;
+                const wristShotAccuracy = playerInfo.childNodes[17].innerText;
+                const wristShotPower = playerInfo.childNodes[18].innerText;
+                const deking = playerInfo.childNodes[19].innerText;
+                const offensiveAwareness = playerInfo.childNodes[20].innerText;
+                const handEye = playerInfo.childNodes[21].innerText;
+                const passing = playerInfo.childNodes[22].innerText;
+                const puckControl = playerInfo.childNodes[23].innerText;
+                const bodyChecking = playerInfo.childNodes[24].innerText;
+                const strength = playerInfo.childNodes[25].innerText;
+                const aggression = playerInfo.childNodes[26].innerText;
+                const durability = playerInfo.childNodes[27].innerText;
+                const fightingSkill = playerInfo.childNodes[28].innerText;
+                const defensiveAwareness = playerInfo.childNodes[29].innerText;
+                const shotBlocking = playerInfo.childNodes[30].innerText;
+                const stickChecking = playerInfo.childNodes[31].innerText;
+                const faceOffs = playerInfo.childNodes[32].innerText;
+                const discipline = playerInfo.childNodes[33].innerText;
+               
+                
 
+                 
                 //grabbing the image url
-                const image = playerInfo.childNodes[4].children[0].href;
+                const image = playerInfo.childNodes[6].children[0].href;
                 const parts = image.split('=');
                 const cardID = parts[parts.length - 1];
 
+                
 
-                playerInfos.push({ cardID, playerName, card, postition, playerType, handedness, synergies, overall, averageOverAll, deking, handEye, passing, puckControl, slapShotAccuracy, slapShotPower, wristShotAccuracy, wristShotPower, acceleration, agility, balance, endurance, speed, discipline, offensiveAwareness, defensiveAwareness, faceOffs, shotBlocking, stickChecking, aggression, bodyChecking, durability, fightingSkill, strength });
+                playerInfos.push({ cardID, playerName, card, postition, playerType, height, weight, handedness, synergies, overall, averageOverAll, deking, handEye, passing, puckControl, slapShotAccuracy, slapShotPower, wristShotAccuracy, wristShotPower, acceleration, agility, balance, endurance, speed, discipline, offensiveAwareness, defensiveAwareness, faceOffs, shotBlocking, stickChecking, aggression, bodyChecking, durability, fightingSkill, strength });
             }
 
             //page number to go to...

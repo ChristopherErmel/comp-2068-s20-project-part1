@@ -63,6 +63,9 @@ header:not(.home-cta), .alert {
   min-height: 8vh;
 }
 
+
+
+/* All player search bars styles below  */
 #playerNames.searchBar{
   width: 100%;
   text-align: center;
@@ -88,7 +91,6 @@ header:not(.home-cta), .alert {
   text-align: center;
   display: block;
 }
-
 
 #playerNamesO2{
   width: 100%;
@@ -119,37 +121,40 @@ header:not(.home-cta), .alert {
 .col.hutCardItem{
   font-weight: 600;
 }
+/* All player search bars styles Above  */
 
 
 
-
-
+/* The trade type title when making a new offer */
 #tradeTypeLable{
   display: block;
   text-align: center;
   font-weight: 600;
   font-size: 2em;
 }
+/* on the block div */
 #tradeTypeDiv{
   display: inline;
   float: left;
 }
+/* looking for div */
 #tradeTypeDiv2{
   display: inline;
   float: right;
 }
+
 
 #tradeTypeForm{
   border-style: solid;
   border-width: 1;
 }
 
-
+/* hides at first */
 #cardListItem1{
   display: none;
 }
 
-
+/* coins input box */
 #input-txt-bin {
   width: 0;
   transition: width 1s ease-in;
@@ -159,26 +164,28 @@ header:not(.home-cta), .alert {
   width: 250px;
 }
 
-.switch-toggle {
-  /* width: 10em; */
-}
-
 .switch-toggle label:not(.disabled) {
   cursor: pointer;
   color: black;
 }
 
 .switch-candy input:checked + label{
-  /* opacity:0.4; */
-  /* color: black; */
   border-style: solid;
   border-width: 3;
 }
+/* coins input box */
 
+
+/* hide at first */
 .showCard {
   display: none;
 }
 
+
+
+
+
+/*  */
 .showCardName:hover .showCard {
   display: block;
   z-index: 1000;
@@ -187,15 +194,17 @@ header:not(.home-cta), .alert {
   
 }
 
+/* background of div of small info card of players on trade offer pages */
 .showCardNameL:hover .showCard {
   display: block;
   z-index: 1000;
-  background-color:#f8f8ff;
+  /* background-color:#f8f8ff; */
   font-size: 2vh;
   overflow: hidden;
   
 }
 
+/* Background of table of small info card of players on trade offer pages */
 .hutCardShortL{
   border-style: solid;
   border-width: 1;
@@ -203,6 +212,7 @@ header:not(.home-cta), .alert {
   font-size: 1.5vh;
 }
 
+/* Background of table of big info card of main player on trade offer pages */
 .hutCardShort{
   border-style: solid;
   border-width: 1;
@@ -224,15 +234,17 @@ header:not(.home-cta), .alert {
   background-color: #DCDCDC;
 }
 
+/* this is the players offer box, hidden at first */
 #offerForSearch{
   display: none;
-
 }
-
+/* this is the coins offer box, hidden at first */
 #offerCoinsForSearch{
   display: none;
 }
 
+
+/* input of coins area on offer pages when offering coins */
 #coinsOfferInput{
   width: 100%;
   text-align: center;
@@ -240,11 +252,13 @@ header:not(.home-cta), .alert {
 }
 
 
+/* submit button on offer pages when offering players or coins. */
 #offerSubmitButton{
   display: none;
 }
 
 
+/* Main displays of the trade tabs on the offer pages. This is changed below */
 .tradeTabs{
   width: 5em;
   display: inline-block;
@@ -266,12 +280,67 @@ header:not(.home-cta), .alert {
   color: green;
 }
 
+
+/* The offer cards to start are off */
 .cardTempOfferCard{
   display: none;
 }
 
+/* After offer opens, its the players names / coins amount in the offer section */
 .cardOfferTitle{
   font-weight: 600;
   text-align: center;
 }
 
+/* Style for the Trade Offer Cards on the Show Pages. */
+.tradeOfferCards{
+  /* color: green; */
+  width: 40rem;
+  margin: 1.3em;
+  /* margin-right: 3em;  */
+  float: left;
+}
+/* Style for the Trade Offer Cards Title on the Show Pages. */
+.tradeOfferCardsTitle{
+  /* color: green; */
+  height: 2.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Style for the Trade Offer Cards Title on the Show Pages. */
+.tradeOfferCardsSmallTitle{
+  /* color: green; */
+  margin-left: 1em;
+}
+
+/* Style for the trade talk title text */
+.tradeOfferCardsTitleTalk{
+  height: 1.25em;
+  margin-left: 1em;
+}
+/* Style for the trade offer title names */
+.tradeOfferCardsNames{
+  width: 40rem;
+  margin: 1.2em;
+  margin-top: 1.3em;
+  float: left;
+}
+/* Style for the trade offer title names - when its the users own trade offers */
+.tradeOfferCardsNamesMy{
+  width: 40rem;
+  margin: 1.2em;
+  margin-top: 1.3em;
+  margin-bottom: 0em;
+  float: left;
+}
+/* Style for the trade offer title names - button styles */
+.tradeOfferCardsNamesButton{
+  /* color: blue; */
+  background-color: #f2f2f2;
+  border-color:  black;
+  /* font-size: ; */
+  width: 100%;
+  height: 2em;
+
+}

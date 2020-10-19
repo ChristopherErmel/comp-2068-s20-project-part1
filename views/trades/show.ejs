@@ -179,7 +179,7 @@
 
 
           <% if(trade.buyNow){ %>
-          <p class="card-text"><span style="font-weight: 700;">Buy Now: <%= trade.buyNow %></span><span
+          <p class="card-text"><span style="font-weight: 700;">Buy Now: <%= trade.buyNow.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span><span
               style="color: orange; font-weight: 700;">c</span></p>
           <% }else{ %>
           <p class="card-text">Buy Now: N/A</p>
@@ -195,7 +195,7 @@
 
 
           <!-- if the card isnt sold/traded -->
-          <% if(trade.tradeStatus != "Traded"){ %> 
+          <% if(trade.tradeStatus != "Traded"){ %>
 
           <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
           <hr />
@@ -233,10 +233,411 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <!-- If logged in and not the user who made the trade then show this -->
 
-      <% if(authorized && user._id.toString() !== trade.user._id.toString()) { %>
-      <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
+      <% if(authorized && user._id.toString() !== trade.user._id.toString()) { %> 
+        <script> let ioi = 0; let tradeOfferInfo; let tab;</script>
+            <% let iioi = 0; %>  
+                 
+          <% for (let tradeOffer of trade.tradeOffers) { %>
+            <!-- if there is a trade from the user who is viewing the page, show only their trade -->
+           
+            <% //console.log("hit") %> 
+            <% //console.log(tradeOffer.offers.offerUserID.toString().trim() === user._id.toString().trim()) %> 
+            <% if(tradeOffer.offers.offerUserID.toString().trim() == user._id.toString().trim()){ %> 
+              <%// console.log("hit again") %>
+              
+             
+              <div class="card tradeOfferCardsNamesMy">   
+                          
+              <button class="tradeTabs tradeOfferCardsNamesButton" id="temp" onclick="showOffer(this.id)"
+                value="<%= tradeOffer.offers %>">My Offer (#<%= iioi + 1 %>)</button>
+                
+
+              </div>
+
+              <div id="tempOfferCard" class="card cardTempOfferCard tradeOfferCards">
+                <h5 class="card-title tradeOfferCardsTitle"><label for="comment" style="margin: 1em;">Trade Offer from:
+                    <%= tradeOffer.offers.user %></label></h5>
+
+
+
+
+
+
+
+
+
+
+                    <!-- <% //if(true) { %>
+                      <hr />
+                      <%=// console.log()  %> 
+                      <form style="background: none; display: inline-block;" class="form-inline"
+                        action="/trades/deleteOffer" method="post"
+                        onsubmit="return confirm('Are you sure you want to remove this offer? This can not be undone!');">
+                        <input type="hidden" value="<%= //tradeOffer %>" name="offerTradeId">
+                         <input type="hidden" value="<%=// iioi %>" name="indexNumber"> -->
+                        <!-- <input type="hidden" name="id" value="<%=// tradeOffer.offers.id %>">
+                        <button type="submit" class="delete" style="border: none;
+                                background-color: white; size: 10%">
+                          <a class="btn btn-danger" aria-label="Delete">Remove Offer
+                          </a>
+              
+                        </button>
+                      </form>
+                      <%// } %> --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+                <hr>
+        
+                <% if(tradeOffer.offers.coinsOffer !== ""){ %>
+                <h6 class="tradeOfferCardsSmallTitle">Coins Offer:</h6>
+                <p class="cardOfferTitle"><%= tradeOffer.offers.coinsOffer.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %><span
+                  style="color: orange; font-weight: 700;">c</span></p>
+                <% %>
+                  <!-- checking for card offers and printing them if needed -->
+          <% }else if(typeof cardOffers["CardsO1" + iioi] !== 'undefined'){ %>
+                <div style="overflow: auto;" class="showCardNameL">
+                  <h6 class="tradeOfferCardsSmallTitle">Card One:</h6>
+                  <p class="cardOfferTitle">
+                    <%-  cardOffers["CardsO1" + iioi][0].playerName + ' || ' + cardOffers["CardsO1" + iioi][0].card + ' || ' + cardOffers["CardsO1" + iioi][0].overall %>
+                  </p>
+                  <div class="showCard">
+                    <div class="form-group ">
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Name:</div>
+                        <div class="col" id="cardName"><%= cardOffers["CardsO1" + iioi][0].playerName%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">aOVR:</div>
+                        <div class="col" id="cardaOVR"><%= cardOffers["CardsO1" + iioi][0].averageOverAll%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">POS:</div>
+                        <div class="col" id="cardPOS"><%= cardOffers["CardsO1" + iioi][0].postition%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">HAND:</div>
+                        <div class="col" id="cardHAND"><%= cardOffers["CardsO1" + iioi][0].handedness%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">SYN:</div>
+                        <div class="col" id="cardSYN"><%= cardOffers["CardsO1" + iioi][0].synergies%></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+                <% if(typeof cardOffers["CardsO2" + iioi] !== 'undefined'){ %>
+                <div style="overflow: auto;" class="showCardNameL">
+                  <h6 class="tradeOfferCardsSmallTitle">Card Two:</h6>
+                  <p class="cardOfferTitle">
+                    <%-  cardOffers["CardsO2" + iioi][0].playerName + ' || ' + cardOffers["CardsO2" + iioi][0].card + ' || ' + cardOffers["CardsO2" + iioi][0].overall %>
+                  </p>
+                  <div class="showCard">
+                    <div class="form-group ">
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Name:</div>
+                        <div class="col" id="cardName"><%= cardOffers["CardsO2" + iioi][0].playerName%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">aOVR:</div>
+                        <div class="col" id="cardaOVR"><%= cardOffers["CardsO2" + iioi][0].averageOverAll%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">POS:</div>
+                        <div class="col" id="cardPOS"><%= cardOffers["CardsO2" + iioi][0].postition%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">HAND:</div>
+                        <div class="col" id="cardHAND"><%= cardOffers["CardsO2" + iioi][0].handedness%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">SYN:</div>
+                        <div class="col" id="cardSYN"><%= cardOffers["CardsO2" + iioi][0].synergies%></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+                <% if(typeof cardOffers["CardsO3" + iioi] !== 'undefined'){ %>
+                <div style="overflow: auto;" class="showCardNameL">
+                  <h6 class="tradeOfferCardsSmallTitle">Card Three:</h6>
+                  <p class="cardOfferTitle">
+                    <%-  cardOffers["CardsO3" + iioi][0].playerName + ' || ' + cardOffers["CardsO3" + iioi][0].card + ' || ' + cardOffers["CardsO3" + iioi][0].overall %>
+                  </p>
+                  <div class="showCard">
+                    <div class="form-group ">
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Name:</div>
+                        <div class="col" id="cardName"><%= cardOffers["CardsO3" + iioi][0].playerName%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">aOVR:</div>
+                        <div class="col" id="cardaOVR"><%= cardOffers["CardsO3" + iioi][0].averageOverAll%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">POS:</div>
+                        <div class="col" id="cardPOS"><%= cardOffers["CardsO3" + iioi][0].postition%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">HAND:</div>
+                        <div class="col" id="cardHAND"><%= cardOffers["CardsO3" + iioi][0].handedness%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">SYN:</div>
+                        <div class="col" id="cardSYN"><%= cardOffers["CardsO3" + iioi][0].synergies%></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+                <% if(typeof cardOffers["CardsO4" + iioi] !== 'undefined'){ %>
+                <div style="overflow: auto;" class="showCardNameL">
+                  <h6 class="tradeOfferCardsSmallTitle">Card Four:</h6>
+                  <p class="cardOfferTitle">
+                    <%-  cardOffers["CardsO4" + iioi][0].playerName + ' || ' + cardOffers["CardsO4" + iioi][0].card + ' || ' + cardOffers["CardsO4" + iioi][0].overall %>
+                  </p>
+                  <div class="showCard">
+                    <div class="form-group ">
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Name:</div>
+                        <div class="col" id="cardName"><%= cardOffers["CardsO4" + iioi][0].playerName%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">aOVR:</div>
+                        <div class="col" id="cardaOVR"><%= cardOffers["CardsO4" + iioi][0].averageOverAll%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">POS:</div>
+                        <div class="col" id="cardPOS"><%= cardOffers["CardsO4" + iioi][0].postition%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">HAND:</div>
+                        <div class="col" id="cardHAND"><%= cardOffers["CardsO4" + iioi][0].handedness%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">SYN:</div>
+                        <div class="col" id="cardSYN"><%= cardOffers["CardsO4" + iioi][0].synergies%></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+                <hr>
+        
+  <!-- comments section -->
+
+        <!-- <div class="card" style="width: 34.5rem; min-height: 6em; margin: 1.3em; margin-bottom: 1em; float: left;"> -->
+          <h5 class="card-title tradeOfferCardsTitleTalk">
+            <p>Trade Talk</p>
+          </h5>
+  
+  
+          <hr>
+          <% if(typeof tradeOffer.offers.tradeComments !== 'undefined'){ %>
+          <%// console.log(tradeOffer.offers.tradeComments); %>
+          <% for (i = 0; i < tradeOffer.offers.tradeComments.length; i++)  {%>
+          <% //console.log("hit"); %>
+          <p style="margin: none; margin-left: 1em;"><%= tradeOffer.offers.tradeComments[i]; %> </p>
+          <hr>
+          <% } %>
+          <% } %>
+          <!-- <hr> -->
+  
+          <!-- 
+            howitser + 4
+            disributor + 8
+           -->
+  
+  
+  
+  
+          <form action="<%= (typeof actionPath === 'undefined') ? '/trades/tradeComment' : actionPath %>" , method="POST">
+            <input type="hidden" name="id" value="<%= trade.id %>">
+            <input type="hidden" name="user" value="<%= user.userName %>">
+            <input type="hidden" name="tradeNumber" value="<%= iioi + 1 %>">
+            <!-- <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Talk</label></h5> -->
+            <input style="margin: 1em; width: 78%;" type="text" name="comment" id="comment">
+            <div class="form-group" style="display: inline;">
+              <button style="margin-top: -.5em;" class="btn btn-dark">Submit</button>
+            </div>
+          </form>
+  
+  
+  
+  
+  
+  
+  
+        
+        
+        
+        
+              </div>
+        
+        
+        
+        
+        
+        
+              <!-- </div> -->
+        
+              <!-- //cardOffers["CardsO2" + 0][0].playerName -->
+        
+              <% iioi++; %>
+              <script>
+                //setting the ids of the cards and such, we still in dat loop :)
+                var divCard = document.getElementById("tempOfferCard");
+                divCard.setAttribute("id", ioi + 1000);
+                //console.log(divCard);
+                var div = document.getElementById("temp");
+                div.setAttribute("id", ioi);
+        
+                ioi++;
+        
+        
+              </script>
+              <script>
+                function showOffer(id) {
+                  //console.log(parseInt(id));
+                  iid = (1000 + parseInt(id));
+                  // console.log(id);
+                  //showing and removing trade offer block depending on clicks. We still in da loop ;)
+                  if (document.getElementById(iid).style.display === "block") {
+                    document.getElementById(iid).style.display = "none";
+                    document.getElementById(id).style.color = "black";
+        
+                  } else {
+                    document.getElementById(iid).style.display = "block";
+                    document.getElementById(id).style.color = "green";
+                  }
+                }
+              </script>
+        
+        
+<!--         
+              <%// } %>
+        
+        
+        
+        
+        
+        
+              </ul>
+            </div>
+            <%// } %>
+            <%// } %> -->
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <% } %> 
+              <%// console.log("-") %> 
+              <%// console.log(tradeOffer.offers.offerUserID.toString()) %> 
+              <%// console.log(user._id.toString()) %> 
+        <% } %> 
+
+
+
+
+
+
+        
+      <div class="card" id="offerCardOnF" style="width: 40rem; margin: 1.3em; float: left;">
         <form action="<%= (typeof actionPath === 'undefined') ? '/trades/comment' : actionPath %>" , method="POST">
           <input type="hidden" name="id" value="<%= trade.id %>">
           <input type="hidden" name="user" value="<%= user.userName %>">
@@ -323,11 +724,16 @@
             </div>
         </form>
       </div>
+      
 
       <% } %>
 
-
-
+<!-- if 3 of the users own offers exsist then hide the create function -->
+      <script>
+        if(document.getElementById("3")){
+          document.getElementById("offerCardOnF").style.display = "none";
+        }
+        </script>
 
 
 
@@ -336,8 +742,8 @@
       <!-- If you are logged in and you are the user who made the trade, show this. -->
       <% if(user){ %>
       <% if((authorized) && user._id.toString() === trade.user._id.toString()) { %>
-      <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
-        <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Offers:</label></h5>
+      <div class="card tradeOfferCardsNames">
+        <h5 class="card-title tradeOfferCardsNamesButton"><label for="comment" style="margin: 1em;">Trade Offers:</label></h5>
         <div class="card" style="width: 37rem; margin: 1.3em; float: left;">
           <ul class="nav nav-pills">
             <script> let i = 0; let tradeOfferInfo; let tab;</script>
@@ -352,274 +758,291 @@
 
             <% } %>
         </div>
-        <% for (let tradeOffer of trade.tradeOffers) { %>
-
-        <%= //console.log(cardOffers["CardsO1" + ii]) %>
-        <div id="tempOfferCard" class="card cardTempOfferCard" style="width: 37rem; margin: 1.3em; float: left;">
-          <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Offer from:
-              <%= tradeOffer.offers.user %></label></h5>
-
-          <hr>
-
-          <% if(tradeOffer.offers.coinsOffer !== ""){ %>
-          <h6>Coins Offer:</h6>
-          <%= tradeOffer.offers.coinsOffer %>
-          <% %>
-  <% }else if(typeof cardOffers["CardsO1" + ii] !== 'undefined'){ %>
-          <div style="overflow: auto;" class="showCardNameL">
-            <h6>Card One:</h6>
-            <p class="cardOfferTitle">
-              <%-  cardOffers["CardsO1" + ii][0].playerName + ' || ' + cardOffers["CardsO1" + ii][0].card + ' || ' + cardOffers["CardsO1" + ii][0].overall %>
-            </p>
-            <div class="showCard">
-              <div class="form-group ">
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">Name:</div>
-                  <div class="col" id="cardName"><%= cardOffers["CardsO1" + ii][0].playerName%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">aOVR:</div>
-                  <div class="col" id="cardaOVR"><%= cardOffers["CardsO1" + ii][0].averageOverAll%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">POS:</div>
-                  <div class="col" id="cardPOS"><%= cardOffers["CardsO1" + ii][0].postition%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">HAND:</div>
-                  <div class="col" id="cardHAND"><%= cardOffers["CardsO1" + ii][0].handedness%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">SYN:</div>
-                  <div class="col" id="cardSYN"><%= cardOffers["CardsO1" + ii][0].synergies%></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <% } %>
-          <% if(typeof cardOffers["CardsO2" + ii] !== 'undefined'){ %>
-          <div style="overflow: auto;" class="showCardNameL">
-            <h6>Card Two:</h6>
-            <p class="cardOfferTitle">
-              <%-  cardOffers["CardsO2" + ii][0].playerName + ' || ' + cardOffers["CardsO2" + ii][0].card + ' || ' + cardOffers["CardsO2" + ii][0].overall %>
-            </p>
-            <div class="showCard">
-              <div class="form-group ">
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">Name:</div>
-                  <div class="col" id="cardName"><%= cardOffers["CardsO2" + ii][0].playerName%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">aOVR:</div>
-                  <div class="col" id="cardaOVR"><%= cardOffers["CardsO2" + ii][0].averageOverAll%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">POS:</div>
-                  <div class="col" id="cardPOS"><%= cardOffers["CardsO2" + ii][0].postition%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">HAND:</div>
-                  <div class="col" id="cardHAND"><%= cardOffers["CardsO2" + ii][0].handedness%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">SYN:</div>
-                  <div class="col" id="cardSYN"><%= cardOffers["CardsO2" + ii][0].synergies%></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <% } %>
-          <% if(typeof cardOffers["CardsO3" + ii] !== 'undefined'){ %>
-          <div style="overflow: auto;" class="showCardNameL">
-            <h6>Card Three:</h6>
-            <p class="cardOfferTitle">
-              <%-  cardOffers["CardsO3" + ii][0].playerName + ' || ' + cardOffers["CardsO3" + ii][0].card + ' || ' + cardOffers["CardsO3" + ii][0].overall %>
-            </p>
-            <div class="showCard">
-              <div class="form-group ">
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">Name:</div>
-                  <div class="col" id="cardName"><%= cardOffers["CardsO3" + ii][0].playerName%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">aOVR:</div>
-                  <div class="col" id="cardaOVR"><%= cardOffers["CardsO3" + ii][0].averageOverAll%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">POS:</div>
-                  <div class="col" id="cardPOS"><%= cardOffers["CardsO3" + ii][0].postition%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">HAND:</div>
-                  <div class="col" id="cardHAND"><%= cardOffers["CardsO3" + ii][0].handedness%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">SYN:</div>
-                  <div class="col" id="cardSYN"><%= cardOffers["CardsO3" + ii][0].synergies%></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <% } %>
-          <% if(typeof cardOffers["CardsO4" + ii] !== 'undefined'){ %>
-          <div style="overflow: auto;" class="showCardNameL">
-            <h6>Card Four:</h6>
-            <p class="cardOfferTitle">
-              <%-  cardOffers["CardsO4" + ii][0].playerName + ' || ' + cardOffers["CardsO4" + ii][0].card + ' || ' + cardOffers["CardsO4" + ii][0].overall %>
-            </p>
-            <div class="showCard">
-              <div class="form-group ">
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">Name:</div>
-                  <div class="col" id="cardName"><%= cardOffers["CardsO4" + ii][0].playerName%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">aOVR:</div>
-                  <div class="col" id="cardaOVR"><%= cardOffers["CardsO4" + ii][0].averageOverAll%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">POS:</div>
-                  <div class="col" id="cardPOS"><%= cardOffers["CardsO4" + ii][0].postition%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">HAND:</div>
-                  <div class="col" id="cardHAND"><%= cardOffers["CardsO4" + ii][0].handedness%></div>
-                </div>
-                <div class="row hutCardShortL">
-                  <div class="col hutCardItem">SYN:</div>
-                  <div class="col" id="cardSYN"><%= cardOffers["CardsO4" + ii][0].synergies%></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <% } %>
-          <hr>
-
-
-          <!-- comments section -->
-
-          <div class="card" style="width: 34.5rem; min-height: 6em; margin: 1.3em; margin-bottom: 1em; float: left;">
-            <h5 class="card-title" style="height: 3em;">
-              <p style="margin: 1em;">Trade Comments</p>
-            </h5>
-
-
-            <hr>
-            <% if(typeof tradeOffer.offers.tradeComments !== 'undefined'){ %>
-            <%// console.log(tradeOffer.offers.tradeComments); %>
-            <% for (i = 0; i < tradeOffer.offers.tradeComments.length; i++)  {%>
-            <% //console.log("hit"); %>
-            <p style="margin: none; margin-left: 1em;"><%= tradeOffer.offers.tradeComments[i]; %> </p>
-            <hr>
-            <% } %>
-            <% } %>
-            <hr>
-
-
-
-
-
-            <form action="<%= (typeof actionPath === 'undefined') ? '/trades/tradeComment' : actionPath %>" ,
-              method="POST">
-              <input type="hidden" name="id" value="<%= trade.id %>">
-              <input type="hidden" name="user" value="<%= user.userName %>">
-              <input type="hidden" name="tradeNumber" value="<%= ii %>">
-              <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Talk</label></h5>
-              <input style="margin: 1em; margin-top: -1em; width: 75%;" type="text" name="comment" id="comment">
-              <div class="form-group" style="display: inline;">
-                <button style="margin-top: -.5em;" class="btn btn-dark">Submit</button>
-              </div>
-            </form>
-
-
-
-
-
-
-
-
-          </div>
-
-
-
-
-
-
-        </div>
-
-        <!-- //cardOffers["CardsO2" + 0][0].playerName -->
-
-        <% ii++; %>
-        <script>
-
-          var divCard = document.getElementById("tempOfferCard");
-          divCard.setAttribute("id", i + 1000);
-          //console.log(divCard);
-          var div = document.getElementById("temp");
-          div.setAttribute("id", i);
-
-          i++;
-
-
-        </script>
-        <script>
-          function showOffer(id) {
-            //console.log(parseInt(id));
-            iid = (1000 + parseInt(id));
-            // console.log(id);
-            if (document.getElementById(iid).style.display === "block") {
-              document.getElementById(iid).style.display = "none";
-              document.getElementById(id).style.color = "black";
-
-            } else {
-              document.getElementById(iid).style.display = "block";
-              document.getElementById(id).style.color = "green";
-            }
-          }
-        </script>
-
-
-
-        <% } %>
-
-
-
-
-
-
-        </ul>
+        <!-- if its a new offer and has no trade offers yet. -->
+        <% if(trade.tradeOffers === undefined || trade.tradeOffers.length == 0) {%>
       </div>
-      <% } %>
-      <% } %>
-
-
-
-
-
-
-
-
-
-      <!-- If you are not logged in, show this. -->
-      <% if(!authorized) { %>
       <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
-        <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Inquire about
-            trade</label></h5>
-        <p style="margin-left: 1em;">Please log in to post a comment.</p>
+        <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This trade has no active
+            offers at the moment.</label></h5>
+        <p style="margin-left: 1em;">Please come back later...</p>
       </div>
-      <% } %>
       
-
-    <% } else { %> 
+      <% } %>
 
     </div>
+      <!-- going through all trade offers -->
+      <% for (let tradeOffer of trade.tradeOffers) { %>
+
+      <%= //console.log(cardOffers["CardsO1" + ii]) %>
+      <div id="tempOfferCard" class="card cardTempOfferCard tradeOfferCards">
+        <h5 class="card-title tradeOfferCardsTitle"><label for="comment" style="margin: 1em;">Trade Offer from:
+            <%= tradeOffer.offers.user %></label></h5>
+
+        <hr>
+
+        <% if(tradeOffer.offers.coinsOffer !== ""){ %>
+        <h6 class="tradeOfferCardsSmallTitle">Coins Offer:</h6>
+        <p class="cardOfferTitle"><%= tradeOffer.offers.coinsOffer.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %><span
+          style="color: orange; font-weight: 700;">c</span></p>
+        <% %>
+          <!-- checking for card offers and printing them if needed -->
+  <% }else if(typeof cardOffers["CardsO1" + ii] !== 'undefined'){ %>
+        <div style="overflow: auto;" class="showCardNameL">
+          <h6 class="tradeOfferCardsSmallTitle">Card One:</h6>
+          <p class="cardOfferTitle">
+            <%-  cardOffers["CardsO1" + ii][0].playerName + ' || ' + cardOffers["CardsO1" + ii][0].card + ' || ' + cardOffers["CardsO1" + ii][0].overall %>
+          </p>
+          <div class="showCard">
+            <div class="form-group ">
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Name:</div>
+                <div class="col" id="cardName"><%= cardOffers["CardsO1" + ii][0].playerName%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">aOVR:</div>
+                <div class="col" id="cardaOVR"><%= cardOffers["CardsO1" + ii][0].averageOverAll%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">POS:</div>
+                <div class="col" id="cardPOS"><%= cardOffers["CardsO1" + ii][0].postition%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">HAND:</div>
+                <div class="col" id="cardHAND"><%= cardOffers["CardsO1" + ii][0].handedness%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">SYN:</div>
+                <div class="col" id="cardSYN"><%= cardOffers["CardsO1" + ii][0].synergies%></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <% if(typeof cardOffers["CardsO2" + ii] !== 'undefined'){ %>
+        <div style="overflow: auto;" class="showCardNameL">
+          <h6 class="tradeOfferCardsSmallTitle">Card Two:</h6>
+          <p class="cardOfferTitle">
+            <%-  cardOffers["CardsO2" + ii][0].playerName + ' || ' + cardOffers["CardsO2" + ii][0].card + ' || ' + cardOffers["CardsO2" + ii][0].overall %>
+          </p>
+          <div class="showCard">
+            <div class="form-group ">
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Name:</div>
+                <div class="col" id="cardName"><%= cardOffers["CardsO2" + ii][0].playerName%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">aOVR:</div>
+                <div class="col" id="cardaOVR"><%= cardOffers["CardsO2" + ii][0].averageOverAll%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">POS:</div>
+                <div class="col" id="cardPOS"><%= cardOffers["CardsO2" + ii][0].postition%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">HAND:</div>
+                <div class="col" id="cardHAND"><%= cardOffers["CardsO2" + ii][0].handedness%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">SYN:</div>
+                <div class="col" id="cardSYN"><%= cardOffers["CardsO2" + ii][0].synergies%></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <% if(typeof cardOffers["CardsO3" + ii] !== 'undefined'){ %>
+        <div style="overflow: auto;" class="showCardNameL">
+          <h6 class="tradeOfferCardsSmallTitle">Card Three:</h6>
+          <p class="cardOfferTitle">
+            <%-  cardOffers["CardsO3" + ii][0].playerName + ' || ' + cardOffers["CardsO3" + ii][0].card + ' || ' + cardOffers["CardsO3" + ii][0].overall %>
+          </p>
+          <div class="showCard">
+            <div class="form-group ">
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Name:</div>
+                <div class="col" id="cardName"><%= cardOffers["CardsO3" + ii][0].playerName%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">aOVR:</div>
+                <div class="col" id="cardaOVR"><%= cardOffers["CardsO3" + ii][0].averageOverAll%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">POS:</div>
+                <div class="col" id="cardPOS"><%= cardOffers["CardsO3" + ii][0].postition%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">HAND:</div>
+                <div class="col" id="cardHAND"><%= cardOffers["CardsO3" + ii][0].handedness%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">SYN:</div>
+                <div class="col" id="cardSYN"><%= cardOffers["CardsO3" + ii][0].synergies%></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <% if(typeof cardOffers["CardsO4" + ii] !== 'undefined'){ %>
+        <div style="overflow: auto;" class="showCardNameL">
+          <h6 class="tradeOfferCardsSmallTitle">Card Four:</h6>
+          <p class="cardOfferTitle">
+            <%-  cardOffers["CardsO4" + ii][0].playerName + ' || ' + cardOffers["CardsO4" + ii][0].card + ' || ' + cardOffers["CardsO4" + ii][0].overall %>
+          </p>
+          <div class="showCard">
+            <div class="form-group ">
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Name:</div>
+                <div class="col" id="cardName"><%= cardOffers["CardsO4" + ii][0].playerName%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">aOVR:</div>
+                <div class="col" id="cardaOVR"><%= cardOffers["CardsO4" + ii][0].averageOverAll%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">POS:</div>
+                <div class="col" id="cardPOS"><%= cardOffers["CardsO4" + ii][0].postition%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">HAND:</div>
+                <div class="col" id="cardHAND"><%= cardOffers["CardsO4" + ii][0].handedness%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">SYN:</div>
+                <div class="col" id="cardSYN"><%= cardOffers["CardsO4" + ii][0].synergies%></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <hr>
+
+
+        <!-- comments section -->
+
+        <!-- <div class="card" style="width: 34.5rem; min-height: 6em; margin: 1.3em; margin-bottom: 1em; float: left;"> -->
+        <h5 class="card-title tradeOfferCardsTitleTalk">
+          <p>Trade Talk</p>
+        </h5>
+
+
+        <hr>
+        <% if(typeof tradeOffer.offers.tradeComments !== 'undefined'){ %>
+        <%// console.log(tradeOffer.offers.tradeComments); %>
+        <% for (i = 0; i < tradeOffer.offers.tradeComments.length; i++)  {%>
+        <% //console.log("hit"); %>
+        <p style="margin: none; margin-left: 1em;"><%= tradeOffer.offers.tradeComments[i]; %> </p>
+        <hr>
+        <% } %>
+        <% } %>
+        <!-- <hr> -->
+
+
+
+
+
+        <form action="<%= (typeof actionPath === 'undefined') ? '/trades/tradeComment' : actionPath %>" , method="POST">
+          <input type="hidden" name="id" value="<%= trade.id %>">
+          <input type="hidden" name="user" value="<%= user.userName %>">
+          <input type="hidden" name="tradeNumber" value="<%= ii %>">
+          <!-- <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Talk</label></h5> -->
+          <input style="margin: 1em; width: 78%;" type="text" name="comment" id="comment">
+          <div class="form-group" style="display: inline;">
+            <button style="margin-top: -.5em;" class="btn btn-dark">Submit</button>
+          </div>
+        </form>
+
+
+
+
+
+
+
+
+      </div>
+
+
+
+
+
+
+      <!-- </div> -->
+
+      <!-- //cardOffers["CardsO2" + 0][0].playerName -->
+
+      <% ii++; %>
+      <script>
+        //setting the ids of the cards and such, we still in dat loop :)
+        var divCard = document.getElementById("tempOfferCard");
+        divCard.setAttribute("id", i + 1000);
+        //console.log(divCard);
+        var div = document.getElementById("temp");
+        div.setAttribute("id", i);
+
+        i++;
+
+
+      </script>
+      <script>
+        function showOffer(id) {
+          //console.log(parseInt(id));
+          iid = (1000 + parseInt(id));
+          // console.log(id);
+          //showing and removing trade offer block depending on clicks. We still in da loop ;)
+          if (document.getElementById(iid).style.display === "block") {
+            document.getElementById(iid).style.display = "none";
+            document.getElementById(id).style.color = "black";
+
+          } else {
+            document.getElementById(iid).style.display = "block";
+            document.getElementById(id).style.color = "green";
+          }
+        }
+      </script>
+
+
+
+      <% } %>
+
+
+
+
+
+
+      </ul>
     </div>
+    <% } %>
+    <% } %>
+
+
+
+
+
+
+
+
+
+    <!-- If you are not logged in, show this. -->
+    <% if(!authorized) { %>
     <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
-      <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This Trade Has Been Completed!</label></h5>
-      <p style="margin-left: 1em;">Please visit The Block for other options...</p>
+      <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Inquire about
+          trade</label></h5>
+      <p style="margin-left: 1em;">Please log in to make an offer.</p>
     </div>
+    <% } %>
 
-  <% } %> 
+
+    <% } else { %>
+
+</div>
+</div>
+<!-- If the trade has been finished and the completed button was clicked. everyone will see this... -->
+<div class="card" style="width: 40rem; margin: 1.3em; float: left;">
+  <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This Trade Has Been
+      Completed!</label></h5>
+  <p style="margin-left: 1em;">Please visit The Block for other options...</p>
+</div>
+
+<% } %>
 
 
-      <%- include ('../partials/footer') %>
+<%- include ('../partials/footer') %>

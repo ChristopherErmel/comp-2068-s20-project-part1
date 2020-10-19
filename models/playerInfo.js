@@ -19,6 +19,14 @@ const PlayerInfoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    height: {
+        type: String,
+        required: true
+    },
+    weight: {
+        type: String,
+        required: true
+    },
     playerType: {
         type: String,
         required: true

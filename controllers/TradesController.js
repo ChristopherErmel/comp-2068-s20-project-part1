@@ -323,3 +323,55 @@ exports.tradeComment = async (req, res) => {
      console.log(error);
    }
 }
+
+
+// Might come back to this later...
+exports.deleteOffer = async (req, res) => {
+
+
+  try { 
+  //   await Trade.update(
+  //     { _id: req.body.id },
+  //     { $pull: { $elemMatch: { product: "xyz", score: { $gte: 8 } } } }
+  //       { 'tradeOffers':  {'offers' : {'tradeId' : req.body.offerTradeId}} },
+  //     (error, success) => {
+  //       if (error) console.log(error);
+  //       console.log(success);
+  //     }
+  //  );
+
+//   var previous2days = ["2016-09-21","2016-09-20"]
+//   var query = { "$or" : [] }
+//   for(var key in previous2days) {
+//     var q = {}
+//     q["impressions."+previous2days[key]] = { "$exists" : true }
+//     query.$or.push(q)
+// }
+   
+
+// await Trade.find(function() {
+//   var tradeOffers = this.tradeOffers;
+//   return Object.keys(tradeOffers).some(function(rel) {
+//   return tradeOffers[rel].tradeId == req.body.offerTradeId;
+// });
+// });
+
+
+// await Trade.find({$where: function() {
+//   for(var key in this.tradeOffers) {
+//     if (this.tradeOffers[key].offers.tradeId == req.body.offerTradeId) return true;
+//   }
+//   return false;
+// }})
+
+
+   // console.log(req.body);
+    //console.log(await Trade.find({ _id: req.body.id}));
+
+
+    req.flash('success', 'Trade offer has been removed!');
+    res.redirect(`/trades/${req.body.id}`);
+  } catch (e) {
+    console.log(e)
+  }
+}
