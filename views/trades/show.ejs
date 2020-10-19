@@ -256,27 +256,27 @@
       <% if(authorized && user._id.toString() !== trade.user._id.toString()) { %> 
         <script> let ioi = 0; let tradeOfferInfo; let tab;</script>
             <% let iioi = 0; %>  
-                 
+            <% //console.log(trade.tradeOffers) %> 
           <% for (let tradeOffer of trade.tradeOffers) { %>
-            <!-- if there is a trade from the user who is viewing the page, show only their trade -->
+             <!-- if there is a trade from the user who is viewing the page, show only their trade -->
            
-            <% //console.log("hit") %> 
+            <% //console.log(tradeOffer) %> 
             <% //console.log(tradeOffer.offers.offerUserID.toString().trim() === user._id.toString().trim()) %> 
-            <% if(tradeOffer.offers.offerUserID.toString().trim() == user._id.toString().trim()){ %> 
+            <% if(tradeOffer.offerUserID.toString().trim() == user._id.toString().trim()){ %> 
               <%// console.log("hit again") %>
               
              
               <div class="card tradeOfferCardsNamesMy">   
                           
               <button class="tradeTabs tradeOfferCardsNamesButton" id="temp" onclick="showOffer(this.id)"
-                value="<%= tradeOffer.offers %>">My Offer (#<%= iioi + 1 %>)</button>
+                value="<%= tradeOffer %>">My Offer (#<%= iioi + 1 %>)</button>
                 
 
               </div>
 
               <div id="tempOfferCard" class="card cardTempOfferCard tradeOfferCards">
                 <h5 class="card-title tradeOfferCardsTitle"><label for="comment" style="margin: 1em;">Trade Offer from:
-                    <%= tradeOffer.offers.user %></label></h5>
+                    <%= tradeOffer.user %></label></h5>
 
 
 
@@ -338,13 +338,14 @@
         
                 <hr>
         
-                <% if(tradeOffer.offers.coinsOffer !== ""){ %>
+                <% if(tradeOffer.coinsOffer !== ""){ %>
                 <h6 class="tradeOfferCardsSmallTitle">Coins Offer:</h6>
-                <p class="cardOfferTitle"><%= tradeOffer.offers.coinsOffer.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %><span
+                <p class="cardOfferTitle"><%= tradeOffer.coinsOffer.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %><span
                   style="color: orange; font-weight: 700;">c</span></p>
                 <% %>
                   <!-- checking for card offers and printing them if needed -->
           <% }else if(typeof cardOffers["CardsO1" + iioi] !== 'undefined'){ %>
+            <% //console.log(cardOffers["CardsO1" + iioi]) %> 
                 <div style="overflow: auto;" class="showCardNameL">
                   <h6 class="tradeOfferCardsSmallTitle">Card One:</h6>
                   <p class="cardOfferTitle">
@@ -483,26 +484,26 @@
   
   
           <hr>
-          <% if(typeof tradeOffer.offers.tradeComments !== 'undefined'){ %>
-          <%// console.log(tradeOffer.offers.tradeComments); %>
-          <% for (i = 0; i < tradeOffer.offers.tradeComments.length; i++)  {%>
+          <% if(typeof tradeOffer.tradeComments !== 'undefined'){ %>
+          <%// console.log(tradeOffer.tradeComments); %>
+          <% for (i = 0; i < tradeOffer.tradeComments.length; i++)  {%>
           <% //console.log("hit"); %>
-          <p style="margin: none; margin-left: 1em;"><%= tradeOffer.offers.tradeComments[i]; %> </p>
+          <p style="margin: none; margin-left: 1em;"><%= tradeOffer.tradeComments[i]; %> </p>
           <hr>
           <% } %>
           <% } %>
           <!-- <hr> -->
   
-          <!-- 
-            howitser + 4
-            disributor + 8
-           -->
+          
   
   
   
   
           <form action="<%= (typeof actionPath === 'undefined') ? '/trades/tradeComment' : actionPath %>" , method="POST">
+            <% //console.log(trade.tradeId) %> 
+            <% //console.log(tradeOffer.tradeId) %> 
             <input type="hidden" name="id" value="<%= trade.id %>">
+            <input type="hidden" name="tradeId" value="<%= tradeOffer.tradeId %>">
             <input type="hidden" name="user" value="<%= user.userName %>">
             <input type="hidden" name="tradeNumber" value="<%= iioi + 1 %>">
             <!-- <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Talk</label></h5> -->
@@ -627,7 +628,7 @@
 
             <% } %> 
               <%// console.log("-") %> 
-              <%// console.log(tradeOffer.offers.offerUserID.toString()) %> 
+              <%// console.log(tradeOffer.offerUserID.toString()) %> 
               <%// console.log(user._id.toString()) %> 
         <% } %> 
 
@@ -753,7 +754,7 @@
             <%// console.log(tradeOffer.offers) %>
 
             <li><button class="tradeTabs" id="temp" onclick="showOffer(this.id)"
-                value="<%= tradeOffer.offers %>"><%= tradeOffer.offers.user %></button></li>
+                value="<%= tradeOffer %>"><%= tradeOffer.user %></button></li>
 
 
             <% } %>
@@ -776,13 +777,13 @@
       <%= //console.log(cardOffers["CardsO1" + ii]) %>
       <div id="tempOfferCard" class="card cardTempOfferCard tradeOfferCards">
         <h5 class="card-title tradeOfferCardsTitle"><label for="comment" style="margin: 1em;">Trade Offer from:
-            <%= tradeOffer.offers.user %></label></h5>
+            <%= tradeOffer.user %></label></h5>
 
         <hr>
 
-        <% if(tradeOffer.offers.coinsOffer !== ""){ %>
+        <% if(tradeOffer.coinsOffer !== ""){ %>
         <h6 class="tradeOfferCardsSmallTitle">Coins Offer:</h6>
-        <p class="cardOfferTitle"><%= tradeOffer.offers.coinsOffer.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %><span
+        <p class="cardOfferTitle"><%= tradeOffer.coinsOffer.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %><span
           style="color: orange; font-weight: 700;">c</span></p>
         <% %>
           <!-- checking for card offers and printing them if needed -->
@@ -926,11 +927,11 @@
 
 
         <hr>
-        <% if(typeof tradeOffer.offers.tradeComments !== 'undefined'){ %>
-        <%// console.log(tradeOffer.offers.tradeComments); %>
-        <% for (i = 0; i < tradeOffer.offers.tradeComments.length; i++)  {%>
+        <% if(typeof tradeOffer.tradeComments !== 'undefined'){ %>
+        <%// console.log(tradeOffer.tradeComments); %>
+        <% for (i = 0; i < tradeOffer.tradeComments.length; i++)  {%>
         <% //console.log("hit"); %>
-        <p style="margin: none; margin-left: 1em;"><%= tradeOffer.offers.tradeComments[i]; %> </p>
+        <p style="margin: none; margin-left: 1em;"><%= tradeOffer.tradeComments[i]; %> </p>
         <hr>
         <% } %>
         <% } %>
@@ -943,6 +944,7 @@
         <form action="<%= (typeof actionPath === 'undefined') ? '/trades/tradeComment' : actionPath %>" , method="POST">
           <input type="hidden" name="id" value="<%= trade.id %>">
           <input type="hidden" name="user" value="<%= user.userName %>">
+          <input type="hidden" name="tradeId" value="<%= tradeOffer.tradeId %>">
           <input type="hidden" name="tradeNumber" value="<%= ii %>">
           <!-- <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Talk</label></h5> -->
           <input style="margin: 1em; width: 78%;" type="text" name="comment" id="comment">

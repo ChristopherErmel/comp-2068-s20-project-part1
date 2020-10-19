@@ -131,24 +131,26 @@ exports.show = async (req, res) => {
     //array of all cards needed for offers
     let cardOffers = new Object();
     //get all offers for this trade
-    if(trade.tradeOffers.offers != ""){
+    if(trade.tradeOffers != ""){
       //take each offer
       let i = 0;
       for (let offer of trade.tradeOffers){
         //search and push the card to the cardOffers array
         //cardOffers["Cards" + i] = "";
+        //console.log(offer.offers.cardListO1);
+       // console.log(offer);
         //this will send a list of cards1-* with the card information attached.
-        if(offer.offers.cardListO1 != ""){
-          cardOffers["CardsO1" + i] = await PlayerInfo.find({ "_id": offer.offers.cardListO1 });
+        if(offer.cardListO1 != ""){
+          cardOffers["CardsO1" + i] = await PlayerInfo.find({ "_id": offer.cardListO1 });
         }        
-        if(offer.offers.cardListO2 != ""){
-          cardOffers["CardsO2" + i] = await PlayerInfo.find({ "_id": offer.offers.cardListO2 });
+        if(offer.cardListO2 != ""){
+          cardOffers["CardsO2" + i] = await PlayerInfo.find({ "_id": offer.cardListO2 });
         }
-        if(offer.offers.cardListO3 != ""){
-          cardOffers["CardsO3" + i] = await PlayerInfo.find({ "_id": offer.offers.cardListO3 });
+        if(offer.cardListO3 != ""){
+          cardOffers["CardsO3" + i] = await PlayerInfo.find({ "_id": offer.cardListO3 });
         }
-        if(offer.offers.cardListO4 != ""){
-          cardOffers["CardsO4" + i] = await PlayerInfo.find({ "_id": offer.offers.cardListO4 });
+        if(offer.cardListO4 != ""){
+          cardOffers["CardsO4" + i] = await PlayerInfo.find({ "_id": offer.cardListO4 });
         }
         i++;
       }
@@ -277,7 +279,7 @@ exports.comment = async (req, res) => {
       }}});
 */
     await Trade.findByIdAndUpdate({ _id: req.body.id }, { $push: { "tradeOffers": {
-      offers: {
+     
         id: req.body.id,
         user: req.body.user,
         coinsOffer: req.body.coinsOffer,
@@ -289,7 +291,7 @@ exports.comment = async (req, res) => {
         offerUserName: req.body.offerUserName,
         tradeId: req.body.tradeId,
         tradeOffers: ""
-      }
+    
     } } });
 
 
@@ -304,16 +306,40 @@ exports.comment = async (req, res) => {
 //this will add comments to the trade id...
 exports.tradeComment = async (req, res) => {
   try {
-    // console.log(req.body);
+     //console.log("TradeID "+req.body.tradeId);
      //fix the form of msg and add the user to it before inputing it in the db...
      const message = String(`${req.body.user}: ${req.body.comment}`);
      //console.log(message);
  
  // await Trade.findByIdAndUpdate({_id: req.body.id}, {$push: { "tradeOffers": message } });
-    let tradeNum = "tradeOffers." + `${req.body.tradeNumber}` + ".offers.tradeComments";
+   // let tradeNum = `${req.body.tradeId}` + ".$." + `${tradeOffers}`;
    // console.log(tradeNum);
-  await Trade.findByIdAndUpdate({_id: req.body.id}, {$push: { [tradeNum] : message}})
+  // await Trade.findByIdAndUpdate({_id: req.body.id}, ({
+  //     _id: req.body.id,
+  //     tradeOffers: {
+  //        $elemMatch: {tradeId: req.body.tradeId}
+  //     }
+  //  }, {$push: { "tradeOffers.$.tradeComments" : message}}));
 
+
+   await Trade.update(
+    { "_id": req.body.id, "tradeOffers.tradeId": req.body.tradeId},
+    { "$push": 
+        {"tradeOffers.$.tradeComments":  message
+        }
+    }
+)
+
+//   db.myCollection.find({
+//     _id: ObjectId("53b1a44350f148976b0b6044"),
+//     myArray: {
+//        $elemMatch: {key1: 'somevalue'}
+//     }
+//  }, {
+//     $set:{
+//        'myArray.$.key2': 'someOtherValue'
+//     }
+//  });
 
   
 //console.log(te);
