@@ -105,7 +105,7 @@ async function scrapeIt(url) {
 
     const nextTable = true;
 
-    //do {
+    // do {
         const content = await page.evaluate(async () => {
 
             const nextButton = document.querySelector('#players_table_next');
@@ -127,7 +127,7 @@ async function scrapeIt(url) {
                 const height = playerInfo.childNodes[4].innerText;
                 const weight = playerInfo.childNodes[5].innerText;
                 const playerName = playerInfo.childNodes[6].innerText;
-                const synergies = playerInfo.childNodes[7].innerText;
+                const synergies = "";//playerInfo.childNodes[7].innerText;
                 const overall = playerInfo.childNodes[8].innerText;
                 const averageOverAll = playerInfo.childNodes[9].innerText;
                 
@@ -175,12 +175,12 @@ async function scrapeIt(url) {
                 nextTable === false;
                 return playerInfos;
             } else {
-                await nextButton.click();
+                 await nextButton.click();
                 await sleep(2);
-                return playerInfos;
+                 return playerInfos;
             }
         });
 
-   // } while (nextTable);    
+    // } while (nextTable);    
    return content;
 }

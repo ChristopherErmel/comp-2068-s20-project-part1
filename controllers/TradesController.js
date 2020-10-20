@@ -102,6 +102,57 @@ exports.myblock = async (req, res) => {
   }
 };
 
+exports.myoffers = async (req, res) => {
+  try {
+    const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
+
+
+    let myOffers = [];
+
+    //this will find each offer of the specific user and send it to the view. This will inclued dups...
+    for (let offer of req.user.myTrades) {
+      let myOffer = await Trade.find({ _id: offer.tradeId }).sort({ createdAt: 'desc' });
+      myOffers.push(myOffer);
+      // console.log(myOffer[0].tradeOffers)
+    }
+
+
+    //this will return an array of tradeIds with no duplicites
+    //this will only show the uniq offers from myOffers...
+    myOffers = myOffers.filter((v, i, a) => a.findIndex(t => (JSON.stringify(t) === JSON.stringify(v))) === i)
+
+    // if(cards[i][0].playerName  !== 'undefined') { 
+    //console.log(typeof  offer[0].cardId !== 'undefined')
+
+    
+
+
+    //finds the card id depending on the id from the trade.
+    let cards = [];
+    //if(myOffers.length > 1) {
+      //console.log(myOffers.length)
+    for (let offer of myOffers) {
+      //console.log(typeof offer[0].cardId !== 'undefined')
+      //console.log(offer[0].cardId);
+      //check to see if there are any active trades...
+      if (typeof offer[0] !== 'undefined') {
+        let card = await PlayerInfo.find({ "_id": offer[0].cardId });
+        cards.push(card);
+        // console.log(trade.cardId);
+     }
+    }
+ // }
+    console.log(myOffers);
+    res.render(`${viewPath}/myoffers`, {
+      cards: cards,
+      myOffers: myOffers
+    });
+  } catch (error) {
+    req.flash('danger', `There was an error displaying your block: ${error}`);
+    res.redirect('/');
+  }
+};
+
 
 
 
@@ -131,31 +182,31 @@ exports.show = async (req, res) => {
     //array of all cards needed for offers
     let cardOffers = new Object();
     //get all offers for this trade
-    if(trade.tradeOffers != ""){
+    if (trade.tradeOffers != "") {
       //take each offer
       let i = 0;
-      for (let offer of trade.tradeOffers){
+      for (let offer of trade.tradeOffers) {
         //search and push the card to the cardOffers array
         //cardOffers["Cards" + i] = "";
         //console.log(offer.offers.cardListO1);
-       // console.log(offer);
+        // console.log(offer);
         //this will send a list of cards1-* with the card information attached.
-        if(offer.cardListO1 != ""){
+        if (offer.cardListO1 != "") {
           cardOffers["CardsO1" + i] = await PlayerInfo.find({ "_id": offer.cardListO1 });
-        }        
-        if(offer.cardListO2 != ""){
+        }
+        if (offer.cardListO2 != "") {
           cardOffers["CardsO2" + i] = await PlayerInfo.find({ "_id": offer.cardListO2 });
         }
-        if(offer.cardListO3 != ""){
+        if (offer.cardListO3 != "") {
           cardOffers["CardsO3" + i] = await PlayerInfo.find({ "_id": offer.cardListO3 });
         }
-        if(offer.cardListO4 != ""){
+        if (offer.cardListO4 != "") {
           cardOffers["CardsO4" + i] = await PlayerInfo.find({ "_id": offer.cardListO4 });
         }
         i++;
       }
     }
-   // console.log(cardOffers);
+    // console.log(cardOffers);
     res.render(`${viewPath}/show`, {
       pageTitle: trade.title,
       trade: trade,
@@ -267,32 +318,39 @@ exports.delete = async (req, res) => {
 //this will add comments to the trade id...
 exports.comment = async (req, res) => {
   try {
-     //console.log(req.body);
-    //fix the form of msg and add the user to it before inputing it in the db...
-    
-    
-    /*  const message = String(`${req.body.user}: ${req.body.comment}`);
-    console.log(message);
-   await Trade.findByIdAndUpdate({ _id: req.body.id }, { $push: { "tradeOffers": {
-      offers: {
-        "tradeComments": message } 
-      }}});
-*/
-    await Trade.findByIdAndUpdate({ _id: req.body.id }, { $push: { "tradeOffers": {
-     
-        id: req.body.id,
-        user: req.body.user,
-        coinsOffer: req.body.coinsOffer,
-        cardListO1: req.body.cardListO1,
-        cardListO2: req.body.cardListO2,
-        cardListO3: req.body.cardListO3,
-        cardListO4: req.body.cardListO4,
-        offerUserID: req.body.offerUserID,
-        offerUserName: req.body.offerUserName,
-        tradeId: req.body.tradeId,
-        tradeOffers: ""
-    
-    } } });
+    //this will add the trade to the db under tradeOffers for the specific trade...
+    await Trade.findByIdAndUpdate({ _id: req.body.id }, {
+      $push: {
+        "tradeOffers": {
+
+          id: req.body.id,
+          user: req.body.user,
+          coinsOffer: req.body.coinsOffer,
+          cardListO1: req.body.cardListO1,
+          cardListO2: req.body.cardListO2,
+          cardListO3: req.body.cardListO3,
+          cardListO4: req.body.cardListO4,
+          offerUserID: req.body.offerUserID,
+          offerUserName: req.body.offerUserName,
+          tradeId: req.body.tradeId,
+          tradeOffers: ""
+
+        }
+      }
+    });
+
+
+    //console.log(req.body.offerUserID);
+    //this will add the trade link to the users array for their trades/offers
+    //if the offering user is the one making the trade offer, add the id to the link.
+    await User.findByIdAndUpdate({ _id: req.body.offerUserID.toString().trim() }, {
+      $push: {
+        "myTrades": {
+          tradeId: req.body.id
+        }
+      }
+    });
+
 
 
 
@@ -306,48 +364,29 @@ exports.comment = async (req, res) => {
 //this will add comments to the trade id...
 exports.tradeComment = async (req, res) => {
   try {
-     //console.log("TradeID "+req.body.tradeId);
-     //fix the form of msg and add the user to it before inputing it in the db...
-     const message = String(`${req.body.user}: ${req.body.comment}`);
-     //console.log(message);
- 
- // await Trade.findByIdAndUpdate({_id: req.body.id}, {$push: { "tradeOffers": message } });
-   // let tradeNum = `${req.body.tradeId}` + ".$." + `${tradeOffers}`;
-   // console.log(tradeNum);
-  // await Trade.findByIdAndUpdate({_id: req.body.id}, ({
-  //     _id: req.body.id,
-  //     tradeOffers: {
-  //        $elemMatch: {tradeId: req.body.tradeId}
-  //     }
-  //  }, {$push: { "tradeOffers.$.tradeComments" : message}}));
+    //fix the form of msg and add the user to it before inputing it in the db...
+    const message = String(`${req.body.user}: ${req.body.comment}`);
 
-
-   await Trade.update(
-    { "_id": req.body.id, "tradeOffers.tradeId": req.body.tradeId},
-    { "$push": 
-        {"tradeOffers.$.tradeComments":  message
+    //this will find the correct db, and the right trade based on trade id.
+    //it will add the comment to the array of comments based on the trade id.
+    await Trade.update(
+      { "_id": req.body.id, "tradeOffers.tradeId": req.body.tradeId },
+      {
+        "$push":
+        {
+          "tradeOffers.$.tradeComments": message
         }
-    }
-)
+      }
+    );
 
-//   db.myCollection.find({
-//     _id: ObjectId("53b1a44350f148976b0b6044"),
-//     myArray: {
-//        $elemMatch: {key1: 'somevalue'}
-//     }
-//  }, {
-//     $set:{
-//        'myArray.$.key2': 'someOtherValue'
-//     }
-//  });
 
-  
-//console.log(te);
+
+    //console.log(te);
     req.flash('success', 'Trade comment has been posted!');
     res.redirect(`/trades/${req.body.id}`);
-   } catch (error) {
-     console.log(error);
-   }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 
@@ -355,43 +394,43 @@ exports.tradeComment = async (req, res) => {
 exports.deleteOffer = async (req, res) => {
 
 
-  try { 
-  //   await Trade.update(
-  //     { _id: req.body.id },
-  //     { $pull: { $elemMatch: { product: "xyz", score: { $gte: 8 } } } }
-  //       { 'tradeOffers':  {'offers' : {'tradeId' : req.body.offerTradeId}} },
-  //     (error, success) => {
-  //       if (error) console.log(error);
-  //       console.log(success);
-  //     }
-  //  );
+  try {
+    //   await Trade.update(
+    //     { _id: req.body.id },
+    //     { $pull: { $elemMatch: { product: "xyz", score: { $gte: 8 } } } }
+    //       { 'tradeOffers':  {'offers' : {'tradeId' : req.body.offerTradeId}} },
+    //     (error, success) => {
+    //       if (error) console.log(error);
+    //       console.log(success);
+    //     }
+    //  );
 
-//   var previous2days = ["2016-09-21","2016-09-20"]
-//   var query = { "$or" : [] }
-//   for(var key in previous2days) {
-//     var q = {}
-//     q["impressions."+previous2days[key]] = { "$exists" : true }
-//     query.$or.push(q)
-// }
-   
-
-// await Trade.find(function() {
-//   var tradeOffers = this.tradeOffers;
-//   return Object.keys(tradeOffers).some(function(rel) {
-//   return tradeOffers[rel].tradeId == req.body.offerTradeId;
-// });
-// });
+    //   var previous2days = ["2016-09-21","2016-09-20"]
+    //   var query = { "$or" : [] }
+    //   for(var key in previous2days) {
+    //     var q = {}
+    //     q["impressions."+previous2days[key]] = { "$exists" : true }
+    //     query.$or.push(q)
+    // }
 
 
-// await Trade.find({$where: function() {
-//   for(var key in this.tradeOffers) {
-//     if (this.tradeOffers[key].offers.tradeId == req.body.offerTradeId) return true;
-//   }
-//   return false;
-// }})
+    // await Trade.find(function() {
+    //   var tradeOffers = this.tradeOffers;
+    //   return Object.keys(tradeOffers).some(function(rel) {
+    //   return tradeOffers[rel].tradeId == req.body.offerTradeId;
+    // });
+    // });
 
 
-   // console.log(req.body);
+    // await Trade.find({$where: function() {
+    //   for(var key in this.tradeOffers) {
+    //     if (this.tradeOffers[key].offers.tradeId == req.body.offerTradeId) return true;
+    //   }
+    //   return false;
+    // }})
+
+
+    // console.log(req.body);
     //console.log(await Trade.find({ _id: req.body.id}));
 
 
@@ -400,4 +439,26 @@ exports.deleteOffer = async (req, res) => {
   } catch (e) {
     console.log(e)
   }
+}
+
+
+
+
+
+// Functions/Scripts
+
+//this will remove copys from an array in the fastest way possible...
+function uniq_fast(a) {
+  var seen = {};
+  var out = [];
+  var len = a.length;
+  var j = 0;
+  for (var i = 0; i < len; i++) {
+    var item = a[i];
+    if (seen[item] !== 1) {
+      seen[item] = 1;
+      out[j++] = item;
+    }
+  }
+  return out;
 }

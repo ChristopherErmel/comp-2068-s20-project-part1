@@ -1,0 +1,79 @@
+<!--
+  Step 1: This is your descretion how you would like to display data,
+  but you must list all the documents in your resource collection.
+-->
+<%- include ('../partials/header') %>
+<% //window.addEventListener('DOMContentLoaded', myTrades, false); %>
+<script>
+
+
+</script>
+
+
+
+<div class="container my-5">
+  <header>
+    <h1>My Offers</h1>
+    <!-- <div class="div" id="myTrades" style="float: right; cursor: pointer;" onclick='myTrade();'>
+          <h4>My Trades</h4>
+        </div> -->
+    <br>
+  </header>
+  <hr>
+
+
+
+  <div class="content">
+    <% let i = 0; %>
+    <% for (let offer of myOffers) { %>
+
+    <% if(authorized && (typeof offer.user === 'undefined')) { %>
+
+    <div class="card" style="width: 20rem; height: 18.5rem; margin: 1.3em; float: left;">
+      <div class="card-body">
+        <h5 style="height: 3em;">
+          <% //console.log(cards[i]) %> 
+          <p><%= cards[i][0].playerName + ' || ' + cards[i][0].overall  %></p>
+          <p> <%= cards[i][0].card %></p>
+        </h5>
+        <% i = i + 1; %>
+
+        <%// console.log(offer) %> 
+        <% //if (typeof trade.user !== 'undefined') {%>
+        <small style="font-weight: bold;">by <%= //trade.user.userName %></small>
+        <%// } %>
+        <small style="float: right;"><%=// trade.updatedAt.toLocaleString("en-US") %></small>
+
+        <% if(offer[0].console == "Xbox"){ %>
+        <hr style="height: .1em; background-color: #107C10;">
+        <% }else{ %>
+        <hr style="height: .1em;background-color: #003087;">
+        <% } %>
+
+
+        <% if(offer[0].buyNow){ %>
+        <p class="card-text"><span style="font-weight: 700;">Buy Now: <%= offer[0].buyNow %></span><span
+            style="color: orange; font-weight: 700;">c</span></p>
+        <% }else{ %>
+        <p class="card-text">Buy Now: N/A</p>
+        <% } %>
+        <% if(offer[0].tradeStatus == "Traded"){ %>
+        <p class="card-text" style="text-decoration: line-through;">Currently: <%= offer[0].tradeStatus %></p>
+        <% } %>
+        <% if(offer[0].tradeStatus == "Available"){ %>
+        <p class="card-text" style="font-weight: 600;">Currently: <%= offer[0].tradeStatus %><span
+            style="font-weight: 400;">&nbsp;on <%= offer[0].console %></span></p>
+        <% } %>
+        <hr>
+          <% //console.log(offer[0]._id) %> 
+        <a class="btn btn-primary" href="/trades/<%= offer[0]._id %>">View</a>
+
+
+      </div>
+      <% } %>
+
+    </div>
+    <% } %>
+
+
+    <%- include ('../partials/footer') %>

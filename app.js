@@ -152,7 +152,7 @@ app.get("/search", async (req, res) => {
     let result = await collection.aggregate([
       {
         "$search": {
-          "index": "PlayerNames",
+          "index": "playerNames",
           "autocomplete": {
             "query": `${req.query.term}`,
             "path": "playerName",
