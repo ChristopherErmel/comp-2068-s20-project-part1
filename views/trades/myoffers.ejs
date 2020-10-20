@@ -38,9 +38,9 @@
         </h5>
         <% i = i + 1; %>
 
-        <%// console.log(offer) %> 
+        <% //console.log(offer[0]) %> 
         <% //if (typeof trade.user !== 'undefined') {%>
-        <small style="font-weight: bold;">by <%= //trade.user.userName %></small>
+        <small style="font-weight: bold;"><hr /> <%= //trade.user.userName %></small>
         <%// } %>
         <small style="float: right;"><%=// trade.updatedAt.toLocaleString("en-US") %></small>
 
@@ -50,9 +50,9 @@
         <hr style="height: .1em;background-color: #003087;">
         <% } %>
 
-
+        <hr />
         <% if(offer[0].buyNow){ %>
-        <p class="card-text"><span style="font-weight: 700;">Buy Now: <%= offer[0].buyNow %></span><span
+        <p class="card-text"><span style="font-weight: 700;">Buy Now: <%= offer[0].buyNow.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span><span
             style="color: orange; font-weight: 700;">c</span></p>
         <% }else{ %>
         <p class="card-text">Buy Now: N/A</p>

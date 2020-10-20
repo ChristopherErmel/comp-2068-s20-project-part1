@@ -111,15 +111,18 @@ exports.myoffers = async (req, res) => {
 
     //this will find each offer of the specific user and send it to the view. This will inclued dups...
     for (let offer of req.user.myTrades) {
-      let myOffer = await Trade.find({ _id: offer.tradeId }).sort({ createdAt: 'desc' });
+      let myOffer = await Trade.find({ _id: offer.tradeId });
       myOffers.push(myOffer);
-      // console.log(myOffer[0].tradeOffers)
+
+       console.log("offer")
+       console.log(offer)
     }
 
 
     //this will return an array of tradeIds with no duplicites
     //this will only show the uniq offers from myOffers...
-    myOffers = myOffers.filter((v, i, a) => a.findIndex(t => (JSON.stringify(t) === JSON.stringify(v))) === i)
+    //.reverse() to switch the order of the offers. The most recent will appear first now...
+    myOffers = myOffers.filter((v, i, a) => a.findIndex(t => (JSON.stringify(t) === JSON.stringify(v))) === i).reverse();
 
     // if(cards[i][0].playerName  !== 'undefined') { 
     //console.log(typeof  offer[0].cardId !== 'undefined')
@@ -142,7 +145,7 @@ exports.myoffers = async (req, res) => {
      }
     }
  // }
-    console.log(myOffers);
+    //console.log(myOffers);
     res.render(`${viewPath}/myoffers`, {
       cards: cards,
       myOffers: myOffers
@@ -346,7 +349,9 @@ exports.comment = async (req, res) => {
     await User.findByIdAndUpdate({ _id: req.body.offerUserID.toString().trim() }, {
       $push: {
         "myTrades": {
-          tradeId: req.body.id
+          tradeId: req.body.id,
+          //adding the trade time.date in here so when views on myOffers page we can view by date...
+          tradeDate: Date.now()
         }
       }
     });
