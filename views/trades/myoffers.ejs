@@ -25,8 +25,10 @@
 
   <div class="content">
     <% let i = 0; %>
+    <!-- go over all offers -->
     <% for (let offer of myOffers) { %>
 
+      <!-- if logged in and authorized -->
     <% if(authorized && (typeof offer.user === 'undefined')) { %>
 
     <div class="card" style="width: 20rem; height: 18.5rem; margin: 1.3em; float: left;">

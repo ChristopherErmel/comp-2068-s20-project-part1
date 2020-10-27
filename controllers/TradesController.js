@@ -114,8 +114,8 @@ exports.myoffers = async (req, res) => {
       let myOffer = await Trade.find({ _id: offer.tradeId });
       myOffers.push(myOffer);
 
-       console.log("offer")
-       console.log(offer)
+      console.log("offer")
+      console.log(offer)
     }
 
 
@@ -127,13 +127,13 @@ exports.myoffers = async (req, res) => {
     // if(cards[i][0].playerName  !== 'undefined') { 
     //console.log(typeof  offer[0].cardId !== 'undefined')
 
-    
+
 
 
     //finds the card id depending on the id from the trade.
     let cards = [];
     //if(myOffers.length > 1) {
-      //console.log(myOffers.length)
+    //console.log(myOffers.length)
     for (let offer of myOffers) {
       //console.log(typeof offer[0].cardId !== 'undefined')
       //console.log(offer[0].cardId);
@@ -142,9 +142,9 @@ exports.myoffers = async (req, res) => {
         let card = await PlayerInfo.find({ "_id": offer[0].cardId });
         cards.push(card);
         // console.log(trade.cardId);
-     }
+      }
     }
- // }
+    // }
     //console.log(myOffers);
     res.render(`${viewPath}/myoffers`, {
       cards: cards,
@@ -321,50 +321,59 @@ exports.delete = async (req, res) => {
 //this will add comments to the trade id...
 exports.comment = async (req, res) => {
   try {
-    //this will add the trade to the db under tradeOffers for the specific trade...
-    await Trade.findByIdAndUpdate({ _id: req.body.id }, {
-      $push: {
-        "tradeOffers": {
 
-          id: req.body.id,
-          user: req.body.user,
-          coinsOffer: req.body.coinsOffer,
-          cardListO1: req.body.cardListO1,
-          cardListO2: req.body.cardListO2,
-          cardListO3: req.body.cardListO3,
-          cardListO4: req.body.cardListO4,
-          offerUserID: req.body.offerUserID,
-          offerUserName: req.body.offerUserName,
-          tradeId: req.body.tradeId,
-          tradeOffers: ""
+   if (req.body.coinsOffer === "" && req.body.cardListO1.length < 10 && req.body.cardListO2.length < 10 && req.body.cardListO3.length < 10 && req.body.cardListO4.length < 10) {
+    throw "Invalid Card or Coin Offer";
+   }else{
+      //this will add the trade to the db under tradeOffers for the specific trade...
+      await Trade.findByIdAndUpdate({ _id: req.body.id }, {
+        $push: {
+          "tradeOffers": {
 
+            id: req.body.id,
+            user: req.body.user,
+            coinsOffer: req.body.coinsOffer,
+            cardListO1: req.body.cardListO1,
+            cardListO2: req.body.cardListO2,
+            cardListO3: req.body.cardListO3,
+            cardListO4: req.body.cardListO4,
+            offerUserID: req.body.offerUserID,
+            offerUserName: req.body.offerUserName,
+            tradeId: req.body.tradeId,
+            tradeOffers: ""
+
+          }
         }
-      }
-    });
+      });
 
-
-    //console.log(req.body.offerUserID);
-    //this will add the trade link to the users array for their trades/offers
-    //if the offering user is the one making the trade offer, add the id to the link.
-    await User.findByIdAndUpdate({ _id: req.body.offerUserID.toString().trim() }, {
-      $push: {
-        "myTrades": {
-          tradeId: req.body.id,
-          //adding the trade time.date in here so when views on myOffers page we can view by date...
-          tradeDate: Date.now()
+      //console.log(req.body.offerUserID);
+      //this will add the trade link to the users array for their trades/offers
+      //if the offering user is the one making the trade offer, add the id to the link.
+      await User.findByIdAndUpdate({ _id: req.body.offerUserID.toString().trim() }, {
+        $push: {
+          "myTrades": {
+            tradeId: req.body.id,
+            //adding the trade time.date in here so when views on myOffers page we can view by date...
+            tradeDate: Date.now()
+          }
         }
-      }
-    });
+      });
 
 
+    }
 
-
-    req.flash('success', 'Trade comment has been posted!');
+    req.flash('success', 'Trade offer has been posted!');
     res.redirect(`/trades/${req.body.id}`);
   } catch (error) {
+    req.flash('error', `Trade offer error: ${error}`);
     console.log(error);
+    res.redirect(`/trades/${req.body.id}`);
   }
 }
+
+
+
+
 
 //this will add comments to the trade id...
 exports.tradeComment = async (req, res) => {
