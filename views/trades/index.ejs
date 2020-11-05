@@ -69,7 +69,7 @@
         <hr>
         <a class="btn btn-primary" href="/trades/<%= trade.id %>">View</a>
         <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
-        <form style="background: none; display: inline-block; float: right;" class="form-inline" action="/trades/delete"
+        <form style="background: none; display: inline-block; float: right;" class="form-inline buttonOptionsTB" action="/trades/delete"
           method="post"
           onsubmit="return confirm('Are you sure you want to delete this trade? This can not be undone!');">
           <input type="hidden" value="<%= trade.id %>" name="id">
@@ -81,14 +81,12 @@
           </button>
         </form>
         <% if(trade.tradeStatus == "Traded"){ %>
-        <a class="btn btn-secondary btn-sm"
-          style="display: inline-block; float: right; text-decoration: line-through;">Complete Trade</a>
+        <a class="btn btn-secondary btn-sm buttonOptionsTBc"
+          style="text-decoration: line-through;">Complete</a>
         <% } %>
         <% if(trade.tradeStatus == "Available"){ %>
-        <a class="btn btn-success btn-sm" href="/trades/<%= trade.id %>/edit"
-          style="display: inline-block; float: right;"
-          onclick="return confirm('Only complete a trade if both parties have recived their cards! \nAre you sure you want to complete this trade?');">Complete
-          Trade</a>
+        <a class="btn btn-success btn-sm buttonOptionsTBc" href="/trades/<%= trade.id %>/edit"
+          onclick="return confirm('Only complete a trade if both parties have recived their cards! \nAre you sure you want to complete this trade?');">Complete</a>
         <% } %>
 
 

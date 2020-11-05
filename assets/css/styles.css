@@ -421,8 +421,8 @@ hr.playerNamesInfohr{
   vertical-align: top;
    height: auto;
   width: auto;
- /* margin: auto;
-  margin-top: 1vw; */
+ /* margin: auto; */
+  margin-top: 1em; 
   display:inline-block;
   /* max-width: 30%; */
 }
@@ -486,4 +486,17 @@ hr.playerNamesInfohr{
   text-align: justify;
   -ms-text-justify: distribute-all-lines;
   text-justify: distribute-all-lines;
+}
+
+/* styles for the logged in buttons on the trade block/ complete/delete */
+.buttonOptionsTB{
+  height: auto;
+  width: 25%;
+}
+.buttonOptionsTBc{
+  height: auto;
+  width: 30%;
+  font-size: .75vw;
+  float: right;
+  margin-top: .5vh;
 }
