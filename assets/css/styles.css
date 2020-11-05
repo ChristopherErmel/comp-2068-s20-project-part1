@@ -418,13 +418,13 @@ hr.playerNamesInfohr{
 
 /* Style for the outter and full card on trade block */
 .card.fullTradeCards{
-  height: auto;
+  vertical-align: top;
+   height: auto;
   width: auto;
-  margin: auto;
-  margin-top: 1vw;
-  margin-left: 1.3vw;
+ /* margin: auto;
+  margin-top: 1vw; */
   display:inline-block;
-  max-width: 30%;
+  /* max-width: 30%; */
 }
 
 
@@ -479,4 +479,11 @@ hr.playerNamesInfohr{
 .card-title-tradeOffers{
   margin-bottom: 0;
   height: 2.25em;
+}
+
+/* styles for the whole content area on the trade block */
+.content.cardLayout{
+  text-align: justify;
+  -ms-text-justify: distribute-all-lines;
+  text-justify: distribute-all-lines;
 }
