@@ -28,34 +28,33 @@
     <% //if(myTrades == false){ %>
     <% for (let trade of trades) { %>
     <!-- <% //if() { } %>  -->
-    <div class="card" style="width: 20rem; height: 18.5rem; margin: 1.3em; float: left;">
+    <div class="card fullTradeCards">
       <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-      <div class="card-body">
-        <h5 style="height: 3em;">
+      <div class="card-body playerCards">
+        
+        <!-- Image... -->
+        <img class="playerImages" src="/playerCardImages/<%= cards[i][0].playerImageLink %>" alt="">
+        <hr class="playerNamesInfohr" />
+
+        <h5 class="playerNamesInfo">
           <p><%= cards[i][0].playerName + ' || ' + cards[i][0].overall  %></p>
           <p> <%= cards[i][0].card %></p>
         </h5>
-        
+        <% i = i + 1; %>
 
-       
-        <!-- Image... -->
-          <img height="150px" width="50px" src="/playerCardImages/<%= cards[i][0].playerImageLink %>" alt="">
-          
-          <% i = i + 1; %>
-
-
-
+        <hr />
         <% if (typeof trade.user !== 'undefined') {%>
-        <small style="font-weight: bold;">by <%= trade.user.userName %></small>
+        <small class="byNameTradeBlock" style="font-weight: bold;">by <%= trade.user.userName %></small>
         <% } %>
-        <small style="float: right;"><%= trade.updatedAt.toLocaleString("en-US") %></small>
+        <small class="card-text-time" style="float: right;"><%= trade.createdAt.toLocaleString("en-US") %></small>
         <% if(trade.console == "Xbox"){ %>
         <hr style="height: .1em; background-color: #107C10;">
         <% }else{ %>
         <hr style="height: .1em;background-color: #003087;">
         <% } %>
         <% if(trade.buyNow){ %>
-        <p class="card-text"><span style="font-weight: 700;">Buy Now: <%= trade.buyNow.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span><span
+        <p class="card-text"><span style="font-weight: 700;">Buy Now:
+            <%= trade.buyNow.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span><span
             style="color: orange; font-weight: 700;">c</span></p>
         <% }else{ %>
         <p class="card-text">Buy Now: N/A</p>

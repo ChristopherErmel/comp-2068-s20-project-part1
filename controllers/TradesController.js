@@ -114,8 +114,8 @@ exports.myoffers = async (req, res) => {
       let myOffer = await Trade.find({ _id: offer.tradeId });
       myOffers.push(myOffer);
 
-      console.log("offer")
-      console.log(offer)
+      //console.log("offer")
+      //console.log(offer)
     }
 
 
@@ -237,7 +237,7 @@ exports.new = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    console.log(`${JSON.stringify(req.body)}`);
+   // console.log(`${JSON.stringify(req.body)}`);
 
 
     const { user: email } = req.session.passport;

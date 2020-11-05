@@ -182,6 +182,9 @@ header:not(.home-cta), .alert {
 }
 
 
+.showCardNameShow{
+  text-align: center;
+}
 
 
 
@@ -210,6 +213,12 @@ header:not(.home-cta), .alert {
   border-width: 1;
   background-color:#f8f8ff;
   font-size: 1.5vh;
+  margin-top: .5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 2em;  
+  font-size: .75em;
 }
 
 /* Background of table of big info card of main player on trade offer pages */
@@ -264,14 +273,13 @@ header:not(.home-cta), .alert {
   display: inline-block;
   border-style: solid;
   border-width: 2;
-  border-color: #915c83;
+  border-color: #5C5F58;
   border-radius: 5px;
-  background-color:#f0ead6;
+  background-color:#DCE1E3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-right: .25em;
-  color: black;
 }
 
 .tradeOfferSlab{
@@ -333,14 +341,126 @@ header:not(.home-cta), .alert {
   margin-top: 1.3em;
   margin-bottom: 0em;
   float: left;
+  border: none;
 }
 /* Style for the trade offer title names - button styles */
 .tradeOfferCardsNamesButton{
   /* color: blue; */
   background-color: #f2f2f2;
-  border-color:  black;
+  border: 2px solid #dadada;
+  border-radius: 7px;
   /* font-size: ; */
   width: 100%;
   height: 2em;
 
+}
+.tradeOfferCardsNamesButton:focus{
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
+
+
+
+/* Style for the playerImages on trade block */
+.playerImages{
+  height: auto;
+  width: 50%;
+  background-size: contain;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+/* Style for the player names and card type and overall on trade block page  */
+.playerNamesInfo{
+  font-size: .8em;
+  text-align: center;
+  height: 3em;
+}
+
+hr.playerNamesInfohr{  
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+/* Style for the "BY" name on the trade block */
+.byNameTradeBlock{
+  font-size: .65em;
+}
+
+/* Styling for the full card-body of the player cards on the trade block */
+.playerCards{
+  padding: .75em;
+}
+
+/* Styling for the card text on the tradeblock */
+.card-text{
+  font-size: .85em;
+}
+.card-text-time{
+  font-size: .65em;
+}
+
+/* Style for the outter and full card on trade block */
+.card.fullTradeCards{
+  width: 20rem;
+  height: 31rem;
+  margin: 1.3em;
+  float: left;
+}
+
+
+
+
+
+/* This style is for the title / looking for ontheblock / on the show pages. */
+.card-title-show{
+  text-align: center;
+}
+
+/* Card name and ovr and type on show pages */
+.showCardName{
+  text-align: center;
+}
+
+/* styles for the requested cards name ovr and type on show pages */
+.showCardNameInfo{
+  font-size: .90em;
+  white-space: nowrap;
+  overflow: scroll; 
+  text-align: center;
+}
+
+/* style for the play images of the requested cards on the show pages */
+.playerImagesRequested{
+  height: auto;
+  width: 25%;
+  background-size: contain;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  float: left;
+  padding-right: .2em;
+  margin-bottom: 1em;
+}
+
+/* style for the play images of the offered cards on the show pages */
+.playerImagesOffer{
+  height: auto;
+  width: 25%;
+  background-size: contain;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  float: left;
+  padding-right: 2em;
+  padding-left: 2em;
+  margin-bottom: 1em;
+}
+
+/* Style for when showing the owner his offers on the show pages */
+.card-title-tradeOffers{
+  margin-bottom: 0;
+  height: 2.25em;
 }

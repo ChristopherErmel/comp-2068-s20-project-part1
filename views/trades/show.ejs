@@ -10,15 +10,25 @@
       <div class="card" style="width: 20rem; margin: 1.3em; float: left;">
         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
         <div class="card-body">
-          <h4 class="card-title">
+          <h4 class="card-title card-title-show">
             <p><%= trade.tradeType %></p>
           </h4>
           <hr />
-          <div class="showCardName">
-            <h5 style="height: 3em;">
+
+
+          <img class="playerImages" src="/playerCardImages/<%= card[0].playerImageLink %>" alt="">
+
+
+          <hr />
+
+          <div>
+            <h5 class="showCardName" style="height: 3em;">
               <p><%= card[0].playerName + ' || ' + card[0].overall %> </p>
               <p><%= card[0].card %></p>
             </h5>
+
+            <hr />
+
             <div class="showCard">
               <div class="form-group ">
                 <div class="row hutCardShort">
@@ -58,12 +68,20 @@
           <% } %>
           <% if(cardList1[0] || cardList2[0] || cardList3[0] || cardList4[0]){ %>
           <h6>Requested Cards:</h6>
+          <hr />
           <% } %>
           <% if(cardList1[0]){ %>
           <div style="overflow: auto;" class="showCardNameL">
-            <p><%-  cardList1[0].playerName + ' || ' + cardList1[0].card + ' || ' + cardList1[0].overall %> </p>
+            <p class="showCardNameInfo"><%-  cardList1[0].playerName + ' || ' + cardList1[0].card + ' || ' + cardList1[0].overall %> </p>
             <div class="showCard">
               <div class="form-group ">
+
+
+                <img class="playerImagesRequested" src="/playerCardImages/<%= cardList1[0].playerImageLink %>" alt="">
+
+
+
+
                 <div class="row hutCardShortL">
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= cardList1[0].playerName%></div>
@@ -90,9 +108,11 @@
           <% } %>
           <% if(cardList2[0]){ %>
           <div style="overflow: auto;" class="showCardNameL">
-            <p><%-  cardList2[0].playerName + ' || ' + cardList2[0].card + ' || ' + cardList2[0].overall %> </p>
+            <p class="showCardNameInfo"><%-  cardList2[0].playerName + ' || ' + cardList2[0].card + ' || ' + cardList2[0].overall %> </p>
             <div class="showCard">
               <div class="form-group ">
+                <img class="playerImagesRequested" src="/playerCardImages/<%= cardList2[0].playerImageLink %>" alt="">
+
                 <div class="row hutCardShortL">
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= cardList2[0].playerName%></div>
@@ -119,9 +139,11 @@
           <% } %>
           <% if(cardList3[0]){ %>
           <div style="overflow: auto;" class="showCardNameL">
-            <p><%-  cardList3[0].playerName + ' || ' + cardList3[0].card + ' || ' + cardList3[0].overall %> </p>
+            <p class="showCardNameInfo"><%-  cardList3[0].playerName + ' || ' + cardList3[0].card + ' || ' + cardList3[0].overall %> </p>
             <div class="showCard">
               <div class="form-group ">
+                <img class="playerImagesRequested" src="/playerCardImages/<%= cardList3[0].playerImageLink %>" alt="">
+
                 <div class="row hutCardShortL">
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= cardList3[0].playerName%></div>
@@ -148,9 +170,11 @@
           <% } %>
           <% if(cardList4[0]){ %>
           <div style="overflow: auto;" class="showCardNameL">
-            <p><%-  cardList4[0].playerName + ' || ' + cardList4[0].card + ' || ' + cardList4[0].overall %> </p>
+            <p class="showCardNameInfo"><%-  cardList4[0].playerName + ' || ' + cardList4[0].card + ' || ' + cardList4[0].overall %> </p>
             <div class="showCard">
               <div class="form-group ">
+                <img class="playerImagesRequested" src="/playerCardImages/<%= cardList4[0].playerImageLink %>" alt="">
+
                 <div class="row hutCardShortL">
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= cardList4[0].playerName%></div>
@@ -353,6 +377,10 @@
                   </p>
                   <div class="showCard">
                     <div class="form-group ">
+
+                      <img class="playerImagesOffer" src="/playerCardImages/<%= cardOffers["CardsO1" + iioi][0].playerImageLink %>" alt="">
+
+
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">Name:</div>
                         <div class="col" id="cardName"><%= cardOffers["CardsO1" + iioi][0].playerName%></div>
@@ -373,6 +401,18 @@
                         <div class="col hutCardItem">SYN:</div>
                         <div class="col" id="cardSYN"><%= cardOffers["CardsO1" + iioi][0].synergies%></div>
                       </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Height:</div>
+                        <div class="col" id="cardHeight"><%= cardOffers["CardsO1" + iioi][0].height%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Weight:</div>
+                        <div class="col" id="cardWeight"><%= cardOffers["CardsO1" + iioi][0].weight%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Player Type:</div>
+                        <div class="col" id="cardPlayerType"><%= cardOffers["CardsO1" + iioi][0].playerType%></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -385,6 +425,8 @@
                   </p>
                   <div class="showCard">
                     <div class="form-group ">
+                      <img class="playerImagesOffer" src="/playerCardImages/<%= cardOffers["CardsO2" + iioi][0].playerImageLink %>" alt="">
+
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">Name:</div>
                         <div class="col" id="cardName"><%= cardOffers["CardsO2" + iioi][0].playerName%></div>
@@ -405,6 +447,18 @@
                         <div class="col hutCardItem">SYN:</div>
                         <div class="col" id="cardSYN"><%= cardOffers["CardsO2" + iioi][0].synergies%></div>
                       </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Height:</div>
+                        <div class="col" id="cardHeight"><%= cardOffers["CardsO2" + iioi][0].height%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Weight:</div>
+                        <div class="col" id="cardWeight"><%= cardOffers["CardsO2" + iioi][0].weight%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Player Type:</div>
+                        <div class="col" id="cardPlayerType"><%= cardOffers["CardsO2" + iioi][0].playerType%></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -417,6 +471,8 @@
                   </p>
                   <div class="showCard">
                     <div class="form-group ">
+                      <img class="playerImagesOffer" src="/playerCardImages/<%= cardOffers["CardsO3" + iioi][0].playerImageLink %>" alt="">
+
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">Name:</div>
                         <div class="col" id="cardName"><%= cardOffers["CardsO3" + iioi][0].playerName%></div>
@@ -437,6 +493,18 @@
                         <div class="col hutCardItem">SYN:</div>
                         <div class="col" id="cardSYN"><%= cardOffers["CardsO3" + iioi][0].synergies%></div>
                       </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Height:</div>
+                        <div class="col" id="cardHeight"><%= cardOffers["CardsO3" + iioi][0].height%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Weight:</div>
+                        <div class="col" id="cardWeight"><%= cardOffers["CardsO3" + iioi][0].weight%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Player Type:</div>
+                        <div class="col" id="cardPlayerType"><%= cardOffers["CardsO3" + iioi][0].playerType%></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -449,6 +517,8 @@
                   </p>
                   <div class="showCard">
                     <div class="form-group ">
+                      <img class="playerImagesOffer" src="/playerCardImages/<%= cardOffers["CardsO4" + iioi][0].playerImageLink %>" alt="">
+
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">Name:</div>
                         <div class="col" id="cardName"><%= cardOffers["CardsO4" + iioi][0].playerName%></div>
@@ -468,6 +538,18 @@
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">SYN:</div>
                         <div class="col" id="cardSYN"><%= cardOffers["CardsO4" + iioi][0].synergies%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Height:</div>
+                        <div class="col" id="cardHeight"><%= cardOffers["CardsO4" + iioi][0].height%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Weight:</div>
+                        <div class="col" id="cardWeight"><%= cardOffers["CardsO4" + iioi][0].weight%></div>
+                      </div>
+                      <div class="row hutCardShortL">
+                        <div class="col hutCardItem">Player Type:</div>
+                        <div class="col" id="cardPlayerType"><%= cardOffers["CardsO4" + iioi][0].playerType%></div>
                       </div>
                     </div>
                   </div>
@@ -744,7 +826,7 @@
       <% if(user){ %>
       <% if((authorized) && user._id.toString() === trade.user._id.toString()) { %>
       <div class="card tradeOfferCardsNames">
-        <h5 class="card-title tradeOfferCardsNamesButton"><label for="comment" style="margin: 1em;">Trade Offers:</label></h5>
+        <h5 class="card-title-tradeOffers"><label for="comment" style="margin: 1em;">Trade Offers:</label></h5>
         <div class="card" style="width: 37rem; margin: 1.3em; float: left;">
           <ul class="nav nav-pills">
             <script> let i = 0; let tradeOfferInfo; let tab;</script>
@@ -795,6 +877,9 @@
           </p>
           <div class="showCard">
             <div class="form-group ">
+
+              <img class="playerImagesOffer" src="/playerCardImages/<%= cardOffers["CardsO1" + ii][0].playerImageLink %>" alt="">
+
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">Name:</div>
                 <div class="col" id="cardName"><%= cardOffers["CardsO1" + ii][0].playerName%></div>
@@ -815,6 +900,18 @@
                 <div class="col hutCardItem">SYN:</div>
                 <div class="col" id="cardSYN"><%= cardOffers["CardsO1" + ii][0].synergies%></div>
               </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Height:</div>
+                <div class="col" id="cardHeight"><%= cardOffers["CardsO1" + ii][0].height%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Weight:</div>
+                <div class="col" id="cardWeight"><%= cardOffers["CardsO1" + ii][0].weight%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Player Type:</div>
+                <div class="col" id="cardPlayerType"><%= cardOffers["CardsO1" + ii][0].playerType%></div>
+              </div>
             </div>
           </div>
         </div>
@@ -827,6 +924,8 @@
           </p>
           <div class="showCard">
             <div class="form-group ">
+              <img class="playerImagesOffer" src="/playerCardImages/<%= cardOffers["CardsO2" + ii][0].playerImageLink %>" alt="">
+
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">Name:</div>
                 <div class="col" id="cardName"><%= cardOffers["CardsO2" + ii][0].playerName%></div>
@@ -847,6 +946,18 @@
                 <div class="col hutCardItem">SYN:</div>
                 <div class="col" id="cardSYN"><%= cardOffers["CardsO2" + ii][0].synergies%></div>
               </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Height:</div>
+                <div class="col" id="cardHeight"><%= cardOffers["CardsO2" + ii][0].height%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Weight:</div>
+                <div class="col" id="cardWeight"><%= cardOffers["CardsO2" + ii][0].weight%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Player Type:</div>
+                <div class="col" id="cardPlayerType"><%= cardOffers["CardsO2" + ii][0].playerType%></div>
+              </div>
             </div>
           </div>
         </div>
@@ -859,6 +970,9 @@
           </p>
           <div class="showCard">
             <div class="form-group ">
+
+              <img class="playerImagesOffer" src="/playerCardImages/<%= cardOffers["CardsO3" + ii][0].playerImageLink %>" alt="">
+
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">Name:</div>
                 <div class="col" id="cardName"><%= cardOffers["CardsO3" + ii][0].playerName%></div>
@@ -879,6 +993,18 @@
                 <div class="col hutCardItem">SYN:</div>
                 <div class="col" id="cardSYN"><%= cardOffers["CardsO3" + ii][0].synergies%></div>
               </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Height:</div>
+                <div class="col" id="cardHeight"><%= cardOffers["CardsO3" + ii][0].height%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Weight:</div>
+                <div class="col" id="cardWeight"><%= cardOffers["CardsO3" + ii][0].weight%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Player Type:</div>
+                <div class="col" id="cardPlayerType"><%= cardOffers["CardsO3" + ii][0].playerType%></div>
+              </div>
             </div>
           </div>
         </div>
@@ -891,6 +1017,8 @@
           </p>
           <div class="showCard">
             <div class="form-group ">
+              <img class="playerImagesOffer" src="/playerCardImages/<%= cardOffers["CardsO4" + ii][0].playerImageLink %>" alt="">
+
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">Name:</div>
                 <div class="col" id="cardName"><%= cardOffers["CardsO4" + ii][0].playerName%></div>
@@ -910,6 +1038,18 @@
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">SYN:</div>
                 <div class="col" id="cardSYN"><%= cardOffers["CardsO4" + ii][0].synergies%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Height:</div>
+                <div class="col" id="cardHeight"><%= cardOffers["CardsO4" + ii][0].height%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Weight:</div>
+                <div class="col" id="cardWeight"><%= cardOffers["CardsO4" + ii][0].weight%></div>
+              </div>
+              <div class="row hutCardShortL">
+                <div class="col hutCardItem">Player Type:</div>
+                <div class="col" id="cardPlayerType"><%= cardOffers["CardsO4" + ii][0].playerType%></div>
               </div>
             </div>
           </div>
