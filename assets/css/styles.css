@@ -388,7 +388,7 @@ header:not(.home-cta), .alert {
 
 /* Style for the player names and card type and overall on trade block page  */
 .playerNamesInfo{
-  font-size: .8em;
+  font-size: 1em;
   text-align: center;
   height: 3em;
 }
@@ -406,6 +406,8 @@ hr.playerNamesInfohr{
 /* Styling for the full card-body of the player cards on the trade block */
 .playerCards{
   padding: .75em;
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 /* Styling for the card text on the tradeblock */
@@ -483,9 +485,10 @@ hr.playerNamesInfohr{
 
 /* styles for the whole content area on the trade block */
 .content.cardLayout{
-  text-align: justify;
+  /* text-align: justify;
   -ms-text-justify: distribute-all-lines;
-  text-justify: distribute-all-lines;
+  text-justify: distribute-all-lines; */
+  float: left;
 }
 
 /* styles for the logged in buttons on the trade block/ complete/delete */
@@ -500,9 +503,4 @@ hr.playerNamesInfohr{
   size: 10%;
   float: right;
   margin-top: .75vh;
-  /* font-size: .77vw;
-  text-align: center;
-  white-space: nowrap;
-  float: right;
-   */
 }
