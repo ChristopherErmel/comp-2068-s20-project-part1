@@ -412,7 +412,7 @@ hr.playerNamesInfohr{
 
 /* Styling for the card text on the tradeblock */
 .card-text{
-  font-size: .85em;
+  font-size: 1em;
 }
 .card-text-time{
   font-size: .65em;
@@ -465,7 +465,7 @@ hr.playerNamesInfohr{
 /* style for the play images of the offered cards on the show pages */
 .playerImagesOffer{
   height: auto;
-  width: 25%;
+  width: 30%;
   background-size: contain;
   margin-left: auto;
   margin-right: auto;
