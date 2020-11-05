@@ -492,13 +492,17 @@ hr.playerNamesInfohr{
 .buttonOptionsTB{
   height: auto;
   width: 25%;
+  size: 10%;
 }
 .buttonOptionsTBc{
   height: auto;
-  width: 30%;
-  font-size: .77vw;
+  width: 25%;
+  size: 10%;
+  float: right;
+  margin-top: .75vh;
+  /* font-size: .77vw;
   text-align: center;
   white-space: nowrap;
   float: right;
-  margin-top: .75vh;
+   */
 }
