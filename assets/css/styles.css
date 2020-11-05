@@ -489,6 +489,7 @@ hr.playerNamesInfohr{
   -ms-text-justify: distribute-all-lines;
   text-justify: distribute-all-lines; */
   float: left;
+  padding-left: 2vh;
 }
 
 /* styles for the logged in buttons on the trade block/ complete/delete */
