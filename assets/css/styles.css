@@ -418,8 +418,8 @@ hr.playerNamesInfohr{
 
 /* Style for the outter and full card on trade block */
 .card.fullTradeCards{
-  width: 20rem;
-  height: 31rem;
+  width: 25vw;
+  height: 40vw;
   margin: 1.3em;
   float: left;
 }
