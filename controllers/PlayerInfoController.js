@@ -202,23 +202,18 @@ async function scrapeIt(url) {
             
 
             //Grabbing the card ID
-            const cardID = imageURLId.split('.').slice(0, -1).join('.');
+            const cardID = imageURLId.split('.').slice(0, -1).join('.');        
             
 
             //setting all the information to the playerInfos array.
             //sending data back
            return playerInfoB4 = ({ cardID, imageURLId, synergies, playerName, card, postition, playerType, height, weight, handedness, overall, averageOverAll, deking, handEye, passing, puckControl, slapShotAccuracy, slapShotPower, wristShotAccuracy, wristShotPower, acceleration, agility, balance, endurance, speed, discipline, offensiveAwareness, defensiveAwareness, faceOffs, shotBlocking, stickChecking, aggression, bodyChecking, durability, fightingSkill, strength });
-                
-            //console.log(playerInfos);
-           // console.log("hit");
 
         });
-
+        //push the player data into the array or all player data.
         playerInfos.push(playerInfoB4);
-        //console.log(playerInfoB4 );
-        //close the current page and open a new one.
-        //page.close();
     }
+    //when done, close the browser and return the data...
     await browser.close();
     return playerInfos;
 }

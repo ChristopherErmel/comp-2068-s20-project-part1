@@ -104,8 +104,6 @@ app.use('/', (req, res, next) => {
 });
 
 
-
-
 /*
   Step 7: Register our route composer
 */
@@ -117,7 +115,7 @@ app.use('/js', express.static('assets/js'));
 app.use('/images', express.static('assets/images'));
 app.use('/players', express.static('assets/players'));
 app.use('/playersImages', express.static('assets/players/images'));
-
+app.use('/playerCardImages', express.static('assets/playerCardImages'));
 
 
 

@@ -35,7 +35,16 @@
           <p><%= cards[i][0].playerName + ' || ' + cards[i][0].overall  %></p>
           <p> <%= cards[i][0].card %></p>
         </h5>
-        <% i = i+1; %>
+        
+
+       
+        <!-- Image... -->
+          <img height="150px" width="50px" src="/playerCardImages/<%= cards[i][0].playerImageLink %>" alt="">
+          
+          <% i = i + 1; %>
+
+
+
         <% if (typeof trade.user !== 'undefined') {%>
         <small style="font-weight: bold;">by <%= trade.user.userName %></small>
         <% } %>
