@@ -23,7 +23,7 @@
 
 
 
-  <div class="content">
+  <div class="content cardLayout">
     <% let i = 0; %>
     <!-- go over all offers -->
     <% for (let offer of myOffers) { %>
@@ -31,9 +31,11 @@
       <!-- if logged in and authorized -->
     <% if(authorized && (typeof offer.user === 'undefined')) { %>
 
-    <div class="card" style="width: 20rem; height: 18.5rem; margin: 1.3em; float: left;">
-      <div class="card-body">
-        <h5 style="height: 3em;">
+    <div class="card fullTradeCards">
+      <div class="card-body playerCards">
+        <img class="playerImages" src="/playerCardImages/<%= cards[i][0].playerImageLink %>" alt="">
+        <hr class="playerNamesInfohr" />
+        <h5 class="playerNamesInfo">
           <% //console.log(cards[i]) %> 
           <p><%= cards[i][0].playerName + ' || ' + cards[i][0].overall  %></p>
           <p> <%= cards[i][0].card %></p>

@@ -29,14 +29,20 @@
 
     <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
     <!-- <% //if() { } %>  -->
-    <div class="card" style="width: 20rem; height: 18.5rem; margin: 1.3em; float: left;">
+    <div class="card fullTradeCards">
       <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-      <div class="card-body">
-        <h5 style="height: 3em;">
+      <div class="card-body playerCards">
+         <!-- Image... -->
+         <img class="playerImages" src="/playerCardImages/<%= cards[i][0].playerImageLink %>" alt="">
+         <hr class="playerNamesInfohr" />
+        <h5 class="playerNamesInfo">
           <p><%= cards[i][0].playerName + ' || ' + cards[i][0].overall  %></p>
           <p> <%= cards[i][0].card %></p>
         </h5>
         <% i = i+1; %>
+
+        <hr />
+        
         <% if (typeof trade.user !== 'undefined') {%>
         <small style="font-weight: bold;">by <%= trade.user.userName %></small>
         <% } %>
@@ -79,15 +85,13 @@
           </button>
         </form>
         <% if(trade.tradeStatus == "Traded"){ %>
-        <a class="btn btn-secondary btn-sm"
-          style="display: inline-block; float: right; text-decoration: line-through;">Complete Trade</a>
-        <% } %>
-        <% if(trade.tradeStatus == "Available"){ %>
-        <a class="btn btn-success btn-sm" href="/trades/<%= trade.id %>/edit"
-          style="display: inline-block; float: right;"
-          onclick="return confirm('Only complete a trade if both parties have recived their cards! \nAre you sure you want to complete this trade?');">Complete
-          Trade</a>
-        <% } %>
+          <a class="btn btn-secondary btn-sm buttonOptionsTBc"
+            style="text-decoration: line-through;"><i class="fa fa-check-circle-o" aria-hidden="true"></i></a>
+          <% } %>
+          <% if(trade.tradeStatus == "Available"){ %>
+          <a class="btn btn-success btn-sm buttonOptionsTBc" href="/trades/<%= trade.id %>/edit"
+            onclick="return confirm('Only complete a trade if both parties have recived their cards! \nAre you sure you want to complete this trade?');"><i class="fa fa-check-circle-o" aria-hidden="true"></i></a>
+          <% } %>
       </div>
       <% } %>
 
