@@ -322,6 +322,9 @@ exports.delete = async (req, res) => {
 exports.comment = async (req, res) => {
   try {
 
+    //If the coins offer is nothing, or if any card option is not a card... throw
+    //I choose 10 as the min length because no card option will be below 10, 
+    // and most people wont type 10 random letters into the search box and then send an offer...
    if (req.body.coinsOffer === "" && req.body.cardListO1.length < 10 && req.body.cardListO2.length < 10 && req.body.cardListO3.length < 10 && req.body.cardListO4.length < 10) {
     throw "Invalid Card or Coin Offer";
    }else{
@@ -366,7 +369,6 @@ exports.comment = async (req, res) => {
     res.redirect(`/trades/${req.body.id}`);
   } catch (error) {
     req.flash('error', `Trade offer error: ${error}`);
-    console.log(error);
     res.redirect(`/trades/${req.body.id}`);
   }
 }
@@ -402,6 +404,12 @@ exports.tradeComment = async (req, res) => {
     console.log(error);
   }
 }
+
+
+
+
+
+
 
 
 // Might come back to this later...

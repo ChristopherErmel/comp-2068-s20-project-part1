@@ -7,6 +7,10 @@ const PlayerInfoSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    playerImageLink: {
+        type: String,
+        required: true
+    },
     playerName: {
         type: String,
         required: true
@@ -149,10 +153,10 @@ const PlayerInfoSchema = new mongoose.Schema({
 });
 
 
-PlayerInfoSchema.virtual.findCard = function (id) {
-    return("hit")    
+//PlayerInfoSchema.virtual.findCard = function (id) {
+   // return("hit")    
     // db.collection.find({_id : id})
-  };
+  //};
 
 
 module.exports = mongoose.model('PlayerInfo', PlayerInfoSchema);

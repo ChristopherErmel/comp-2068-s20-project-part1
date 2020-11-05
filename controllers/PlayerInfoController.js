@@ -1,5 +1,9 @@
 const PlayerInfo = require('../models/playerInfo');
 const puppeteer = require('puppeteer');
+const fs = require('fs');
+const https = require('https');
+
+
 
 const sleep = async time => {
     return new Promise(resolve => {
@@ -19,12 +23,11 @@ exports.update = async (req, res) => {
     const playerInfos = await scrapeIt('https://www.nhlhutbuilder.com/player-stats.php');
 
     for (let playerInfo of playerInfos) {
-        //if empty then ignore it
-        if (playerInfo.id === "" || playerInfo.playerName === "") continue;
-        //other wise, update our PlayerInfo model with the data
+        //update our PlayerInfo model with the data
         await PlayerInfo.updateOne({
             //its finding the cardid if its there... else create it, main
             cardID: playerInfo.cardID,
+            playerImageLink: playerInfo.imageURLId,
             playerName: playerInfo.playerName,
             card: playerInfo.card,
             postition: playerInfo.postition,
@@ -67,10 +70,11 @@ exports.update = async (req, res) => {
         )
     }
 
-  //  res.json(playerInfos);
+    //  res.json(playerInfos);
 
     res.redirect('/playerInfo');
 };
+
 
 async function scrapeIt(url) {
     const browser = await puppeteer.launch({ headless: false });
@@ -93,7 +97,7 @@ async function scrapeIt(url) {
 
     await page.goto(url);
     await sleep(5);
-    await page.screenshot({ path: 'screenshots/check.png' });
+    // await page.screenshot({ path: 'screenshots/check.png' });
     await page.evaluate(async () => {
         window.scrollBy(0, document.body.scrollWidth);
         await sleep(2);
@@ -103,84 +107,137 @@ async function scrapeIt(url) {
 
     await page.waitForSelector(`[class="table display compact hover stripe dataTable"]`, { visible: true, timeout: 120 });
 
-    const nextTable = true;
 
-    // do {
-        const content = await page.evaluate(async () => {
+    //array of all card info urls
+    let playerInfoUrls = [];
 
+    const pageNumber = 1;
+    //this will run depending on the amourn of pages there are...
+    for (let i = 0; i < pageNumber; i++) {
+        const hrefs = await page.$$eval('.advanced-stats', elements => elements.map(el => el.href))
+        //const urls = hrefs.map(el => siteUrl + el)
+
+        for (const url of hrefs) {
+            // await page.goto(url)
+            // await page.screenshot({ path: url + '.png' })
+            //console.log(url);
+            playerInfoUrls.push(url);
+        }
+
+        await page.evaluate(async () => {
             const nextButton = document.querySelector('#players_table_next');
-            let currentPage = document.querySelector('.paginate_button.current').innerText;
+            nextButton.click();
+            await sleep(2);
+        });
+    }
+
+    //array of all cards and their infos...
+    const playerInfos = [];
+   
 
 
-            const playerScrape = document.querySelectorAll('.odd, .even');
+    //bringing in the download function for images...
+    await page.exposeFunction('download', download);
 
-            const playerInfos = [];
-           
+    for (const url of playerInfoUrls) {
 
-            //console.log("Player Info Count: ", playerScrape.length);
-            for (let playerInfo of playerScrape) {
-                //info grabbing
-                const card = playerInfo.childNodes[0].innerText;
-                const postition = playerInfo.childNodes[1].innerText;
-                const playerType = playerInfo.childNodes[2].innerText;
-                const handedness = playerInfo.childNodes[3].innerText;
-                const height = playerInfo.childNodes[4].innerText;
-                const weight = playerInfo.childNodes[5].innerText;
-                const playerName = playerInfo.childNodes[6].innerText;
-                const synergies = "";//playerInfo.childNodes[7].innerText;
-                const overall = playerInfo.childNodes[8].innerText;
-                const averageOverAll = playerInfo.childNodes[9].innerText;
-                
-                const acceleration = playerInfo.childNodes[10].innerText;
-                const agility = playerInfo.childNodes[11].innerText;
-                const balance = playerInfo.childNodes[12].innerText;
-                const endurance = playerInfo.childNodes[13].innerText;
-                const speed = playerInfo.childNodes[14].innerText;
-                const slapShotAccuracy = playerInfo.childNodes[15].innerText;
-                const slapShotPower = playerInfo.childNodes[16].innerText;
-                const wristShotAccuracy = playerInfo.childNodes[17].innerText;
-                const wristShotPower = playerInfo.childNodes[18].innerText;
-                const deking = playerInfo.childNodes[19].innerText;
-                const offensiveAwareness = playerInfo.childNodes[20].innerText;
-                const handEye = playerInfo.childNodes[21].innerText;
-                const passing = playerInfo.childNodes[22].innerText;
-                const puckControl = playerInfo.childNodes[23].innerText;
-                const bodyChecking = playerInfo.childNodes[24].innerText;
-                const strength = playerInfo.childNodes[25].innerText;
-                const aggression = playerInfo.childNodes[26].innerText;
-                const durability = playerInfo.childNodes[27].innerText;
-                const fightingSkill = playerInfo.childNodes[28].innerText;
-                const defensiveAwareness = playerInfo.childNodes[29].innerText;
-                const shotBlocking = playerInfo.childNodes[30].innerText;
-                const stickChecking = playerInfo.childNodes[31].innerText;
-                const faceOffs = playerInfo.childNodes[32].innerText;
-                const discipline = playerInfo.childNodes[33].innerText;
-               
-                
+        //go to and load page first.
+        await page.goto(url);
+        await sleep(1);
 
-                 
-                //grabbing the image url
-                const image = playerInfo.childNodes[6].children[0].href;
-                const parts = image.split('=');
-                const cardID = parts[parts.length - 1];
+        //grabbing all player info...
+       let playerInfoB4 = await page.evaluate(async () => {            
 
-                
+            const playerName = document.querySelector('#player_header').innerText;
+            const card = document.querySelector("#player_bio_table > tbody > tr:nth-child(2) > td:nth-child(2)").innerText;
+            const postition = document.querySelector("#player_bio_table > tbody > tr:nth-child(14) > td:nth-child(1)").innerText;
+            const playerType = document.querySelector("#player_bio_table > tbody > tr:nth-child(5) > td:nth-child(2)").innerText;
+            const handedness = document.querySelector("#player_bio_table > tbody > tr:nth-child(14) > td:nth-child(2)").innerText;
+            const height = document.querySelector("#player_bio_table > tbody > tr:nth-child(17) > td:nth-child(2)").innerText;
+            const weight = document.querySelector("#player_bio_table > tbody > tr:nth-child(17) > td:nth-child(1)").innerText;
+            const overall = document.querySelector("#player_bio_table > tbody > tr:nth-child(2) > td:nth-child(1)").innerText;
+            const averageOverAll = document.querySelector("#average_overall").innerText;
+            const acceleration = document.querySelector("#acceleration").innerText;
+            const agility = document.querySelector("#agility").innerText;
+            const balance = document.querySelector("#balance").innerText;
+            const endurance = document.querySelector("#endurance").innerText;
+            const speed = document.querySelector("#speed").innerText;
+            const slapShotAccuracy = document.querySelector("#slap_shot_accuracy").innerText;
+            const slapShotPower = document.querySelector("#slap_shot_power").innerText;
+            const wristShotAccuracy = document.querySelector("#wrist_shot_accuracy").innerText;
+            const wristShotPower = document.querySelector("#wrist_shot_power").innerText;
+            const deking = document.querySelector("#deking").innerText;
+            const offensiveAwareness = document.querySelector("#off_awareness").innerText;
+            const handEye = document.querySelector("#hand-eye").innerText;
+            const passing = document.querySelector("#passing").innerText;
+            const puckControl = document.querySelector("#puck_control").innerText;
+            const bodyChecking = document.querySelector("#body_checking").innerText;
+            const strength = document.querySelector("#strength").innerText;
+            const aggression = document.querySelector("#aggression").innerText;
+            const durability = document.querySelector("#durability").innerText;
+            const fightingSkill = document.querySelector("#fighting_skill").innerText;
+            const defensiveAwareness = document.querySelector("#def_awareness").innerText;
+            const shotBlocking = document.querySelector("#shot_blocking").innerText;
+            const stickChecking = document.querySelector("#stick_checking").innerText;
+            const faceOffs = document.querySelector("#faceoffs").innerText;
+            const discipline = document.querySelector("#discipline").innerText;
 
-                playerInfos.push({ cardID, playerName, card, postition, playerType, height, weight, handedness, synergies, overall, averageOverAll, deking, handEye, passing, puckControl, slapShotAccuracy, slapShotPower, wristShotAccuracy, wristShotPower, acceleration, agility, balance, endurance, speed, discipline, offensiveAwareness, defensiveAwareness, faceOffs, shotBlocking, stickChecking, aggression, bodyChecking, durability, fightingSkill, strength });
+            let synergies = "";
+            //grabbing the syns
+            for (const syn of document.querySelector(".syn_group").children) {
+                //console.log(syn.className);
+                const parts = syn.className.split('_');
+                // console.log(parts[parts.length - 1]);
+                synergies = synergies + `${parts[parts.length - 1]} `;
             }
 
-            //page number to go to...
-            if (currentPage === "2") {                
-                await browser.close();
-                nextTable === false;
-                return playerInfos;
-            } else {
-                 await nextButton.click();
-                await sleep(2);
-                 return playerInfos;
-            }
+            //grabbing image url
+            const imageURL = document.querySelector("#card_art").src;
+            const urlParts = imageURL.split('/');
+            const imageURLId = urlParts[urlParts.length - 1];
+
+            //pass the url to the download function. 
+            //it will download the image and save it to the dir based on the id.
+            await download(imageURL, `./assets/playerCardImages/${imageURLId}`);
+            
+
+            //Grabbing the card ID
+            const cardID = imageURLId.split('.').slice(0, -1).join('.');
+            
+
+            //setting all the information to the playerInfos array.
+            //sending data back
+           return playerInfoB4 = ({ cardID, imageURLId, synergies, playerName, card, postition, playerType, height, weight, handedness, overall, averageOverAll, deking, handEye, passing, puckControl, slapShotAccuracy, slapShotPower, wristShotAccuracy, wristShotPower, acceleration, agility, balance, endurance, speed, discipline, offensiveAwareness, defensiveAwareness, faceOffs, shotBlocking, stickChecking, aggression, bodyChecking, durability, fightingSkill, strength });
+                
+            //console.log(playerInfos);
+           // console.log("hit");
+
         });
 
-    // } while (nextTable);    
-   return content;
+        playerInfos.push(playerInfoB4);
+        //console.log(playerInfoB4 );
+        //close the current page and open a new one.
+        //page.close();
+    }
+    await browser.close();
+    return playerInfos;
 }
+
+
+
+ //this will download the images and save them.
+ const download = (url, destination) => new Promise((resolve, reject) => {
+    const file = fs.createWriteStream(destination);
+  
+    https.get(url, response => {
+      response.pipe(file);
+  
+      file.on('finish', () => {
+        file.close(resolve(true));
+      });
+    }).on('error', error => {
+      fs.unlink(destination);
+  
+      reject(error.message);
+    });
+  });
