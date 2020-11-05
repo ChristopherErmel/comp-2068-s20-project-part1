@@ -350,7 +350,7 @@ header:not(.home-cta), .alert {
 }
 /* Style for the trade offer title names - when its the users own trade offers */
 .tradeOfferCardsNamesMy{
-  width: 40rem;
+  width: 65vw;
   margin: 1.2em;
   margin-top: 1.3em;
   margin-bottom: 0em;
@@ -505,3 +505,10 @@ hr.playerNamesInfohr{
   float: right;
   margin-top: .75vh;
 }
+
+
+/* Style for content area on show pages. */
+.content.contentShow{
+  width: 100%;
+}
+

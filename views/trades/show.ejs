@@ -4,10 +4,11 @@
 -->
 <%- include ('../partials/header') %>
 
-<div class="container py-5 bg-faded">
+<div class=" py-5 bg-faded">
   <header>
-    <div class="content">
-      <div class="card" style="width: 20rem; margin: 1.3em; float: left;">
+    <div class="content contentShow">
+      <!-- <div class="card" style="width: 5vw; margin: 1.3em; float: left;"></div> -->
+      <div class="card" style="width: 25vw; margin: 1.3em; float: left;">
         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
         <div class="card-body">
           <h4 class="card-title card-title-show">
@@ -727,7 +728,7 @@
 
 
         
-      <div class="card" id="offerCardOnF" style="width: 40rem; margin: 1.3em; float: left;">
+      <div class="card" id="offerCardOnF" style="width: 65vw; margin: 1.3em; float: left;">
         <form action="<%= (typeof actionPath === 'undefined') ? '/trades/comment' : actionPath %>" , method="POST">
           <input type="hidden" name="id" value="<%= trade.id %>">
           <input type="hidden" name="user" value="<%= user.userName %>">
@@ -851,7 +852,7 @@
         <!-- if its a new offer and has no trade offers yet. -->
         <% if(trade.tradeOffers === undefined || trade.tradeOffers.length == 0) {%>
       </div>
-      <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
+      <div class="card" style="width: 65vw; margin: 1.3em; float: left;">
         <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This trade has no active
             offers at the moment.</label></h5>
         <p style="margin-left: 1em;">Please come back later...</p>
@@ -1172,7 +1173,7 @@
 
     <!-- If you are not logged in, show this. -->
     <% if(!authorized) { %>
-    <div class="card" style="width: 40rem; margin: 1.3em; float: left;">
+    <div class="card" style="width: 65vw; margin: 1.3em; float: left;">
       <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Inquire about
           trade</label></h5>
       <p style="margin-left: 1em;">Please log in to make an offer.</p>
@@ -1185,7 +1186,7 @@
 </div>
 </div>
 <!-- If the trade has been finished and the completed button was clicked. everyone will see this... -->
-<div class="card" style="width: 40rem; margin: 1.3em; float: left;">
+<div class="card" style="width: 65vw; margin: 1.3em; float: left;">
   <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This Trade Has Been
       Completed!</label></h5>
   <p style="margin-left: 1em;">Please visit The Block for other options...</p>
