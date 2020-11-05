@@ -378,8 +378,8 @@ header:not(.home-cta), .alert {
 
 /* Style for the playerImages on trade block */
 .playerImages{
-  height: auto;
-  width: 50%;
+  height: 285px;
+  width: 200px;
   background-size: contain;
   margin-left: auto;
   margin-right: auto;
@@ -418,13 +418,14 @@ hr.playerNamesInfohr{
 
 /* Style for the outter and full card on trade block */
 .card.fullTradeCards{
-  width: 50vh;
-  height: 80vh;
-  margin: 1.3em;
-  float: left;
+  height: auto;
+  width: auto;
+  margin: auto;
+  margin-top: 1vw;
+  margin-left: 1.3vw;
+  display:inline-block;
+  max-width: 30%;
 }
-
-
 
 
 
