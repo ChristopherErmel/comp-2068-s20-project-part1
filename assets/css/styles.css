@@ -218,7 +218,7 @@ header:not(.home-cta), .alert {
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: 2em;  
-  font-size: 10px;
+  font-size: 1.3vw;
 }
 
 /* Background of table of small info card of players on trade offer pages for the requested cards */
@@ -232,7 +232,7 @@ header:not(.home-cta), .alert {
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: 2em;  
-  font-size: 9px;
+  font-size: .7vw;
 }
 
 /* Background of table of big info card of main player on trade offer pages */
