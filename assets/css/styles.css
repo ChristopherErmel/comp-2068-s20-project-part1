@@ -317,7 +317,7 @@ header:not(.home-cta), .alert {
 /* Style for the Trade Offer Cards on the Show Pages. */
 .tradeOfferCards{
   /* color: green; */
-  width: 40rem;
+  width: 65vw;
   margin: 1.3em;
   /* margin-right: 3em;  */
   float: left;
@@ -343,7 +343,7 @@ header:not(.home-cta), .alert {
 }
 /* Style for the trade offer title names */
 .tradeOfferCardsNames{
-  width: 40rem;
+  width: 65vw;
   margin: 1.2em;
   margin-top: 1.3em;
   float: left;
