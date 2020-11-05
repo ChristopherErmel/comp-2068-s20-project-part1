@@ -465,7 +465,7 @@ hr.playerNamesInfohr{
 /* style for the play images of the offered cards on the show pages */
 .playerImagesOffer{
   height: auto;
-  width: 30%;
+  width: 20vw;
   background-size: contain;
   margin-left: auto;
   margin-right: auto;
