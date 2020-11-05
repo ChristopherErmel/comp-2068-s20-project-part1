@@ -445,7 +445,7 @@ hr.playerNamesInfohr{
 .showCardNameInfo{
   font-size: .90vw;
   white-space: nowrap;
-  overflow: scroll; 
+  overflow: hidden; 
   text-align: center;
 }
 

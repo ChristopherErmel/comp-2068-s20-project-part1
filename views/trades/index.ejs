@@ -56,16 +56,21 @@
         <p class="card-text"><span style="font-weight: 700;">Buy Now:
             <%= trade.buyNow.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span><span
             style="color: orange; font-weight: 700;">c</span></p>
+        <% }else if(trade.tradeType == "Looking For"){ %>
+        <p class="card-text">Looking to aquire...</p>
         <% }else{ %>
-        <p class="card-text">Buy Now: N/A</p>
-        <% } %>
+          <p class="card-text">Buy Now: N/A</p>
+          <% } %>
         <% if(trade.tradeStatus == "Traded"){ %>
         <p class="card-text" style="text-decoration: line-through;">Currently: <%= trade.tradeStatus %></p>
         <% } %>
-        <% if(trade.tradeStatus == "Available"){ %>
+        <% if(trade.tradeStatus == "Available" && trade.tradeType != "Looking For"){ %>
         <p class="card-text" style="font-weight: 600;">Currently: <%= trade.tradeStatus %><span
             style="font-weight: 400;">&nbsp;on <%= trade.console %></span></p>
-        <% } %>
+        <% }else if(trade.tradeType == "Looking For" && trade.tradeStatus == "Available"){ %>
+          <p class="card-text" style="font-weight: 600;">Currently: <%= trade.tradeType %><span
+            style="font-weight: 400;">&nbsp;on <%= trade.console %></span></p>
+          <% } %>
         <hr>
         <a class="btn btn-primary" href="/trades/<%= trade.id %>">View</a>
         <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
