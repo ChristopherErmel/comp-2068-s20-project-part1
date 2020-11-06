@@ -127,13 +127,13 @@ const { MongoClient, ObjectID } = require("mongodb");
 const Cors = require("cors");
 
 // cors origin URL - Allow inbound traffic from origin
-corsOptions = {
-  origin: "https://nhlhuttrader.herokuapp.com/",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+// corsOptions = {
+//   origin: "https://nhlhuttrader.herokuapp.com/",
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
 
 
-app.use(Cors(corsOptions));
+app.use(Cors);
 var client = new MongoClient(process.env.DB_SEARCH);
 const server = express();
 var collection;

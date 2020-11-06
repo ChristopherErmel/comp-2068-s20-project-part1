@@ -14,7 +14,7 @@
         source: async function(req, res){
           //const port = process.env.PORT || 3000;
           console.log(" <%= port  %>");
-          let data = await fetch(`http://127.0.0.1:<%= port %>/search?term=${req.term}`)
+          let data = await fetch(`${window.location.href}/search?term=${req.term}`)
           .then(results => results.json())
           .then(results => results.map(result => {
             return {lable: result.playerName, value: `${result.playerName} || ${result.card} || ${result.overall}` , id: result.cardID, card: result};
