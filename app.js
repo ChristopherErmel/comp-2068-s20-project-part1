@@ -133,7 +133,7 @@ const Cors = require("cors");
 // };
 
 
-app.use(Cors);
+app.use(Cors());
 var client = new MongoClient(process.env.DB_SEARCH);
 const server = express();
 var collection;
