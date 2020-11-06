@@ -126,7 +126,7 @@ app.use('/playerCardImages', express.static('assets/playerCardImages'));
 const { MongoClient, ObjectID } = require("mongodb");
 const Cors = require("cors");
 app.use(Cors());
-var client = new MongoClient("mongodb+srv://chrisermel:w0rdOfTHEP@33@cluster0.f7r2y.mongodb.net/project?retryWrites=true&w=majority");
+var client = new MongoClient(process.env.DB_SEARCH);
 const server = express();
 var collection;
 
