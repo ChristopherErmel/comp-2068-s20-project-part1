@@ -13,7 +13,7 @@
       $("#playerNames").autocomplete({
         source: async function(req, res){
           //const port = process.env.PORT || 3000;
-          let data = await fetch(`http://localhost:<%= port %>/search?term=${req.term}`)
+          let data = await fetch(`http://0.0.0.0/0:<%= port %>/search?term=${req.term}`)
           .then(results => results.json())
           .then(results => results.map(result => {
             return {lable: result.playerName, value: `${result.playerName} || ${result.card} || ${result.overall}` , id: result.cardID, card: result};
