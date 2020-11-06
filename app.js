@@ -99,6 +99,9 @@ app.use('/', (req, res, next) => {
   //local db
   res.locals.db = mongoose.connection;
 
+  //port
+  res.locals.port = process.env.PORT || 3000;
+
   //this will jump to the next middleware now
   next();
 });

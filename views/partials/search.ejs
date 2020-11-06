@@ -6,11 +6,14 @@
     <ul id="players"></ul>
 
   </div>
+  
   <script>
+    
     $(document).ready(function(){
       $("#playerNames").autocomplete({
         source: async function(req, res){
-          let data = await fetch(`http://localhost:3000/search?term=${req.term}`)
+          //const port = process.env.PORT || 3000;
+          let data = await fetch(`http://localhost:<%= port %>/search?term=${req.term}`)
           .then(results => results.json())
           .then(results => results.map(result => {
             return {lable: result.playerName, value: `${result.playerName} || ${result.card} || ${result.overall}` , id: result.cardID, card: result};

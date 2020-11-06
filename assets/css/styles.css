@@ -318,7 +318,7 @@ header:not(.home-cta), .alert {
 .tradeOfferCards{
   /* color: green; */
   width: 65vw;
-  margin: 1.3em;
+  /* margin: 1.3em; */
   /* margin-right: 3em;  */
   float: left;
 }
@@ -354,7 +354,7 @@ header:not(.home-cta), .alert {
   margin: 1.2em;
   margin-top: 1.3em;
   margin-bottom: 0em;
-  float: left;
+  float: right;
   border: none;
 }
 /* Style for the trade offer title names - button styles */
@@ -465,7 +465,7 @@ hr.playerNamesInfohr{
 /* style for the play images of the offered cards on the show pages */
 .playerImagesOffer{
   height: auto;
-  width: 20vw;
+  width: 18vw;
   background-size: contain;
   margin-left: auto;
   margin-right: auto;
@@ -474,7 +474,7 @@ hr.playerNamesInfohr{
   padding-right: 2em;
   padding-left: 2em;
   margin-bottom: 1em;
-  margin-top: .5em;
+  margin-top: 2.25vw;
 }
 
 /* Style for when showing the owner his offers on the show pages */
@@ -512,3 +512,186 @@ hr.playerNamesInfohr{
   width: 100%;
 }
 
+
+/* all below is styling for the content cards on the show pages */
+.card.mainPlayerCard{
+  width: 25vw;
+  margin: 1.3em;
+  float: left;
+}
+
+.card.leftSpace{
+  width: 2vw;
+  float: left;
+  visibility: hidden;
+  /* height: 100vh; */
+}
+
+.card.offerCardOnF{
+  width: 65vw;
+  margin: 1.3em;
+  float: right;
+}
+
+.card.tradeSideCards{
+  width: 60.5vw;
+  margin: 1.3em;
+  float: left;
+}
+
+.card.cardTempOfferCard.tradeOfferCards{
+  /* width: 65vw;
+  margin: 1.2em;
+  margin-top: 1.3em;
+  margin-bottom: 0em;
+  
+  border: none; */
+  margin-top: 1em;
+  /* margin-left: 30vw; */
+  float: right;
+  margin-right: 3.25vw;
+}
+
+.card.cardTempOfferCard.tradeOfferCards.tempOf{
+  margin-right: 4.25vw;
+}
+
+/* Style for the currently on ps/xbox text on index/tradeblock page */
+.card-text.currently{
+  font-size: .9em;
+}
+
+/* all below is styling for the content cards on the show pages */
+/* CSS that should be displayed if width is equal to or less than 1120px goes here */
+@media (max-width: 1120px) {
+  .card.mainPlayerCard{
+    width: 80vw;
+    margin: 1.3em;
+    float: left;
+  }
+  
+  .card.leftSpace{
+    width: 10vw;
+    float: left;
+    visibility: hidden;
+  }
+  
+  .card.offerCardOnF{
+    width: 80vw;
+    margin: 1.3em;
+    float: left;
+  }
+  
+  .card.tradeSideCards{
+    width: 80vw;
+    margin: 1.3em;
+    float: left;
+    margin-left: 12.5vw;
+  }
+  .card.tradeOfferCardsNamesMy{
+    width: 80vw;
+    margin: 1.3em;
+    margin-left: 12vw;
+  }
+  .card.cardTempOfferCard.tradeOfferCards{
+    width: 80vw;
+    /* margin: 1.3em; */
+    /* margin-left: 10vw; */
+    float: left;
+  }
+  .playerImagesOffer{
+    width: 20vw;
+    padding-left: .5em;
+    padding-right: .5em;
+    margin-top: 0;
+  }
+  .tradeOfferCardsNamesMy{
+    float: none;
+  }
+  .card.tradeOfferCardsNames{
+    width: 80vw;
+    margin: 1.3em;
+    margin-left: 12.5vw;
+  }
+  .card.offerCardOnF{
+    margin-left: 12vw;
+  }
+  .card.cardTempOfferCard.tradeOfferCards.tempOf{
+    margin-left: 12.5vw;    
+  }
+  
+}
+
+/* Style for theblock page title */
+.theBlockTitle{
+  text-align: center;
+  cursor: pointer;
+}
+
+/* style for search title on console pages */
+.theBlockTitleSearch{
+  font-size: 1em;
+  text-align: center;
+}
+
+.theBlockconsole{
+  font-size: 1em;
+}
+
+/* Style for the header of the block page */
+.container.my-5.theBlock{
+  text-align: center;
+}
+
+/* Style below is for the spinning xbox logo */
+.xboxLogo{
+  text-align: center;
+  display: inline-block;
+  background-color: black;
+  height: 5em;
+  width: 5em;
+  margin: 2em;
+  background: url('/images/xboxL.png');
+  background-position: center;  
+  background-size: contain;  
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.xboxLogoPage{
+  text-align: center;
+  display: inline-block;
+  background-color: black;
+  height: 5em;
+  width: 5em;
+  background: url('/images/xboxL.png');
+  background-position: center;  
+  background-size: contain;  
+  background-repeat: no-repeat;
+}
+
+.psLogo{
+  text-align: center;
+  display: inline-block;
+  background-color: black;
+  height: 5em;
+  width: 5em;
+  margin: 2em;
+  background: url('/images/psL.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.psLogoPage{
+  text-align: center;
+  display: inline-block;
+  background-color: black;
+  height: 5em;
+  width: 5em;
+  background: url('/images/psL.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}

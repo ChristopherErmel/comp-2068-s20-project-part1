@@ -7,8 +7,8 @@
 <div class=" py-5 bg-faded">
   <header>
     <div class="content contentShow">
-      <div class="card" style="width: 2vw; float: left; visibility: hidden;"></div>
-      <div class="card" style="width: 25vw; margin: 1.3em; float: left;">
+      <div class="card leftSpace"></div>
+      <div class="card mainPlayerCard">
         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
         <div class="card-body">
           <h4 class="card-title card-title-show">
@@ -297,7 +297,7 @@
                 value="<%= tradeOffer %>">My Offer (#<%= iioi + 1 %>)</button>
                 
 
-              </div>
+              
 
               <div id="tempOfferCard" class="card cardTempOfferCard tradeOfferCards">
                 <h5 class="card-title tradeOfferCardsTitle"><label for="comment" style="margin: 1em;">Trade Offer from:
@@ -357,7 +357,7 @@
 
 
 
-
+                    
 
 
         
@@ -715,20 +715,20 @@
 
 
 
-
+          </div>
             <% } %> 
               <%// console.log("-") %> 
               <%// console.log(tradeOffer.offerUserID.toString()) %> 
               <%// console.log(user._id.toString()) %> 
         <% } %> 
 
-
+     
 
 
 
 
         
-      <div class="card" id="offerCardOnF" style="width: 65vw; margin: 1.3em; float: left;">
+      <div class="card offerCardOnF" id="offerCardOnF">
         <form action="<%= (typeof actionPath === 'undefined') ? '/trades/comment' : actionPath %>" , method="POST">
           <input type="hidden" name="id" value="<%= trade.id %>">
           <input type="hidden" name="user" value="<%= user.userName %>">
@@ -835,7 +835,7 @@
       <% if((authorized) && user._id.toString() === trade.user._id.toString()) { %>
       <div class="card tradeOfferCardsNames">
         <h5 class="card-title-tradeOffers"><label for="comment" style="margin: 1em;">Trade Offers:</label></h5>
-        <div class="card" style="width: 60.5vw; margin: 1.3em; float: left;">
+        <div class="card tradeSideCards">
           <ul class="nav nav-pills">
             <script> let i = 0; let tradeOfferInfo; let tab;</script>
             <% let ii = 0; %>
@@ -852,7 +852,7 @@
         <!-- if its a new offer and has no trade offers yet. -->
         <% if(trade.tradeOffers === undefined || trade.tradeOffers.length == 0) {%>
       </div>
-      <div class="card" style="width: 65vw; margin: 1.3em; float: left;">
+      <div class="card tradeSideCards">
         <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This trade has no active
             offers at the moment.</label></h5>
         <p style="margin-left: 1em;">Please come back later...</p>
@@ -865,7 +865,7 @@
       <% for (let tradeOffer of trade.tradeOffers) { %>
 
       <%= //console.log(cardOffers["CardsO1" + ii]) %>
-      <div id="tempOfferCard" class="card cardTempOfferCard tradeOfferCards">
+      <div id="tempOfferCard" class="card cardTempOfferCard tradeOfferCards tempOf">
         <h5 class="card-title tradeOfferCardsTitle"><label for="comment" style="margin: 1em;">Trade Offer from:
             <%= tradeOffer.user %></label></h5>
 
@@ -1095,7 +1095,7 @@
           <input type="hidden" name="tradeId" value="<%= tradeOffer.tradeId %>">
           <input type="hidden" name="tradeNumber" value="<%= ii %>">
           <!-- <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Trade Talk</label></h5> -->
-          <input style="margin: 1em; width: 90%;" type="text" name="comment" id="comment">
+          <input style="margin: 1em; width: 75%;" type="text" name="comment" id="comment">
           <div class="form-group" style="display: inline;">
             <button style="margin-top: -.5em;" class="btn btn-dark">Submit</button>
           </div>
@@ -1173,7 +1173,7 @@
 
     <!-- If you are not logged in, show this. -->
     <% if(!authorized) { %>
-    <div class="card" style="width: 65vw; margin: 1.3em; float: left;">
+    <div class="card tradeSideCards">
       <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">Inquire about
           trade</label></h5>
       <p style="margin-left: 1em;">Please log in to make an offer.</p>
@@ -1186,7 +1186,7 @@
 </div>
 </div>
 <!-- If the trade has been finished and the completed button was clicked. everyone will see this... -->
-<div class="card" style="width: 65vw; margin: 1.3em; float: left;">
+<div class="card tradeSideCards">
   <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This Trade Has Been
       Completed!</label></h5>
   <p style="margin-left: 1em;">Please visit The Block for other options...</p>

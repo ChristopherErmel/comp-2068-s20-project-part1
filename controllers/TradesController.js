@@ -76,6 +76,44 @@ exports.index = async (req, res) => {
   }
 };
 
+exports.indexXbox = async (req, res) => {
+  try {
+    const trades = await Trade.find({ console: 'Xbox' }).populate('user').sort({ createdAt: 'desc' });
+    let cards = [];
+    for (let trade of trades) {
+      let card = await PlayerInfo.find({ "_id": trade.cardId });
+      cards.push(card);
+    }
+    res.render(`${viewPath}/indexXbox`, {
+      pageTitle: 'Active Trades',
+      trades: trades,
+      cards: cards
+    });
+  } catch (error) {
+    req.flash('danger', `There was an error displaying the trades: ${error}`);
+    res.redirect('/');
+  }
+};
+
+exports.indexPS = async (req, res) => {
+  try {
+    const trades = await Trade.find({ console: 'PS' }).populate('user').sort({ createdAt: 'desc' });
+    let cards = [];
+    for (let trade of trades) {
+      let card = await PlayerInfo.find({ "_id": trade.cardId });
+      cards.push(card);
+    }
+    res.render(`${viewPath}/indexPS`, {
+      pageTitle: 'Active Trades',
+      trades: trades,
+      cards: cards
+    });
+  } catch (error) {
+    req.flash('danger', `There was an error displaying the trades: ${error}`);
+    res.redirect('/');
+  }
+};
+
 exports.myblock = async (req, res) => {
   try {
     const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
