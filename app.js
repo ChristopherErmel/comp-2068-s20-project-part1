@@ -137,6 +137,7 @@ app.use(Cors());
 var client = new MongoClient(process.env.DB_SEARCH);
 const server = express();
 var collection;
+var collectionXbox;
 
 
 
@@ -150,6 +151,7 @@ app.listen(port, async () => {
     console.log(`Listening on port 3000`)
     await client.connect();
     collection = client.db("project").collection("playerinfos");
+    collectionXbox = client.db("project").collection("trades");
   } catch (e) {
     console.log(e);
   }
@@ -162,6 +164,29 @@ app.get("/search", async (req, res) => {
       {
         "$search": {
           "index": "playerNames",
+          "autocomplete": {
+            "query": `${req.query.term}`,
+            "path": "playerName",
+            "fuzzy": {
+              "maxEdits": 1
+            }
+          }
+        }
+      }
+    ]).toArray();
+    res.send(result)
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+//search index of xbox player database...
+app.get("/searchXbox", async (req, res) => {
+  try {
+    let result = await collectionXbox.aggregate([
+      {
+        "$search": {
+          "index": "tradesXbox",
           "autocomplete": {
             "query": `${req.query.term}`,
             "path": "playerName",

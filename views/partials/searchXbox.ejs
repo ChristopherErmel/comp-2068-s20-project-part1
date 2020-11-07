@@ -6,6 +6,18 @@
     <ul id="players"></ul>
 
   </div>
+
+
+  <form action="/xboxSearchResults" method="POST" id="xboxSearchForm" style="display: none;">
+    <input name="playerName" id="playerName" value="">
+    <input name="playerCard" type="text" id="playerCard" value="">
+    <input name="playerOVR" type="text" id="playerOVR" value="">
+    <div class="form-group">
+      <button class="btn btn-dark" type="submit" id="xboxSearchFormSubmit" form="form" value="Submit">Submit</button>
+    </div>
+  </form>
+
+
   
   <script>
     
@@ -17,22 +29,28 @@
           //this is the search link for the heruko live site...
          // let data = await fetch(`https://nhlhuttrader.herokuapp.com/search?term=${req.term}`)
          
-          let data = await fetch(`http://localhost:<%= port %>/search?term=${req.term}`)
+          let data = await fetch(`http://localhost:<%= port %>/searchXbox?term=${req.term}`)
           .then(results => results.json())
           .then(results => results.map(result => {
-            return {lable: result.playerName, value: `${result.playerName} || ${result.card} || ${result.overall}` , id: result.cardID, card: result};
+            return {lable: result.playerName, value: `${result.playerName} || ${result.playerCard} || ${result.playerOVR}` , id: result._id, trade: result};
           }));
           res(data);
         },
         minLength: 3,
         //function is what we want to do with the data, we can save it to a trade block here...
         select: function(event, ui){
-            //this will send the selected card to the function...
-            updateHUTCard(ui.item.card);
-            //console.log(ui.item.card.cardID);
-            document.getElementById('cardId').value = ui.item.card._id;
-            //console.log(document.getElementById('cardId'));
             
+          document.getElementById("playerName").value = ui.item.trade.playerName;
+          document.getElementById("playerCard").value = ui.item.trade.playerCard;
+          document.getElementById("playerOVR").value = ui.item.trade.playerOVR;
+     
+
+
+
+               //submitting the form
+               document.getElementById('xboxSearchForm').submit();
+
+
         //   $("#players").append(`<li>${ui.item.card.playerName}</li>`);
 
           //everything is working, just need to find a way to grab the

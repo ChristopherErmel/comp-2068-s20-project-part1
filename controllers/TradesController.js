@@ -275,7 +275,7 @@ exports.new = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-   // console.log(`${JSON.stringify(req.body)}`);
+   console.log(`${JSON.stringify(req.body)}`);
 
 
     const { user: email } = req.session.passport;
@@ -440,6 +440,34 @@ exports.tradeComment = async (req, res) => {
     res.redirect(`/trades/${req.body.id}`);
   } catch (error) {
     console.log(error);
+  }
+}
+
+
+
+
+
+//this will show the results of the trades with the specific name and card name and ovr
+exports.xboxSearchResults = async (req, res) => {
+  try {
+    
+     const trades = await Trade.find({ console: 'Xbox', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
+    
+     console.log(trades);
+    
+     let cards = [];
+    for (let trade of trades) {
+      let card = await PlayerInfo.find({ "_id": trade.cardId });
+      cards.push(card);
+    }
+     res.render(`${viewPath}/xboxSearchResults`, {
+      pageTitle: 'Active Trades',
+      trades: trades,
+      cards: cards
+    });
+  } catch (error) {
+    req.flash('danger', `There was an error displaying the trades: ${error}`);
+    res.redirect('/');
   }
 }
 

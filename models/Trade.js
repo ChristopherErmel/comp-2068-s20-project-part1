@@ -96,6 +96,18 @@ const TradeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  playerName: {
+    type: String,
+    required: true
+  },
+  playerCard: {
+    type: String,
+    required: true
+  },
+  playerOVR: {
+    type: String,
+    required: true
+  },
   cardList1: {
     type: String
   },

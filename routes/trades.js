@@ -1,5 +1,5 @@
 
- const {new: _new, index, indexXbox, indexPS, show, create, comment, tradeComment, myoffers, deleteOffer, edit, update, delete: _delete, home, myblock} = require('../controllers/TradesController');
+ const {new: _new, index, indexXbox, xboxSearchResults, indexPS, show, create, comment, tradeComment, myoffers, deleteOffer, edit, update, delete: _delete, home, myblock} = require('../controllers/TradesController');
 
  //to check for loged in status
  function auth (req, res, next) {    
@@ -19,7 +19,11 @@
   module.exports = router => {
      router.get('/trades', index); //public       
      router.get('/XboxTrades', indexXbox); //public       
-     router.get('/PSTrades', indexPS); //public   
+     router.get('/PSTrades', indexPS); //public  
+     
+     
+     router.post('/xboxSearchResults',  xboxSearchResults); //public
+    //  router.post('/trades/delete',  _delete);
 
      router.get('/trades/new', auth, _new, port); //authenticated          
      router.post('/trades', auth, create); //authenticated

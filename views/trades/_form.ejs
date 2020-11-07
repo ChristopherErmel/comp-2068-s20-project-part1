@@ -201,6 +201,9 @@
 
 
   <input hidden name="cardId" id="cardId" value=""></input>
+  <input hidden name="playerName" id="playerName" value=""></input>
+  <input hidden name="playerCard" id="playerCard" value=""></input>
+  <input hidden name="playerOVR" id="playerOVR" value=""></input>
   <input hidden name="cardList1" id="cardList1" value=""></input>
   <input hidden name="cardList2" id="cardList2" value=""></input>
   <input hidden name="cardList3" id="cardList3" value=""></input>
@@ -219,6 +222,9 @@
     console.log(ui);
 
 
+    document.getElementById('playerName').value = ui.playerName;    
+    document.getElementById('playerCard').value = ui.card;    
+    document.getElementById('playerOVR').value = ui.overall;
 
     document.getElementById('cardName').innerHTML = ui.playerName;
     document.getElementById('cardOVR').innerHTML = ui.overall;
