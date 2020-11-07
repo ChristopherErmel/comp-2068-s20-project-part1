@@ -453,7 +453,7 @@ exports.xboxSearchResults = async (req, res) => {
     
      const trades = await Trade.find({ console: 'Xbox', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
     
-     console.log(trades);
+     //console.log(trades);
     
      let cards = [];
     for (let trade of trades) {

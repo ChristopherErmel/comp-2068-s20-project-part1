@@ -34,7 +34,10 @@
           .then(results => results.map(result => {
             return {lable: result.playerName, value: `${result.playerName} || ${result.playerCard} || ${result.playerOVR}` , id: result._id, trade: result};
           }));
-          res(data);
+          
+          // this will reduce the object to only show uniq values
+          result = Object.values(data.reduce((r,o) => (r[o.value] = o, r),{}));
+          res(result);
         },
         minLength: 3,
         //function is what we want to do with the data, we can save it to a trade block here...
