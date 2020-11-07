@@ -151,7 +151,7 @@ app.listen(port, async () => {
     console.log(`Listening on port 3000`)
     await client.connect();
     collection = client.db("project").collection("playerinfos");
-    collectionXbox = client.db("project").collection("trades");
+    collectionTrades = client.db("project").collection("trades");
   } catch (e) {
     console.log(e);
   }
@@ -181,12 +181,12 @@ app.get("/search", async (req, res) => {
 });
 
 //search index of xbox player database...
-app.get("/searchXbox", async (req, res) => {
+app.get("/searchTrades", async (req, res) => {
   try {
-    let result = await collectionXbox.aggregate([
+    let result = await collectionTrades.aggregate([
       {
         "$search": {
-          "index": "tradesXbox",
+          "index": "trades",
           "autocomplete": {
             "query": `${req.query.term}`,
             "path": "playerName",
@@ -202,3 +202,5 @@ app.get("/searchXbox", async (req, res) => {
     console.log(e);
   }
 });
+
+

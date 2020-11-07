@@ -1,0 +1,137 @@
+<!--
+  Step 1: This is your descretion how you would like to display data,
+  but you must list all the documents in your resource collection.
+-->
+<%- include ('../partials/header') %>
+<% //window.addEventListener('DOMContentLoaded', myTrades, false); %>
+<script>
+
+
+</script>
+
+
+
+<div class="container my-5 theBlock">
+  <header>
+    <h1 class="theBlockTitle" onclick="document.location.href = '/trades'">The Block - PS</h1>
+    <hr />
+    <h1 class="theBlockTitleSearch">Search Players</h1>
+    <div class="psLogoPage"></div>
+       
+
+
+
+    <%- include ('../partials/searchPs') %>
+
+
+
+
+
+
+
+
+    <br>
+  </header>
+  <hr>
+
+
+
+  <div class="content cardLayout">
+    <% let i = 0; %>
+    <% //if(myTrades == false){ %>
+    <% for (let trade of trades) { %>
+    <!-- <% //if() { } %>  -->
+    <div class="card fullTradeCards">
+      <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+      <div class="card-body playerCards">
+        
+        <!-- Image... -->
+        <img class="playerImages" src="/playerCardImages/<%= cards[i][0].playerImageLink %>" alt="">
+        <hr class="playerNamesInfohr" />
+
+        <h5 class="playerNamesInfo">
+          <p><%= cards[i][0].playerName + ' || ' + cards[i][0].overall  %></p>
+          <p> <%= cards[i][0].card %></p>
+        </h5>
+        <% i = i + 1; %>
+
+        <hr />
+        <% if (typeof trade.user !== 'undefined') {%>
+        <small class="byNameTradeBlock" style="font-weight: bold;">by <%= trade.user.userName %></small>
+        <% } %>
+        <small class="card-text-time" style="float: right;"><%= trade.createdAt.toLocaleString("en-US") %></small>
+        <% if(trade.console == "Xbox"){ %>
+        <hr style="height: .1em; background-color: #107C10;">
+        <% }else{ %>
+        <hr style="height: .1em;background-color: #003087;">
+        <% } %>
+        <% if(trade.buyNow){ %>
+        <p class="card-text"><span style="font-weight: 700;">Buy Now:
+            <%= trade.buyNow.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span><span
+            style="color: orange; font-weight: 700;">c</span></p>
+        <% }else if(trade.tradeType == "Looking For"){ %>
+        <p class="card-text">Looking to aquire...</p>
+        <% }else{ %>
+          <p class="card-text">Buy Now: N/A</p>
+          <% } %>
+        <% if(trade.tradeStatus == "Traded"){ %>
+        <p class="card-text currently" style="text-decoration: line-through;">Currently: <%= trade.tradeStatus %></p>
+        <% } %>
+        <% if(trade.tradeStatus == "Available" && trade.tradeType != "Looking For"){ %>
+        <p class="card-text currently" style="font-weight: 600;">Currently: <%= trade.tradeStatus %><span
+            style="font-weight: 400;">&nbsp;on <%= trade.console %></span></p>
+        <% }else if(trade.tradeType == "Looking For" && trade.tradeStatus == "Available"){ %>
+          <p class="card-text currently" style="font-weight: 600;">Currently: <%= trade.tradeType %><span
+            style="font-weight: 400;">&nbsp;on <%= trade.console %></span></p>
+          <% } %>
+        <hr>
+        <a class="btn btn-primary" href="/trades/<%= trade.id %>">View</a>
+        <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
+        <form style="background: none; display: inline-block; float: right;" class="form-inline buttonOptionsTB" action="/trades/delete"
+          method="post"
+          onsubmit="return confirm('Are you sure you want to delete this trade? This can not be undone!');">
+          <input type="hidden" value="<%= trade.id %>" name="id">
+          <button type="submit" class="delete" style="border: none;
+                    background-color: white; size: 10%">
+            <a class="btn btn-danger" aria-label="Delete">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </button>
+        </form>
+        <% if(trade.tradeStatus == "Traded"){ %>
+        <a class="btn btn-secondary btn-sm buttonOptionsTBc"
+          style="text-decoration: line-through;"><i class="fa fa-check-circle-o" aria-hidden="true"></i></a>
+        <% } %>
+        <% if(trade.tradeStatus == "Available"){ %>
+        <a class="btn btn-success btn-sm buttonOptionsTBc" href="/trades/<%= trade.id %>/edit"
+          onclick="return confirm('Only complete a trade if both parties have recived their cards! \nAre you sure you want to complete this trade?');"><i class="fa fa-check-circle-o" aria-hidden="true"></i></a>
+        <% } %>
+
+
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+    <%// } %>
+
+
+    <%- include ('../partials/footer') %>
+    <!-- 
+<script>
+  function myTrade(){ 
+   const myT = document.getElementById("myTrades"); 
+   myT.style.cursor = "pointer";
+   if(myTrades == false){ 
+     myT.style["color"] = "lightgrey"; 
+     myT.style["float"] = "right";
+     myTrades = true;
+     
+   }else{
+     myTrades = false;
+     myT.style["color"] = "black"; 
+     myT.style["float"] = "right";
+
+   }
+   
+}; 
+</script> -->

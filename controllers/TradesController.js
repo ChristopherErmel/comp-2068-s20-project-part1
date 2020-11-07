@@ -471,6 +471,31 @@ exports.xboxSearchResults = async (req, res) => {
   }
 }
 
+//this will show the results of the trades with the specific name and card name and ovr
+exports.psSearchResults = async (req, res) => {
+  try {
+    
+     const trades = await Trade.find({ console: 'PS', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
+    
+     //console.log(trades);
+    
+     let cards = [];
+    for (let trade of trades) {
+      let card = await PlayerInfo.find({ "_id": trade.cardId });
+      cards.push(card);
+    }
+     res.render(`${viewPath}/psSearchResults`, {
+      pageTitle: 'Active Trades',
+      trades: trades,
+      cards: cards
+    });
+  } catch (error) {
+    req.flash('danger', `There was an error displaying the trades: ${error}`);
+    res.redirect('/');
+  }
+}
+
+
 
 
 
