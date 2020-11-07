@@ -102,6 +102,10 @@ app.use('/', (req, res, next) => {
   //port
   res.locals.port = process.env.PORT || 3000;
 
+  //homelink
+  // res.locals.baseLink = "https://nhlhuttrader.herokuapp.com";
+  res.locals.baseLink = "http://localhost:3000";
+
   //this will jump to the next middleware now
   next();
 });

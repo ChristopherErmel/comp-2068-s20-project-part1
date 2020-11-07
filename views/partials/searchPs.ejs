@@ -28,8 +28,7 @@
 
           //this is the search link for the heruko live site...
          // let data = await fetch(`https://nhlhuttrader.herokuapp.com/search?term=${req.term}`)
-         
-          let data = await fetch(`http://localhost:<%= port %>/searchTrades?term=${req.term}`)
+          let data = await fetch(`<%= baseLink %>/searchTrades?term=${req.term}`)
           .then(results => results.json())
           .then(results => results.map(result => {
             if(result.console === "PS"){
