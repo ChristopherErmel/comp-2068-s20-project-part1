@@ -1,0 +1,56 @@
+<%- include ('../partials/header') %>
+
+<header >
+</header>
+
+
+<div class="row" id="upgradePageBody"> 
+  <div class="col-md-3"> 
+  </div> 
+  <div class="col-md-6"> 
+        <div class = "main">
+            <div class="row padder"> 
+                <div class="col-md-12"> 
+                    <h1 style="text-align: center;">Subscription Success!</h1>
+                    <hr />
+                </div> 
+                
+                
+                <div class="card upgradeAccountHeadersSuccess" id="firstCardUpgrade">
+                  <h3 class="upgradeAccountHeadersTitleSuccess"> <b style="color: red;"> Important Information Below: </b></h3> 
+                  <hr> 
+                  <p style="text-align: center;"><b> Please save the information below, all information is needed if payment issues accure. </b></p>
+                  <br>
+                  <div class="card" style="text-align: center;">
+                    <p style="text-decoration: underline; font-weight: 500;">PaymentId: </p>
+                    <b><%= paymentDetails.paymentId %></b>
+                  </div>
+                  <div class="card" style="text-align: center;">
+                    <p style="text-decoration: underline; font-weight: 500;">Token: </p>
+                    <b><%= paymentDetails.token %></b>
+                  </div>
+                  <div class="card" style="text-align: center;">
+                    <p style="text-decoration: underline; font-weight: 500;">PayerID: </p>
+                    <b><%= paymentDetails.PayerID %></b>
+                  </div>
+                  <br>
+                  <div class="card" style="text-align: center; background-color: #A8FF33;">
+                    <p style="text-decoration: underline; font-weight: 500;">Thank You!</p>
+                    <p style="text-align: center;">Thank you for your suppoer blsiuguiwngiowgnwiogniorgnwriognwiogno</p>
+                  </div>
+                  
+              </div>
+
+              
+            </div> 
+             
+         </div>
+         <div class="col-md-3"> 
+        </div>
+  </div> 
+
+
+
+
+
+<%- include ('../partials/footer') %>

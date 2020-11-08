@@ -46,7 +46,7 @@ paypal.configure({
 
 // setting up pages, these will be moved later
 // start payment process 
-exports.subscribeProcess = async (req, res) => {
+exports.upgradeProcess = async (req, res) => {
 //app.get('/buy' , ( req , res ) => {
 
 try {
@@ -57,15 +57,15 @@ try {
 "payment_method": "paypal"
 },
 "redirect_urls": {
-"return_url": "http://localhost:3000/subscribeSuccess",
-"cancel_url": "http://localhost:3000/subscribeError"
+"return_url": "http://localhost:3000/upgradeSuccess",
+"cancel_url": "http://localhost:3000/upgradeError"
 },
 "transactions": [{
 "amount": {
-"total": 1.99,
+"total": 6.99,
 "currency": "CAD"
 },
-"description": "Subscription to NHLHUTTrader"
+"description": "Upgrade for NHLHUTTrader"
 }]
 };
 
@@ -85,7 +85,7 @@ createPay( payment )
 })
 .catch( ( err ) => { 
     console.log( err ); 
-    res.render(`${viewPath}/subscribeError`);
+    res.render(`${viewPath}/upgradeError`);
 });
 } catch (error) {
   console.log(error);
@@ -93,12 +93,12 @@ createPay( payment )
 }; 
 
 
-//normal subscribe page.
-exports.subscribe = async (req, res) => {
+//normal upgrade page.
+exports.upgrade = async (req, res) => {
 //app.get('/success' , (req ,res ) => {
   try {
     //console.log(req.query); 
-    res.render(`${viewPath}/subscribe`); 
+    res.render(`${viewPath}/upgrade`); 
   } catch (error) {
     console.log(error);
   }
@@ -106,46 +106,50 @@ exports.subscribe = async (req, res) => {
 };
 
 // success page 
-exports.subscribeSuccess = async (req, res) => {
+exports.upgradeSuccess = async (req, res) => {
 //app.get('/success' , (req ,res ) => {
   try {
 
+    //grabbing all payment information after successful payment and user who upgraded 
     let userID = req.user._id;
     let userPaymentID = req.query.paymentId;
     let userTokenPaymentID = req.query.token;
     let userPayerID = req.query.PayerID;
     let userPaymentTime = Date.now();
     //console.log(userID);
+    //this will find the user who paid and then upgrade their status to pro and add the payment details to their model/account.
     User.findByIdAndUpdate({_id : userID}, {userType : "pro", userPaymentID : userPaymentID, userTokenPaymentID: userTokenPaymentID, userPayerID: userPayerID, userPaymentTime: userPaymentTime}, function(err, result){
 
       if(err){
         console.log(err)
       }
       else{
-        console.log(result)
+      //  console.log(result)
       }
 
   });
 
-    console.log(req.query);
-    console.log(req.user._id);
+    //console.log(req.query);
+    //console.log(req.user._id);
 
-    //console.log(req.query); 
-    res.render(`${viewPath}/subscribeSuccess`, {
+    //console.log(req.query);     
+    res.render(`${viewPath}/upgradeSuccess`, {
       paymentDetails: req.query,
       user: req.user
     }); 
   } catch (error) {
+    req.flash('danger', `There was an error upgrading your account: ${error}`);
     console.log(error);
   }
     
 };
 
+
 // error page 
-exports.subscribeError = async (req, res) => {
+exports.upgradeError = async (req, res) => {
 //app.get('/err' , (req , res) => {
     //console.log(req.query); 
-    res.render(`${viewPath}/subscribeError`); 
+    res.render(`${viewPath}/upgradeError`); 
 };
 
 

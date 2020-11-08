@@ -1,7 +1,8 @@
 html,
 body {
   height: 100%;
-  width: 100%;
+  width: 100%;  
+  overflow-x: hidden;
 }
 
 header:not(.home-cta), .alert {
@@ -699,11 +700,55 @@ hr.playerNamesInfohr{
 
 
 /* The below styles are for pagenation */
-.pagination a.active {
+/* .pagination a.active {
   background-color: #4CAF50;
   color: white;
   width: 2vw;
   height: 2vw;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {background-color: #ddd;} */
+
+
+
+
+/* styles for upgrading account pages below */
+#upgradePageBody{
+  width: 100vw;
+}
+.card.upgradeAccountHeaders{
+  /* background-color: black; */
+  font-size: 1vw;
+  width: 24vw;
+  padding: 1em;
+}
+.card.upgradeAccountHeadersSuccess{
+  /* background-color: black; */
+  font-size: 1vw;
+  width: 50vw;
+}
+#firstCardUpgrade{
+  margin-right: 2vw;
+}
+.upgradeAccountHeadersTitle{
+  font-size: 2vw;
+  text-align: center;
+  margin-top: 1em;
+}
+.upgradeAccountHeadersTitleSuccess{
+  font-size: 2vw;
+  text-align: center;
+  margin-top: 1em;
+}
+.upgradeButton{
+  text-align: center;
+}
+
+
+/* CSS that should be displayed if width is equal to or less than 1120px goes here */
+@media (max-width: 1120px) {
+  .card.upgradeAccountHeaders{
+    width: 50vw;
+    float: left;
+  }
+}
