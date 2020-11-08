@@ -3,9 +3,15 @@ const User = require('../models/User');
 let paypal = require('paypal-rest-sdk');
 const viewPath = 'users';
 
-exports.new = (req, res) => {
+exports.new = async (req, res) => {
+  //for usertype tracking
+    let user = "undefined"
+  if(typeof req.user != "undefined"){
+    user = await User.findById(req.user);
+  }
   res.render(`${viewPath}/new`, {
-    pageTitle: 'New User'
+    pageTitle: 'New User',  
+    user: user
   });
 };
 

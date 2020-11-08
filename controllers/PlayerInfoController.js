@@ -1,4 +1,5 @@
 const PlayerInfo = require('../models/playerInfo');
+const User = require('../models/User');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const https = require('https');

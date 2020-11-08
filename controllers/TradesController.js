@@ -44,10 +44,16 @@ const playerData = fs.createReadStream('./assets/players/players.csv')
 
 exports.home = async (req, res) => {
   try {
+    //for usertype tracking
+    let user = "undefined"
+    if(typeof req.user != "undefined"){
+      user = await User.findById(req.user);
+    }  
     const trades = await Trade.find().populate('user').sort({ updatedAt: 'desc' });
     res.render(`${viewPath}/home`, {
       pageTitle: 'Active Trades',
-      trades: trades
+      trades: trades, 
+    user: user
       // myTrades: false
     });
   } catch (error) {
@@ -59,6 +65,12 @@ exports.home = async (req, res) => {
 
 exports.index = async (req, res) => {
   try {
+    //for usertype tracking
+    let user = "undefined"
+    if(typeof req.user != "undefined"){
+      user = await User.findById(req.user);
+    }
+
     const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
     let cards = [];
     for (let trade of trades) {
@@ -68,7 +80,8 @@ exports.index = async (req, res) => {
     res.render(`${viewPath}/index`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards
+      cards: cards,  
+      user: user
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);
@@ -78,6 +91,12 @@ exports.index = async (req, res) => {
 
 exports.indexXbox = async (req, res) => {
   try {
+    //for user type tracking
+    let user = "undefined"
+    if(typeof req.user != "undefined"){
+      user = await User.findById(req.user);
+    }
+
     const trades = await Trade.find({ console: 'Xbox' }).populate('user').sort({ createdAt: 'desc' });
     let cards = [];
     for (let trade of trades) {
@@ -87,7 +106,8 @@ exports.indexXbox = async (req, res) => {
     res.render(`${viewPath}/indexXbox`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards
+      cards: cards,  
+      user: user
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);
@@ -97,6 +117,14 @@ exports.indexXbox = async (req, res) => {
 
 exports.indexPS = async (req, res) => {
   try {
+    //for usertype tracking    
+    let user = "undefined"
+    if(typeof req.user != "undefined"){
+      user = await User.findById(req.user);
+    }
+
+
+
     const trades = await Trade.find({ console: 'PS' }).populate('user').sort({ createdAt: 'desc' });
     let cards = [];
     for (let trade of trades) {
@@ -106,7 +134,8 @@ exports.indexPS = async (req, res) => {
     res.render(`${viewPath}/indexPS`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards
+      cards: cards,  
+      user: user
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);
@@ -116,6 +145,13 @@ exports.indexPS = async (req, res) => {
 
 exports.myblock = async (req, res) => {
   try {
+
+    //for usertype tracking    
+    let user = "undefined"
+    if(typeof req.user != "undefined"){
+      user = await User.findById(req.user);
+    }
+
     const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
     //finds the card id depending on the id from the trade.
     //  const card = await PlayerInfo.find({ "_id": trade.cardId });
@@ -132,7 +168,8 @@ exports.myblock = async (req, res) => {
     // console.log(cards);
     res.render(`${viewPath}/myblock`, {
       trades: trades,
-      cards: cards
+      cards: cards,  
+      user: user
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying your block: ${error}`);
@@ -142,6 +179,13 @@ exports.myblock = async (req, res) => {
 
 exports.myoffers = async (req, res) => {
   try {
+
+     //for usertype tracking
+    let user = "undefined"
+     if(typeof req.user != "undefined"){
+      user = await User.findById(req.user);
+    }
+
     const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
 
 
@@ -186,7 +230,8 @@ exports.myoffers = async (req, res) => {
     //console.log(myOffers);
     res.render(`${viewPath}/myoffers`, {
       cards: cards,
-      myOffers: myOffers
+      myOffers: myOffers,  
+      user: user
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying your block: ${error}`);
@@ -267,8 +312,14 @@ exports.show = async (req, res) => {
 
 
 exports.new = async (req, res) => {
+  //for usertype tracking
+    let user = "undefined"
+  if(typeof req.user != "undefined"){
+    user = await User.findById(req.user);
+  }
   res.render(`${viewPath}/new`, {
-    pageTitle: 'New Trade Block'
+    pageTitle: 'New Trade Block',  
+    user: user
   });
 };
 
@@ -450,6 +501,10 @@ exports.tradeComment = async (req, res) => {
 //this will show the results of the trades with the specific name and card name and ovr
 exports.xboxSearchResults = async (req, res) => {
   try {
+    //for usertype tracking
+  if(typeof req.user != "undefined"){
+    user = await User.findById(req.user);
+  }
 
     // console.log(req.body.pageNum);
 
@@ -475,7 +530,8 @@ exports.xboxSearchResults = async (req, res) => {
      res.render(`${viewPath}/xboxSearchResults`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards,
+      cards: cards,  
+      user: user,
       page_number: page_number
     });
   } catch (error) {
@@ -488,6 +544,11 @@ exports.xboxSearchResults = async (req, res) => {
 exports.psSearchResults = async (req, res) => {
   try {
     
+     //for usertype tracking
+  if(typeof req.user != "undefined"){
+    user = await User.findById(req.user);
+  }
+
      const trades = await Trade.find({ console: 'PS', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
     
      //console.log(trades);
@@ -500,7 +561,8 @@ exports.psSearchResults = async (req, res) => {
      res.render(`${viewPath}/psSearchResults`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards
+      cards: cards,
+      user: user
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);

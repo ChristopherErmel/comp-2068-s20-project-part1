@@ -1,9 +1,28 @@
 <!-- home after login template-->
 <%- include ('../partials/header') %>
 <div class="container my-5">
-    <header>
+    <header style="display: inline-block; width: 100%;">
         <h1>Home</h1>
-        <br>
+        <!-- This will check the users type if they are logged in and there is a user type. -->
+      <% if(typeof user != "undefined" && authorized){ %>
+        <% if(user.userType === "pro"){ %>
+
+
+          
+        <!-- switch for light/dark mode. -->
+        <div style="display: inline-block; float: right;">
+          <p style="display: inline-block;">Dark Mode</p>
+
+          <label class="switchHome" style="display: inline-block;">
+            <input type="checkbox">
+            <span class="sliderHome roundHome"></span>
+          </label>
+
+          <p style="display: inline-block;">Light Mode</p>
+        </div>
+        
+        <% }%>
+        <% }%>
     </header>
     <hr>
    

@@ -1,63 +1,71 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <a class="navbar-brand" href="/">NHLHutTrader</a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">      
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="/trades">The Block</a>
       </li>
       <% if (authorized){ %>
-         <li class="nav-item">
-          <a href="/trades/home" class="nav-link">
-            Home
-          </a>
-        </li>
-   <%   } %> 
+      <li class="nav-item">
+        <a href="/trades/home" class="nav-link">
+          Home
+        </a>
+      </li>
+      <%   } %>
 
     </ul>
 
     <ul class="navbar-nav">
       <% if (!authorized) { %>
-        <li class="nav-item">
-          <a href="/users/new" class="nav-link">
-            <i class="fa fa-user-plus"></i>
-            Register
-          </a>
-        </li>
+      <li class="nav-item">
+        <a href="/users/new" class="nav-link">
+          <i class="fa fa-user-plus"></i>
+          Register
+        </a>
+      </li>
 
-        <li class="nav-item">
-          <a href="/login" class="nav-link">
-            <i class="fa fa-sign-in"></i>
-            Login
-          </a>
-        </li>
-        
-      <% } else { %>       
-       
+      <li class="nav-item">
+        <a href="/login" class="nav-link">
+          <i class="fa fa-sign-in"></i>
+          Login
+        </a>
+      </li>
 
-<!-- Default dropleft button -->
-<li class="nav-item">
-<div class="btn-group dropleft">
-  <button type="button" class="btn btn-secondary dropdown-toggle extraLinks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= email %>
-    &thinsp;
-    <i class="fa fa-user-circle-o"></i>
-  </button>
-  <div class="dropdown-menu extraLinks">
-    <!-- Dropdown menu links -->
-    <a href="/trades/home" class="nav-link extraLinks"><i class="fa  fa-home">&thinsp;</i>Home</a>
-    <a href="" class="nav-link extraLinks"><i class="fa fa-cog">&thinsp;</i>Settings</a>
-    <a href="/logout" class="nav-link extraLinks"><i class="fa fa-sign-out">&thinsp;</i>Logout</a>
-  </div>
-</div>
-</li>
-        
+      <% } else { %>
+
+      <!-- This will check the users type if they are logged in and there is a user type. -->
+      <% if(typeof user != "undefined" && authorized){ %>
+      <% if(user.userType === "pro"){ %>
+      <button type="button" class="btn btn-warning" style="pointer-events: none; margin-right: 1em;">Pro</button>
+      <% }%>
+      <% }%>
+      <!-- Default dropleft button -->
+      <li class="nav-item">
+        <div class="btn-group dropleft">
+          <button type="button" class="btn btn-secondary dropdown-toggle extraLinks" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <%= email %>
+            &thinsp;
+            <i class="fa fa-user-circle-o"></i>
+          </button>
+          <div class="dropdown-menu extraLinks">
+            <!-- Dropdown menu links -->
+            <a href="/trades/home" class="nav-link extraLinks"><i class="fa  fa-home">&thinsp;</i>Home</a>
+            <a href="" class="nav-link extraLinks"><i class="fa fa-cog">&thinsp;</i>Settings</a>
+            <a href="/logout" class="nav-link extraLinks"><i class="fa fa-sign-out">&thinsp;</i>Logout</a>
+          </div>
+        </div>
+      </li>
+
       <% } %>
     </ul>
   </div>
-  <div> <% //console.log(userAccountLevel) %>  </div>
+  <div> <% //console.log(userAccountLevel) %> </div>
 </nav>
