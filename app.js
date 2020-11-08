@@ -105,6 +105,13 @@ app.use('/', (req, res, next) => {
   //homelink
   // res.locals.baseLink = "https://nhlhuttrader.herokuapp.com";
   res.locals.baseLink = "http://localhost:3000";
+  //need to update users controller paypal information with correct links as well.
+
+  //local for updating page numbers...
+  global.page_number = "1";
+
+  //search terms
+  res.locals.searchTerms = [];
 
   //this will jump to the next middleware now
   next();
@@ -123,6 +130,44 @@ app.use('/images', express.static('assets/images'));
 app.use('/players', express.static('assets/players'));
 app.use('/playersImages', express.static('assets/players/images'));
 app.use('/playerCardImages', express.static('assets/playerCardImages'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

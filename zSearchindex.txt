@@ -1,20 +1,39 @@
-playerNames
-
-
-
-{
-  "mappings": {
-    "dynamic": false,
-    "fields": {
-      "playerName": [
-        {
-          "foldDiacritics": false,
-          "maxGrams": 7,
-          "minGrams": 2,
-          "tokenization": "edgeGram",
-          "type": "autocomplete"
+playerinfos 
+  playerNames(name)
+    {
+      "mappings": {
+        "dynamic": false,
+        "fields": {
+          "playerName": [
+            {
+              "foldDiacritics": false,
+              "maxGrams": 7,
+              "minGrams": 2,
+              "tokenization": "edgeGram",
+              "type": "autocomplete"
+            }
+          ]
         }
-      ]
+      }
     }
-  }
-}
+
+
+trades
+  trades(name)
+    {
+      "mappings": {
+        "dynamic": false,
+        "fields": {
+          "playerName": [
+            {
+              "foldDiacritics": false,
+              "maxGrams": 7,
+              "minGrams": 2,
+              "tokenization": "edgeGram",
+              "type": "autocomplete"
+            }
+          ]
+        }
+      }
+    }
+

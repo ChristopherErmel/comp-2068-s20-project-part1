@@ -4,10 +4,37 @@
 -->
 <%- include ('../partials/header') %>
 <% //window.addEventListener('DOMContentLoaded', myTrades, false); %>
+
+
+
+
+<!-- Hidden form for pagnation... -->
+<form action="/xboxSearchResults" method="POST" id="pagnation" style="display: none;">
+  <input name="pageNum" id="pageNum" value="">
+  <div class="form-group">
+    <button class="btn btn-dark" type="submit" id="pagnationSubmit" form="form" value="Submit">Submit</button>
+  </div>
+</form>
+
+
+<!-- 
 <script>
-
-
-</script>
+function updatePageNumberNext(){  
+  //document.getElementById("pageNum").value = pN;
+  let pageNum = parseInt("<%=// page_number %>");
+  let Pn = pageNum + 1;
+  document.getElementById("pageNum").value = Pn;
+  //submitting the form
+  document.getElementById('pagnation').submit();
+}
+function updatePageNumberPrevious(){
+  let pageNum = parseInt("<%=// page_number %>");
+  let Pn = pageNum - 1;
+  document.getElementById("pageNum").value = Pn;
+  //submitting the form
+  document.getElementById('pagnation').submit();
+}
+</script> -->
 
 
 
@@ -17,6 +44,11 @@
     <hr />
     <h1 class="theBlockTitleSearch">Search Players</h1>
     <div class="xboxLogoPage"></div>
+
+    <ul class="pagination">
+      <li><a href="#" onclick="updatePageNumberPrevious()">Previous Page</a></li>
+      <li class="active"><a href="#" onclick="updatePageNumberNext()">Next Page</a></li>
+    </ul>
        
 
 
@@ -113,7 +145,7 @@
     </div>
     <% } %>
     <%// } %>
-
+ 
 
     <%- include ('../partials/footer') %>
     <!-- 

@@ -695,3 +695,15 @@ hr.playerNamesInfohr{
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+
+
+/* The below styles are for pagenation */
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  width: 2vw;
+  height: 2vw;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}

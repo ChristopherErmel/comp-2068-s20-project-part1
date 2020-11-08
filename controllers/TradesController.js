@@ -450,7 +450,19 @@ exports.tradeComment = async (req, res) => {
 //this will show the results of the trades with the specific name and card name and ovr
 exports.xboxSearchResults = async (req, res) => {
   try {
+
+    // console.log(req.body.pageNum);
+
+    // //req.locals.page_number = req.body.pageNum;
+    // page_number = req.body.pageNum;
+    // //adding pagnation
+    // // Calculate number of documents to skip
+    // let page_size = 2;
+    // let page_num = page_number;
+    // let skips = page_size * (page_num - 1);
+
     
+    //.skip(skips).limit(page_size)
      const trades = await Trade.find({ console: 'Xbox', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
     
      //console.log(trades);
@@ -463,7 +475,8 @@ exports.xboxSearchResults = async (req, res) => {
      res.render(`${viewPath}/xboxSearchResults`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards
+      cards: cards,
+      page_number: page_number
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);

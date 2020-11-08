@@ -33,6 +33,22 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 'normal'
   },
+  userPaymentID: {
+    type: String,
+    required: false
+  },
+  userTokenPaymentID: {
+    type: String,
+    required: false
+  },
+  userPaymentTime: {
+    type: Date,
+    required: false
+  },
+  userPayerID: {
+    type: String,
+    required: false
+  },
   successfulTrades: {
     type: Number,
     required: true,

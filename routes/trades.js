@@ -10,10 +10,6 @@
      next();
  }
 
- //to check the port
- function port (res){
-    return res.locals.port;
- }
 
  
   module.exports = router => {
@@ -26,7 +22,7 @@
      router.post('/psSearchResults', auth,  psSearchResults); //authenticated
     //  router.post('/trades/delete',  _delete);
 
-     router.get('/trades/new', auth, _new, port); //authenticated          
+     router.get('/trades/new', auth, _new); //authenticated          
      router.post('/trades', auth, create); //authenticated
      router.post('/trades/update', auth, update); //authenticated
      router.post('/trades/delete', auth, _delete);//authenticated
