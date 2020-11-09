@@ -1,118 +1,134 @@
 <!-- home after login template-->
 <%- include ('../partials/header') %>
 <div class="container my-5">
-    <header style="display: inline-block; width: 100%;">
-        <h1>Home</h1>
-        <!-- This will check the users type if they are logged in and there is a user type. -->
-      <% if(typeof user != "undefined" && authorized){ %>
-        <% if(user.userType === "pro"){ %>
-          <!-- hidden form to pass mode change to controller. -->
-          <form id="form" style="visibility: hidden; display: none;" action="<%= (typeof actionPath === 'undefined') ? '/modeChange' : actionPath %>" , method="POST">
-            <input hidden name="modeChange" id="modeChange" value=""></input>
-            <input hidden name="user" id="user" value="<%= user %>"></input>
-              <div class="form-group">
-              <button class="btn btn-dark" type="submit" form="form" value="Submit">Submit</button>
-            </div>
-          </form>
-          <!-- if user is already in light mode -->
-        <% if(user.viewMode === "light"){ %>        
+  <header style="display: inline-block; width: 100%;">
+    <h1>Home</h1>
+    <!-- This will check the users type if they are logged in and there is a user type. -->
+    <% if(typeof user != "undefined" && authorized){ %>
+    <% if(user.userType === "pro"){ %>
+    <!-- hidden form to pass mode change to controller. -->
+    <form id="form" style="visibility: hidden; display: none;"
+      action="<%= (typeof actionPath === 'undefined') ? '/modeChange' : actionPath %>" , method="POST">
+      <input hidden name="modeChange" id="modeChange" value=""></input>
+      <input hidden name="user" id="user" value="<%= user %>"></input>
+      <div class="form-group">
+        <button class="btn btn-dark" type="submit" form="form" value="Submit">Submit</button>
+      </div>
+    </form>
+    <!-- if user is already in light mode -->
+    <% if(user.viewMode === "light"){ %>
 
-        <!-- switch for light/dark mode. -->     
-      <div style="display: inline-block; float: right; margin-top: .25em; margin-left: 1em;">
+    <!-- switch for light/dark mode. -->
+    <div style="display: inline-block; float: right; margin-top: .25em; margin-left: 1em;">
       <p style="display: inline-block;">Light Mode</p>
       <i class="fa fa-sun-o" aria-hidden="true"></i>
     </div>
-          <div style="display: inline-block; float: right;">
-          <label class="switchHome" style="display: inline-block;">
-            <input type="checkbox" id="changeMode" value="dark" checked>
-            <span class="sliderHome roundHome"></span>
-          </label>
+    <div style="display: inline-block; float: right;">
+      <label class="switchHome" style="display: inline-block;">
+        <input type="checkbox" id="changeMode" value="dark" checked>
+        <span class="sliderHome roundHome"></span>
+      </label>
+    </div>
+    <div style="display: inline-block; float: right;  margin-top: .25em; margin-right: 1em;">
+      <p style="display: inline-block;">Dark Mode</p>
+      <i class="fa fa-moon-o" aria-hidden="true"></i>
+    </div>
+    <!-- if user is already in darkmode. -->
+    <% } else if(user.viewMode === "dark"){%>
+    <!-- switch for light/dark mode. -->
+    <div style="display: inline-block; float: right; margin-top: .25em; margin-left: 1em;">
+      <p style="display: inline-block;">Light Mode</p>
+      <i class="fa fa-sun-o" aria-hidden="true"></i>
+    </div>
+    <div style="display: inline-block; float: right;">
+      <label class="switchHome" style="display: inline-block;">
+        <input type="checkbox" id="changeMode" value="light">
+        <span class="sliderHome roundHome"></span>
+      </label>
+    </div>
+    <div style="display: inline-block; float: right;  margin-top: .25em; margin-right: 1em;">
+      <p style="display: inline-block;">Dark Mode</p>
+      <i class="fa fa-moon-o" aria-hidden="true"></i>
+    </div>
+    <% }%>
+    <% }%>
+    <% }%>
+  </header>
+  <hr>
+
+  <script>
+    document.getElementById("changeMode").addEventListener("click", changeMode, false);
+
+    function changeMode() {
+      // console.log(this.value);
+      document.getElementById("modeChange").value = this.value;
+      document.getElementById("form").submit();
+    }
+  </script>
+
+
+
+
+  <!-- <%// if(typeof user != "undefined" && authorized){ %>
+  <% //if(user.userType === "pro"){ %>
+  <div class="numberOfTrades">
+    <h2 class="numberOfTrades"><%=// numberOfTrades %> / 25 Total Cards on your block.</h2>
+  </div>
+  <%// }%>
+  <%// if(user.userType === "normal"){ %>
+    <div class="numberOfTrades">
+      <h2 class="numberOfTrades"><%= //numberOfTrades %> / 8 Total Cards on your block.</h2>
+    </div>
+    <% //}%>
+  <%// }%> -->
+
+
+
+
+
+  <div class="row homeOptionsOne">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body homeOptionCards">
+          <h5 class="card-title">The Block</h5>
+          <p class="card-text">View all cards on The Block.</p>
+          <a href="/trades" class="btn btn-primary">The Block</a>
         </div>
-          <div style="display: inline-block; float: right;  margin-top: .25em; margin-right: 1em;">
-            <p style="display: inline-block;">Dark Mode</p>
-            <i class="fa fa-moon-o" aria-hidden="true"></i>
-          </div>
-          <!-- if user is already in darkmode. -->
-        <% } else if(user.viewMode === "dark"){%>
-          <!-- switch for light/dark mode. -->     
-      <div style="display: inline-block; float: right; margin-top: .25em; margin-left: 1em;">
-        <p style="display: inline-block;">Light Mode</p>
-        <i class="fa fa-sun-o" aria-hidden="true"></i>
-      </div>
-            <div style="display: inline-block; float: right;">
-            <label class="switchHome" style="display: inline-block;">
-              <input type="checkbox" id="changeMode" value="light">
-              <span class="sliderHome roundHome"></span>
-            </label>
-          </div>
-            <div style="display: inline-block; float: right;  margin-top: .25em; margin-right: 1em;">
-              <p style="display: inline-block;">Dark Mode</p>
-              <i class="fa fa-moon-o" aria-hidden="true"></i>
-            </div>
-        <% }%>
-        <% }%>
-        <% }%>
-    </header>
-    <hr>
-
-<script>
-  document.getElementById ("changeMode").addEventListener ("click", changeMode, false);
-
-function changeMode() {
-  // console.log(this.value);
-  document.getElementById("modeChange").value = this.value;
-  document.getElementById("form").submit();
-}
-</script>
-
-
-
-
-
-
-   
-    <div class="row homeOptionsOne">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body homeOptionCards">
-            <h5 class="card-title">The Block</h5>
-            <p class="card-text">View all cards on The Block.</p>
-            <a href="/trades" class="btn btn-primary">The Block</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body homeOptionCards">
-            <h5 class="card-title">My Trading Block</h5>
-            <p class="card-text">View all cards on your block.</p>
-            <a href="/trades/myblock" class="btn btn-primary">My Block</a>
-          </div>
-        </div>        
       </div>
     </div>
-
-    <div class="row homeOptionsTwo">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body homeOptionCards">
-            <h5 class="card-title">Add to Trading Block</h5>
-            <p class="card-text">Place a new card on the block.</p>
-            <a href="/trades/new" class="btn btn-primary">New Trade</a>            
-          </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body homeOptionCards">
+          <h5 class="card-title">My Trading Block</h5>
+          <p class="card-text">View all cards on your block.</p>
+          <a href="/trades/myblock" class="btn btn-primary">My Block</a>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body homeOptionCards">
-            <h5 class="card-title">My Offers</h5>
-            <p class="card-text">View your offers.</p>
-            <a href="/trades/myblock/myoffers" class="btn btn-primary">My Offers</a>
-          </div>
-        </div>        
+    </div>
+  </div>
+
+  <div class="row homeOptionsTwo">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body homeOptionCards">
+          <h5 class="card-title">Add to Trading Block</h5>
+          <p class="card-text">Place a new card on the block.</p>
+          <a href="/trades/new" class="btn btn-primary">New Trade</a>
+        </div>
       </div>
     </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body homeOptionCards">
+          <h5 class="card-title">My Offers</h5>
+          <p class="card-text">View your offers.</p>
+          <p class=""></p>
+          <a href="/trades/myblock/myoffers" class="btn btn-primary">My Offers</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
-<%- include ('../partials/footer') %>
+  <%- include ('../partials/footer') %>

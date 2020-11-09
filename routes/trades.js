@@ -17,11 +17,12 @@
      router.get('/XboxTrades', indexXbox); //public       
      router.get('/PSTrades', indexPS); //public  
 
-     router.post('/modeChange', modeChange);//Public
+
+
+     router.post('/modeChange', auth, modeChange);//authenticated    
      
-     
-     router.post('/xboxSearchResults', auth,  xboxSearchResults); //authenticated
-     router.post('/psSearchResults', auth,  psSearchResults); //authenticated
+     router.post('/xboxSearchResults', xboxSearchResults); //authenticated
+     router.post('/psSearchResults', psSearchResults); //authenticated
     //  router.post('/trades/delete',  _delete);
 
      router.get('/trades/new', auth, _new); //authenticated          

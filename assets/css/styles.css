@@ -820,3 +820,13 @@ input:checked + .sliderHome:before {
 .sliderHome.roundHome:before {
   border-radius: 50%;
 }
+
+
+
+
+/* Style for the counter on the home apge. */
+.numberOfTrades{
+  font-family: 'Work Sans', sans-serif;
+  text-align: center;
+  font-size: 1em;
+}

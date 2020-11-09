@@ -48,12 +48,15 @@ exports.home = async (req, res) => {
     let user = "undefined"
     if(typeof req.user != "undefined"){
       user = await User.findById(req.user);
+      
+     // numberOfTrades = user.myTrades.length;
     }  
     const trades = await Trade.find().populate('user').sort({ updatedAt: 'desc' });
     res.render(`${viewPath}/home`, {
       pageTitle: 'Active Trades',
       trades: trades, 
     user: user
+    //numberOfTrades
       // myTrades: false
     });
   } catch (error) {
@@ -122,7 +125,6 @@ exports.indexPS = async (req, res) => {
     if(typeof req.user != "undefined"){
       user = await User.findById(req.user);
     }
-
 
 
     const trades = await Trade.find({ console: 'PS' }).populate('user').sort({ createdAt: 'desc' });
