@@ -380,7 +380,7 @@ if(req.user.userType === "normal"){
     
   } catch (error) {
     req.flash('danger', `There was an error creating this trade: ${error}`);
-    res.redirect('/trades/new');
+    res.redirect('/trades/home');
   };
 };
 
@@ -454,13 +454,13 @@ exports.delete = async (req, res) => {
     //if(trade.user == user.id){
     await Trade.deleteOne({ _id: req.body.id });
     req.flash('success', 'This Trade was deleted!');
-    res.redirect('/trades');
+    res.redirect('/trades/home');
     // }else{
     // throw new Error('You do not have permission to Delete that trade.');
     // }    
   } catch (error) {
     req.flash('danger', `There was an error deleting this trade: ${error}`);
-    res.redirect('/trades');
+    res.redirect('/trades/home');
   }
 }
 

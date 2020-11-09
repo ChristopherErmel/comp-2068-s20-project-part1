@@ -12,11 +12,23 @@
       <li class="nav-item">
         <a class="nav-link" href="/trades">The Block</a>
       </li>
-      <% if (authorized){ %>
       <li class="nav-item">
+        <a class="nav-link" href="/XboxTrades">Xbox</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/PSTrades">PS</a>
+      </li>
+      <% if (authorized){ %>
+        
+      <li class="nav-item" >
+        <a class="nav-link" style="pointer-events: none;">
+         |
+        </a> 
+      </li>
+      <li class="nav-item" >
         <a href="/trades/home" class="nav-link">
-          Home
-        </a>
+         Home
+        </a> 
       </li>
       <%   } %>
 
