@@ -571,6 +571,27 @@ exports.psSearchResults = async (req, res) => {
 }
 
 
+//this will show the results of the trades with the specific name and card name and ovr
+exports.modeChange = async (req, res) => {
+  try {
+   //grab all info
+  ObjectId = require('mongodb').ObjectID;
+  let mode = req.body.modeChange.toString();
+  let id = ObjectId(req.user._id.toString().trim());
+
+//set the users view mode.
+  await User.update(
+    { _id: id },{"viewMode" : mode }
+  );
+  
+//redirect to the page again for a new load of styles...
+res.redirect(`${viewPath}/home`);
+
+  } catch (error) {
+    req.flash('danger', `There was an error updateing your view mode: ${error}`);
+    res.redirect('/');
+  }
+}
 
 
 

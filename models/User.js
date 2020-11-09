@@ -33,6 +33,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 'normal'
   },
+  viewMode: {
+    type: String,
+    required: true,
+    default: "light"
+  },
   userPaymentID: {
     type: String,
     required: false

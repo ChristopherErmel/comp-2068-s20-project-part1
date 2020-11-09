@@ -6,25 +6,70 @@
         <!-- This will check the users type if they are logged in and there is a user type. -->
       <% if(typeof user != "undefined" && authorized){ %>
         <% if(user.userType === "pro"){ %>
+          <!-- hidden form to pass mode change to controller. -->
+          <form id="form" style="visibility: hidden; display: none;" action="<%= (typeof actionPath === 'undefined') ? '/modeChange' : actionPath %>" , method="POST">
+            <input hidden name="modeChange" id="modeChange" value=""></input>
+            <input hidden name="user" id="user" value="<%= user %>"></input>
+              <div class="form-group">
+              <button class="btn btn-dark" type="submit" form="form" value="Submit">Submit</button>
+            </div>
+          </form>
+          <!-- if user is already in light mode -->
+        <% if(user.viewMode === "light"){ %>        
 
-
-          
-        <!-- switch for light/dark mode. -->
-        <div style="display: inline-block; float: right;">
-          <p style="display: inline-block;">Dark Mode</p>
-
+        <!-- switch for light/dark mode. -->     
+      <div style="display: inline-block; float: right; margin-top: .25em; margin-left: 1em;">
+      <p style="display: inline-block;">Light Mode</p>
+      <i class="fa fa-sun-o" aria-hidden="true"></i>
+    </div>
+          <div style="display: inline-block; float: right;">
           <label class="switchHome" style="display: inline-block;">
-            <input type="checkbox">
+            <input type="checkbox" id="changeMode" value="dark" checked>
             <span class="sliderHome roundHome"></span>
           </label>
-
-          <p style="display: inline-block;">Light Mode</p>
         </div>
-        
+          <div style="display: inline-block; float: right;  margin-top: .25em; margin-right: 1em;">
+            <p style="display: inline-block;">Dark Mode</p>
+            <i class="fa fa-moon-o" aria-hidden="true"></i>
+          </div>
+          <!-- if user is already in darkmode. -->
+        <% } else if(user.viewMode === "dark"){%>
+          <!-- switch for light/dark mode. -->     
+      <div style="display: inline-block; float: right; margin-top: .25em; margin-left: 1em;">
+        <p style="display: inline-block;">Light Mode</p>
+        <i class="fa fa-sun-o" aria-hidden="true"></i>
+      </div>
+            <div style="display: inline-block; float: right;">
+            <label class="switchHome" style="display: inline-block;">
+              <input type="checkbox" id="changeMode" value="light">
+              <span class="sliderHome roundHome"></span>
+            </label>
+          </div>
+            <div style="display: inline-block; float: right;  margin-top: .25em; margin-right: 1em;">
+              <p style="display: inline-block;">Dark Mode</p>
+              <i class="fa fa-moon-o" aria-hidden="true"></i>
+            </div>
+        <% }%>
         <% }%>
         <% }%>
     </header>
     <hr>
+
+<script>
+  document.getElementById ("changeMode").addEventListener ("click", changeMode, false);
+
+function changeMode() {
+  // console.log(this.value);
+  document.getElementById("modeChange").value = this.value;
+  document.getElementById("form").submit();
+}
+</script>
+
+
+
+
+
+
    
     <div class="row homeOptionsOne">
       <div class="col-sm-6">

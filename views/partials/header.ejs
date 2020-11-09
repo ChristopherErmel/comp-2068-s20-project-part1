@@ -14,8 +14,18 @@
 
     <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
 
+    <!-- This will check the users type if they are logged in and there is a user type. -->
+    <% if(typeof user != "undefined" && authorized){ %>
+      <% if(user.viewMode === "dark"){ %>
+        <link rel="stylesheet" href="/css/stylesDark.css">
+       <% }%>
+      <% }%>
+
+
+
   </head>
 
+  
   <body>
     <%- include ('../partials/nav') %>
     <%- include ('../partials/flash') %>
