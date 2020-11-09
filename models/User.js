@@ -54,6 +54,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  cardsOnBlock: {
+    type: Number,
+    required: true,
+    default: 0
+  },
   successfulTrades: {
     type: Number,
     required: true,

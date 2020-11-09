@@ -20,8 +20,10 @@
 
     <!-- This will check the users type if they are logged in and there is a user type. -->
     <% if(typeof user != "undefined" && authorized){ %>
+      <% if(user.userType === "pro"){ %>
       <% if(user.viewMode === "dark"){ %>
         <link rel="stylesheet" href="/css/stylesDark.css">
+       <% }%>
        <% }%>
       <% }%>
 

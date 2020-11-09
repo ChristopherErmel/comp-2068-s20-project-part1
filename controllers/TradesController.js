@@ -328,14 +328,56 @@ exports.new = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-   console.log(`${JSON.stringify(req.body)}`);
+  //  console.log(`${JSON.stringify(req.user._id)}`);  
+  const { user: email } = req.session.passport;
+  const user = await User.findOne({ email: email });
+  const trade = await Trade.create({ user: user._id, ...req.body });
 
-
-    const { user: email } = req.session.passport;
-    const user = await User.findOne({ email: email });
-    const trade = await Trade.create({ user: user._id, ...req.body });
+  if(typeof req.user.cardsOnBlock != "undefined"){
+  //checks to make sure they are under the card amount.
+  if(req.user.userType === "pro"){
+    if(req.user.cardsOnBlock == 2){
+      req.flash('danger', 'You have reached your limit!(12) Card not posted.');
+      res.redirect(`/trades/home`);
+    }else{
+      //this will find the user and add to their trade amount.
+    // console.log(req.user.cardsOnBlock);
+    let userID = req.user._id;
+    let numCards = req.user.cardsOnBlock + 1;
+    User.findByIdAndUpdate({_id : userID}, {cardsOnBlock : numCards}, function(err, result){});
+    // console.log(req.user.cardsOnBlock);
     req.flash('success', 'Trade Posted Successfully!');
     res.redirect(`/trades/${trade.id}`);
+
+    
+    }
+  }
+if(req.user.userType === "normal"){
+    if(req.user.cardsOnBlock == 5){
+      req.flash('danger', 'You have reached your limit!(5) Card not posted.');
+      res.redirect(`/trades/home`);
+    }else{
+      //this will find the user and add to their trade amount.
+    // console.log(req.user.cardsOnBlock);
+    let userID = req.user._id;
+    let numCards = req.user.cardsOnBlock + 1;
+    User.findByIdAndUpdate({_id : userID}, {cardsOnBlock : numCards}, function(err, result){});
+    // console.log(req.user.cardsOnBlock);
+    req.flash('success', 'Trade Posted Successfully!');
+    res.redirect(`/trades/${trade.id}`);
+
+    
+    }
+  }
+   
+  req.flash('success', 'Trade Posted Successfully!');
+  res.redirect(`/trades/${trade.id}`);
+
+    
+  }
+
+
+    
   } catch (error) {
     req.flash('danger', `There was an error creating this trade: ${error}`);
     res.redirect('/trades/new');
@@ -395,6 +437,19 @@ exports.delete = async (req, res) => {
     const { user: email } = req.session.passport;
     const trade = await Trade.findById(req.params.id);
     const user = await User.findOne({ email: email });
+    
+    //this will find the user and add to their trade amount.    
+    if(typeof req.user.cardsOnBlock != "undefined"){
+      console.log(req.user.cardsOnBlock);
+      let userID = req.user._id;
+      let numCards = req.user.cardsOnBlock - 1;
+      //no '-' numbers 
+      if(numCards < 0 ){numCards = 0;}
+      User.findByIdAndUpdate({_id : userID}, {cardsOnBlock : numCards}, function(err, result){});
+      console.log(req.user.cardsOnBlock);
+    }
+
+
     //checks to see if the user who made the trade is the one trying to edit it
     //if(trade.user == user.id){
     await Trade.deleteOne({ _id: req.body.id });

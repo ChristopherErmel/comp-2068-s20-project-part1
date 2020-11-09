@@ -30,6 +30,10 @@ body {
   color: #e1e1e1!important;
 }
 
+.nav-link.extraLinks{
+  color: #313131!important;
+}
+
 .card-body{
   background-color: #414141!important;
 }
@@ -57,4 +61,8 @@ body {
 .tradeTabs.tradeOfferCardsNamesButton{
   background-color: #525252!important;
   border-color: #313131!important;
+}
+
+.tradeTabs.tradeOfferCardsNamesButton:active{
+  color: #e1e1e1!important;
 }

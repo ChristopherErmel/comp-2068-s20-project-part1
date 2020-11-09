@@ -649,7 +649,7 @@
         
                   } else {
                     document.getElementById(iid).style.display = "block";
-                    document.getElementById(id).style.color = "green";
+                    document.getElementById(id).style.color = "#191919";
                   }
                 }
               </script>
@@ -820,12 +820,24 @@
       <% } %>
 
 <!-- if 3 of the users own offers exsist then hide the create function -->
-      <script>
-        if(document.getElementById("3")){
+<% if(typeof user != "undefined" && authorized){ %>
+  <% if(user.userType === "pro"){ %>
+      <script>        
+        if(document.getElementById("7")){
           document.getElementById("offerCardOnF").style.display = "none";
+          document.getElementById("offerCardOnF").style.visibility = "hidden";
         }
         </script>
-
+  <% } %>
+    <% if(user.userType === "normal"){ %>
+      <script>        
+        if(document.getElementById("2")){
+          document.getElementById("offerCardOnF").style.display = "none";
+          document.getElementById("offerCardOnF").style.visibility = "hidden";
+        }
+        </script>
+  <% } %>
+  <% } %>
 
 
 

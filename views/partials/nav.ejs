@@ -45,6 +45,9 @@
       <% if(user.userType === "pro"){ %>
       <button type="button" class="btn btn-warning" style="pointer-events: none; margin-right: 1em;">Pro</button>
       <% }%>
+      <% if(user.userType === "normal"){ %>
+        <a href="/upgrade"><button type="button" class="btn btn-info" style="margin-right: 1em;">Upgrade +</button></a>
+        <% }%>
       <% }%>
       <!-- Default dropleft button -->
       <li class="nav-item">
