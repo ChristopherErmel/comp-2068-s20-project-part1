@@ -68,13 +68,47 @@ exports.home = async (req, res) => {
 
 exports.index = async (req, res) => {
   try {
+
+    
     //for usertype tracking
     let user = "undefined"
     if(typeof req.user != "undefined"){
       user = await User.findById(req.user);
     }
 
-    const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
+
+
+
+
+
+
+
+
+
+
+
+
+    //page and limit 
+    let perPage = 8
+    let page = req.params.page || 1
+
+
+
+
+// execute query with page and limit values
+const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' }).skip((perPage * page) - perPage).limit(perPage).exec();
+
+// get total documents in the Posts collection 
+const count = await Trade.countDocuments();
+
+
+
+
+
+
+
+
+    // const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
     let cards = [];
     for (let trade of trades) {
       let card = await PlayerInfo.find({ "_id": trade.cardId });
@@ -84,7 +118,9 @@ exports.index = async (req, res) => {
       pageTitle: 'Active Trades',
       trades: trades,
       cards: cards,  
-      user: user
+      user: user,
+      current: page,
+      pages: Math.ceil(count / perPage)
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);

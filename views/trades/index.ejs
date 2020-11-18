@@ -9,6 +9,9 @@
 
 </script>
 
+<!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+
 
 
 <div class="container my-5 theBlock">
@@ -100,6 +103,36 @@
     </div>
     <% } %>
     <%// } %>
+
+
+    <% if (pages > 0) { %>
+      <ul class="pagination text-center">
+          <% if (current == 1) { %>
+              <li class="disabled"><a>First</a></li>
+          <% } else { %>
+              <li><a href="/trades/results/1">First</a></li>
+          <% } %>
+          <% var z = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+          <% if (z !== 1) { %>
+              <li class="disabled"><a>...</a></li>
+          <% } %>
+          <% for (; z <= (Number(current) + 4) && z <= pages; z++) { %>
+              <% if (z == current) { %>
+                  <li class="active"><a><%= z %></a></li>
+              <% } else { %>
+                  <li><a href="/trades/results/<%= z %>"><%= z %></a></li>
+              <% } %>
+              <% if (z == Number(current) + 4 && z < pages) { %>
+                  <li class="disabled"><a>...</a></li>
+              <% } %>
+          <% } %>
+          <% if (current == pages) { %>
+              <li class="disabled"><a>Last</a></li>
+          <% } else { %>
+              <li><a href="/trades/results/<%= pages %>">Last</a></li>
+          <% } %>
+      </ul>
+  <% } %>
 
 
     <%- include ('../partials/footer') %>

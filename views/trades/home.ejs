@@ -1,7 +1,7 @@
 <!-- home after login template-->
 <%- include ('../partials/header') %>
 <div class="container my-5">
-  <header style="display: inline-block; width: 100%;">
+  <header class="homeHeader">
     <h1>Home</h1>
     <!-- This will check the users type if they are logged in and there is a user type. -->
     <% if(typeof user != "undefined" && authorized){ %>

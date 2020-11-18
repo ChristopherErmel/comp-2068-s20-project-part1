@@ -13,7 +13,7 @@
 
  
   module.exports = router => {
-     router.get('/trades', index); //public       
+     router.get('/trades/results/:page', index); //public       
      router.get('/XboxTrades', indexXbox); //public       
      router.get('/PSTrades', indexPS); //public  
 
