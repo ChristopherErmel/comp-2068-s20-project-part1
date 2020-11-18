@@ -14,8 +14,8 @@
  
   module.exports = router => {
      router.get('/trades/results/:page', index); //public       
-     router.get('/XboxTrades', indexXbox); //public       
-     router.get('/PSTrades', indexPS); //public  
+     router.get('/XboxTrades/results/:page', indexXbox); //public       
+     router.get('/PSTrades/results/:page', indexPS); //public  
 
 
 

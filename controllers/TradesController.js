@@ -89,8 +89,8 @@ exports.index = async (req, res) => {
 
 
     //page and limit 
-    let perPage = 8
-    let page = req.params.page || 1
+    let perPage = 8;
+    let page = req.params.page || 1;
 
 
 
@@ -100,11 +100,6 @@ const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' }).s
 
 // get total documents in the Posts collection 
 const count = await Trade.countDocuments();
-
-
-
-
-
 
 
 
@@ -136,7 +131,18 @@ exports.indexXbox = async (req, res) => {
       user = await User.findById(req.user);
     }
 
-    const trades = await Trade.find({ console: 'Xbox' }).populate('user').sort({ createdAt: 'desc' });
+
+      //page and limit 
+      let perPage = 8;
+      let page = req.params.page || 1;
+
+    const trades = await Trade.find({ console: 'Xbox' }).populate('user').sort({ createdAt: 'desc' }).skip((perPage * page) - perPage).limit(perPage);
+
+
+    // get total documents in the Posts collection 
+    const count = await Trade.find({ console: 'Xbox' }).countDocuments();
+
+
     let cards = [];
     for (let trade of trades) {
       let card = await PlayerInfo.find({ "_id": trade.cardId });
@@ -146,7 +152,9 @@ exports.indexXbox = async (req, res) => {
       pageTitle: 'Active Trades',
       trades: trades,
       cards: cards,  
-      user: user
+      user: user,
+      current: page,
+      pages: Math.ceil(count / perPage)
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);
@@ -162,8 +170,17 @@ exports.indexPS = async (req, res) => {
       user = await User.findById(req.user);
     }
 
+      //page and limit 
+      let perPage = 8;
+      let page = req.params.page || 1;
 
-    const trades = await Trade.find({ console: 'PS' }).populate('user').sort({ createdAt: 'desc' });
+
+    const trades = await Trade.find({ console: 'PS' }).populate('user').sort({ createdAt: 'desc' }).skip((perPage * page) - perPage).limit(perPage);
+
+// get total documents in the Posts collection 
+const count = await Trade.find({ console: 'PS' }).countDocuments();
+
+
     let cards = [];
     for (let trade of trades) {
       let card = await PlayerInfo.find({ "_id": trade.cardId });
@@ -173,7 +190,9 @@ exports.indexPS = async (req, res) => {
       pageTitle: 'Active Trades',
       trades: trades,
       cards: cards,  
-      user: user
+      user: user,
+      current: page,
+      pages: Math.ceil(count / perPage)
     });
   } catch (error) {
     req.flash('danger', `There was an error displaying the trades: ${error}`);
