@@ -46,17 +46,17 @@ exports.home = async (req, res) => {
   try {
     //for usertype tracking
     let user = "undefined"
-    if(typeof req.user != "undefined"){
+    if (typeof req.user != "undefined") {
       user = await User.findById(req.user);
-      
-     // numberOfTrades = user.myTrades.length;
-    }  
+
+      // numberOfTrades = user.myTrades.length;
+    }
     const trades = await Trade.find().populate('user').sort({ updatedAt: 'desc' });
     res.render(`${viewPath}/home`, {
       pageTitle: 'Active Trades',
-      trades: trades, 
-    user: user
-    //numberOfTrades
+      trades: trades,
+      user: user
+      //numberOfTrades
       // myTrades: false
     });
   } catch (error) {
@@ -69,10 +69,10 @@ exports.home = async (req, res) => {
 exports.index = async (req, res) => {
   try {
 
-    
+
     //for usertype tracking
     let user = "undefined"
-    if(typeof req.user != "undefined"){
+    if (typeof req.user != "undefined") {
       user = await User.findById(req.user);
     }
 
@@ -95,11 +95,11 @@ exports.index = async (req, res) => {
 
 
 
-// execute query with page and limit values
-const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' }).skip((perPage * page) - perPage).limit(perPage).exec();
+    // execute query with page and limit values
+    const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' }).skip((perPage * page) - perPage).limit(perPage).exec();
 
-// get total documents in the Posts collection 
-const count = await Trade.countDocuments();
+    // get total documents in the Posts collection 
+    const count = await Trade.countDocuments();
 
 
 
@@ -112,7 +112,7 @@ const count = await Trade.countDocuments();
     res.render(`${viewPath}/index`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards,  
+      cards: cards,
       user: user,
       current: page,
       pages: Math.ceil(count / perPage)
@@ -127,14 +127,14 @@ exports.indexXbox = async (req, res) => {
   try {
     //for user type tracking
     let user = "undefined"
-    if(typeof req.user != "undefined"){
+    if (typeof req.user != "undefined") {
       user = await User.findById(req.user);
     }
 
 
-      //page and limit 
-      let perPage = 8;
-      let page = req.params.page || 1;
+    //page and limit 
+    let perPage = 8;
+    let page = req.params.page || 1;
 
     const trades = await Trade.find({ console: 'Xbox' }).populate('user').sort({ createdAt: 'desc' }).skip((perPage * page) - perPage).limit(perPage);
 
@@ -151,7 +151,7 @@ exports.indexXbox = async (req, res) => {
     res.render(`${viewPath}/indexXbox`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards,  
+      cards: cards,
       user: user,
       current: page,
       pages: Math.ceil(count / perPage)
@@ -166,19 +166,19 @@ exports.indexPS = async (req, res) => {
   try {
     //for usertype tracking    
     let user = "undefined"
-    if(typeof req.user != "undefined"){
+    if (typeof req.user != "undefined") {
       user = await User.findById(req.user);
     }
 
-      //page and limit 
-      let perPage = 8;
-      let page = req.params.page || 1;
+    //page and limit 
+    let perPage = 8;
+    let page = req.params.page || 1;
 
 
     const trades = await Trade.find({ console: 'PS' }).populate('user').sort({ createdAt: 'desc' }).skip((perPage * page) - perPage).limit(perPage);
 
-// get total documents in the Posts collection 
-const count = await Trade.find({ console: 'PS' }).countDocuments();
+    // get total documents in the Posts collection 
+    const count = await Trade.find({ console: 'PS' }).countDocuments();
 
 
     let cards = [];
@@ -189,7 +189,7 @@ const count = await Trade.find({ console: 'PS' }).countDocuments();
     res.render(`${viewPath}/indexPS`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards,  
+      cards: cards,
       user: user,
       current: page,
       pages: Math.ceil(count / perPage)
@@ -205,7 +205,7 @@ exports.myblock = async (req, res) => {
 
     //for usertype tracking    
     let user = "undefined"
-    if(typeof req.user != "undefined"){
+    if (typeof req.user != "undefined") {
       user = await User.findById(req.user);
     }
 
@@ -225,7 +225,7 @@ exports.myblock = async (req, res) => {
     // console.log(cards);
     res.render(`${viewPath}/myblock`, {
       trades: trades,
-      cards: cards,  
+      cards: cards,
       user: user
     });
   } catch (error) {
@@ -237,13 +237,13 @@ exports.myblock = async (req, res) => {
 exports.myoffers = async (req, res) => {
   try {
 
-     //for usertype tracking
+    //for usertype tracking
     let user = "undefined"
-     if(typeof req.user != "undefined"){
+    if (typeof req.user != "undefined") {
       user = await User.findById(req.user);
     }
 
-    const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
+    // const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
 
 
     let myOffers = [];
@@ -287,7 +287,7 @@ exports.myoffers = async (req, res) => {
     //console.log(myOffers);
     res.render(`${viewPath}/myoffers`, {
       cards: cards,
-      myOffers: myOffers,  
+      myOffers: myOffers,
       user: user
     });
   } catch (error) {
@@ -370,12 +370,12 @@ exports.show = async (req, res) => {
 
 exports.new = async (req, res) => {
   //for usertype tracking
-    let user = "undefined"
-  if(typeof req.user != "undefined"){
+  let user = "undefined"
+  if (typeof req.user != "undefined") {
     user = await User.findById(req.user);
   }
   res.render(`${viewPath}/new`, {
-    pageTitle: 'New Trade Block',  
+    pageTitle: 'New Trade Block',
     user: user
   });
 };
@@ -383,56 +383,56 @@ exports.new = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-  //  console.log(`${JSON.stringify(req.user._id)}`);  
-  const { user: email } = req.session.passport;
-  const user = await User.findOne({ email: email });
-  const trade = await Trade.create({ user: user._id, ...req.body });
+    //  console.log(`${JSON.stringify(req.user._id)}`);  
+    const { user: email } = req.session.passport;
+    const user = await User.findOne({ email: email });
+    const trade = await Trade.create({ user: user._id, ...req.body });
 
-  if(typeof req.user.cardsOnBlock != "undefined"){
-  //checks to make sure they are under the card amount.
-  if(req.user.userType === "pro"){
-    if(req.user.cardsOnBlock == 2){
-      req.flash('danger', 'You have reached your limit!(12) Card not posted.');
-      res.redirect(`/trades/home`);
-    }else{
-      //this will find the user and add to their trade amount.
-    // console.log(req.user.cardsOnBlock);
-    let userID = req.user._id;
-    let numCards = req.user.cardsOnBlock + 1;
-    User.findByIdAndUpdate({_id : userID}, {cardsOnBlock : numCards}, function(err, result){});
-    // console.log(req.user.cardsOnBlock);
-    req.flash('success', 'Trade Posted Successfully!');
-    res.redirect(`/trades/${trade.id}`);
+    if (typeof req.user.cardsOnBlock != "undefined") {
+      //checks to make sure they are under the card amount.
+      if (req.user.userType === "pro") {
+        if (req.user.cardsOnBlock == 2) {
+          req.flash('danger', 'You have reached your limit!(12) Card not posted.');
+          res.redirect(`/trades/home`);
+        } else {
+          //this will find the user and add to their trade amount.
+          // console.log(req.user.cardsOnBlock);
+          let userID = req.user._id;
+          let numCards = req.user.cardsOnBlock + 1;
+          User.findByIdAndUpdate({ _id: userID }, { cardsOnBlock: numCards }, function (err, result) { });
+          // console.log(req.user.cardsOnBlock);
+          req.flash('success', 'Trade Posted Successfully!');
+          res.redirect(`/trades/${trade.id}`);
 
-    
+
+        }
+      }
+      if (req.user.userType === "normal") {
+        if (req.user.cardsOnBlock == 5) {
+          req.flash('danger', 'You have reached your limit!(5) Card not posted.');
+          res.redirect(`/trades/home`);
+        } else {
+          //this will find the user and add to their trade amount.
+          // console.log(req.user.cardsOnBlock);
+          let userID = req.user._id;
+          let numCards = req.user.cardsOnBlock + 1;
+          User.findByIdAndUpdate({ _id: userID }, { cardsOnBlock: numCards }, function (err, result) { });
+          // console.log(req.user.cardsOnBlock);
+          req.flash('success', 'Trade Posted Successfully!');
+          res.redirect(`/trades/${trade.id}`);
+
+
+        }
+      }
+
+      req.flash('success', 'Trade Posted Successfully!');
+      res.redirect(`/trades/${trade.id}`);
+
+
     }
-  }
-if(req.user.userType === "normal"){
-    if(req.user.cardsOnBlock == 5){
-      req.flash('danger', 'You have reached your limit!(5) Card not posted.');
-      res.redirect(`/trades/home`);
-    }else{
-      //this will find the user and add to their trade amount.
-    // console.log(req.user.cardsOnBlock);
-    let userID = req.user._id;
-    let numCards = req.user.cardsOnBlock + 1;
-    User.findByIdAndUpdate({_id : userID}, {cardsOnBlock : numCards}, function(err, result){});
-    // console.log(req.user.cardsOnBlock);
-    req.flash('success', 'Trade Posted Successfully!');
-    res.redirect(`/trades/${trade.id}`);
-
-    
-    }
-  }
-   
-  req.flash('success', 'Trade Posted Successfully!');
-  res.redirect(`/trades/${trade.id}`);
-
-    
-  }
 
 
-    
+
   } catch (error) {
     req.flash('danger', `There was an error creating this trade: ${error}`);
     res.redirect('/trades/home');
@@ -492,15 +492,15 @@ exports.delete = async (req, res) => {
     const { user: email } = req.session.passport;
     const trade = await Trade.findById(req.params.id);
     const user = await User.findOne({ email: email });
-    
+
     //this will find the user and add to their trade amount.    
-    if(typeof req.user.cardsOnBlock != "undefined"){
+    if (typeof req.user.cardsOnBlock != "undefined") {
       console.log(req.user.cardsOnBlock);
       let userID = req.user._id;
       let numCards = req.user.cardsOnBlock - 1;
       //no '-' numbers 
-      if(numCards < 0 ){numCards = 0;}
-      User.findByIdAndUpdate({_id : userID}, {cardsOnBlock : numCards}, function(err, result){});
+      if (numCards < 0) { numCards = 0; }
+      User.findByIdAndUpdate({ _id: userID }, { cardsOnBlock: numCards }, function (err, result) { });
       console.log(req.user.cardsOnBlock);
     }
 
@@ -519,16 +519,32 @@ exports.delete = async (req, res) => {
   }
 }
 
-//this will add comments to the trade id...
+//this will add an offer to the trade id...
 exports.comment = async (req, res) => {
   try {
+
+
+    if (req.user.userType === "pro") {
+      //this will check to make sure the user is not over the limit of trade offers able to be made.
+      if (req.user.myTrades.length >= 8) {
+        throw "You have reached the trade offer limit of 8!";
+      }
+    }
+    if (req.user.userType === "normal") {
+      //this will check to make sure the user is not over the limit of trade offers able to be made.
+      if (req.user.myTrades.length >= 3) {
+        throw "You have reached the trade offer limit of 3!";
+      }
+    }
+
+
 
     //If the coins offer is nothing, or if any card option is not a card... throw
     //I choose 10 as the min length because no card option will be below 10, 
     // and most people wont type 10 random letters into the search box and then send an offer...
-   if (req.body.coinsOffer === "" && req.body.cardListO1.length < 10 && req.body.cardListO2.length < 10 && req.body.cardListO3.length < 10 && req.body.cardListO4.length < 10) {
-    throw "Invalid Card or Coin Offer";
-   }else{
+    if (req.body.coinsOffer === "" && req.body.cardListO1.length < 10 && req.body.cardListO2.length < 10 && req.body.cardListO3.length < 10 && req.body.cardListO4.length < 10) {
+      throw "Invalid Card or Coin Offer";
+    } else {
       //this will add the trade to the db under tradeOffers for the specific trade...
       await Trade.findByIdAndUpdate({ _id: req.body.id }, {
         $push: {
@@ -545,7 +561,6 @@ exports.comment = async (req, res) => {
             offerUserName: req.body.offerUserName,
             tradeId: req.body.tradeId,
             tradeOffers: ""
-
           }
         }
       });
@@ -614,9 +629,9 @@ exports.tradeComment = async (req, res) => {
 exports.xboxSearchResults = async (req, res) => {
   try {
     //for usertype tracking
-  if(typeof req.user != "undefined"){
-    user = await User.findById(req.user);
-  }
+    if (typeof req.user != "undefined") {
+      user = await User.findById(req.user);
+    }
 
     // console.log(req.body.pageNum);
 
@@ -628,21 +643,21 @@ exports.xboxSearchResults = async (req, res) => {
     // let page_num = page_number;
     // let skips = page_size * (page_num - 1);
 
-    
+
     //.skip(skips).limit(page_size)
-     const trades = await Trade.find({ console: 'Xbox', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
-    
-     //console.log(trades);
-    
-     let cards = [];
+    const trades = await Trade.find({ console: 'Xbox', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
+
+    //console.log(trades);
+
+    let cards = [];
     for (let trade of trades) {
       let card = await PlayerInfo.find({ "_id": trade.cardId });
       cards.push(card);
     }
-     res.render(`${viewPath}/xboxSearchResults`, {
+    res.render(`${viewPath}/xboxSearchResults`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      cards: cards,  
+      cards: cards,
       user: user,
       page_number: page_number
     });
@@ -655,22 +670,22 @@ exports.xboxSearchResults = async (req, res) => {
 //this will show the results of the trades with the specific name and card name and ovr
 exports.psSearchResults = async (req, res) => {
   try {
-    
-     //for usertype tracking
-  if(typeof req.user != "undefined"){
-    user = await User.findById(req.user);
-  }
 
-     const trades = await Trade.find({ console: 'PS', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
-    
-     //console.log(trades);
-    
-     let cards = [];
+    //for usertype tracking
+    if (typeof req.user != "undefined") {
+      user = await User.findById(req.user);
+    }
+
+    const trades = await Trade.find({ console: 'PS', playerName: req.body.playerName, playerCard: req.body.playerCard, playerOVR: req.body.playerOVR }).populate('user').sort({ createdAt: 'desc' });
+
+    //console.log(trades);
+
+    let cards = [];
     for (let trade of trades) {
       let card = await PlayerInfo.find({ "_id": trade.cardId });
       cards.push(card);
     }
-     res.render(`${viewPath}/psSearchResults`, {
+    res.render(`${viewPath}/psSearchResults`, {
       pageTitle: 'Active Trades',
       trades: trades,
       cards: cards,
@@ -686,18 +701,18 @@ exports.psSearchResults = async (req, res) => {
 //this will show the results of the trades with the specific name and card name and ovr
 exports.modeChange = async (req, res) => {
   try {
-   //grab all info
-  ObjectId = require('mongodb').ObjectID;
-  let mode = req.body.modeChange.toString();
-  let id = ObjectId(req.user._id.toString().trim());
+    //grab all info
+    ObjectId = require('mongodb').ObjectID;
+    let mode = req.body.modeChange.toString();
+    let id = ObjectId(req.user._id.toString().trim());
 
-//set the users view mode.
-  await User.update(
-    { _id: id },{"viewMode" : mode }
-  );
-  
-//redirect to the page again for a new load of styles...
-res.redirect(`${viewPath}/home`);
+    //set the users view mode.
+    await User.update(
+      { _id: id }, { "viewMode": mode }
+    );
+
+    //redirect to the page again for a new load of styles...
+    res.redirect(`${viewPath}/home`);
 
   } catch (error) {
     req.flash('danger', `There was an error updateing your view mode: ${error}`);
