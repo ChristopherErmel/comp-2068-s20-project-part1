@@ -17,6 +17,17 @@ body {
   color: #e1e1e1;
 }
 
+.home-cta {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('/images/background.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x:hidden!important;
+  overflow-y:hidden!important;
+}
 
 .navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top{
   background-color: #414141!important;
