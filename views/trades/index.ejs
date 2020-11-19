@@ -104,9 +104,17 @@
     <% } %>
     <%// } %>
 
+    <hr>
 
+    <div class="d-flex">
+      <div class="d-flex w-100 justify-content-center align-self-center">
+         
+                      
+            
+
+    <!-- <div id="pagiBox align-self-center"> -->
     <% if (pages > 0) { %>
-      <ul class="pagination text-center">
+      <ul class="pagination">
           <% if (current == 1) { %>
               <li class="disabled"><a>First</a></li>
           <% } else { %>
@@ -133,6 +141,17 @@
           <% } %>
       </ul>
   <% } %>
+
+
+<!-- </div> -->
+</div>
+</div>
+
+
+
+
+
+
 
 
     <%- include ('../partials/footer') %>
