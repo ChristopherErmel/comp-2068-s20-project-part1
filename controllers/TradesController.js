@@ -209,16 +209,34 @@ exports.myblock = async (req, res) => {
       user = await User.findById(req.user);
     }
 
-    const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
+    //const trades = await Trade.find().populate('user').sort({ createdAt: 'desc' });
     //finds the card id depending on the id from the trade.
     //  const card = await PlayerInfo.find({ "_id": trade.cardId });
 
-    let cards = [];
+    let trades = [];
 
-    for (let trade of trades) {
-      let card = await PlayerInfo.find({ "_id": trade.cardId });
-      cards.push(card);
+    //console.log(trades);
+
+    for (let trade of req.user.myTrades) {
+      let myTrade = await Trade.find({ _id: trade.tradeId });
+      trades.push(myTrade);
       // console.log(trade.cardId);
+    }
+
+
+    //finds the card id depending on the id from the trade.
+    let cards = [];
+    //if(myOffers.length > 1) {
+    //console.log(myOffers.length)
+    for (let trade of trades) {
+      //console.log(typeof offer[0].cardId !== 'undefined')
+      //console.log(offer[0].cardId);
+      //check to see if there are any active trades...
+      if (typeof trade[0] !== 'undefined') {
+        let card = await PlayerInfo.find({ "_id": trade[0].cardId });
+        cards.push(card);
+        // console.log(trade.cardId);
+      }
     }
 
 
@@ -249,7 +267,7 @@ exports.myoffers = async (req, res) => {
     let myOffers = [];
 
     //this will find each offer of the specific user and send it to the view. This will inclued dups...
-    for (let offer of req.user.myTrades) {
+    for (let offer of req.user.myOffers) {
       let myOffer = await Trade.find({ _id: offer.tradeId });
       myOffers.push(myOffer);
 
@@ -385,16 +403,21 @@ exports.create = async (req, res) => {
   try {
     //  console.log(`${JSON.stringify(req.user._id)}`);  
     const { user: email } = req.session.passport;
+    
     const user = await User.findOne({ email: email });
-    const trade = await Trade.create({ user: user._id, ...req.body });
+
 
     if (typeof req.user.cardsOnBlock != "undefined") {
       //checks to make sure they are under the card amount.
       if (req.user.userType === "pro") {
-        if (req.user.cardsOnBlock == 2) {
+
+        if (req.user.cardsOnBlock >= 18) {
           req.flash('danger', 'You have reached your limit!(12) Card not posted.');
           res.redirect(`/trades/home`);
         } else {
+
+          
+    const trade = await Trade.create({ user: user._id, ...req.body });
           //this will find the user and add to their trade amount.
           // console.log(req.user.cardsOnBlock);
           let userID = req.user._id;
@@ -404,20 +427,51 @@ exports.create = async (req, res) => {
           req.flash('success', 'Trade Posted Successfully!');
           res.redirect(`/trades/${trade.id}`);
 
+          //this will add the trade link to the users array for their trades/offers
+          //if the offering user is the one making the trade offer, add the id to the link.
+          await User.findByIdAndUpdate({ _id: userID }, {
+            $push: {
+              "myTrades": {
+                tradeId: trade.id,
+                //adding the trade time.date in here so when views on myOffers page we can view by date...
+                tradeDate: Date.now()
+              }
+            }
+          });
+
+          // console.log(trade.id);
+          // console.log(req.body.trade._id);
 
         }
       }
       if (req.user.userType === "normal") {
-        if (req.user.cardsOnBlock == 5) {
+        if (req.user.cardsOnBlock >= 5) {
           req.flash('danger', 'You have reached your limit!(5) Card not posted.');
           res.redirect(`/trades/home`);
         } else {
+          
+    const trade = await Trade.create({ user: user._id, ...req.body });
           //this will find the user and add to their trade amount.
           // console.log(req.user.cardsOnBlock);
           let userID = req.user._id;
           let numCards = req.user.cardsOnBlock + 1;
           User.findByIdAndUpdate({ _id: userID }, { cardsOnBlock: numCards }, function (err, result) { });
           // console.log(req.user.cardsOnBlock);
+
+//this will add the trade link to the users array for their trades/offers
+          //if the offering user is the one making the trade offer, add the id to the link.
+          await User.findByIdAndUpdate({ _id: userID }, {
+            $push: {
+              "myTrades": {
+                tradeId: trade.id,
+                //adding the trade time.date in here so when views on myOffers page we can view by date...
+                tradeDate: Date.now()
+              }
+            }
+          });
+
+
+
           req.flash('success', 'Trade Posted Successfully!');
           res.redirect(`/trades/${trade.id}`);
 
@@ -570,7 +624,7 @@ exports.comment = async (req, res) => {
       //if the offering user is the one making the trade offer, add the id to the link.
       await User.findByIdAndUpdate({ _id: req.body.offerUserID.toString().trim() }, {
         $push: {
-          "myTrades": {
+          "myOffers": {
             tradeId: req.body.id,
             //adding the trade time.date in here so when views on myOffers page we can view by date...
             tradeDate: Date.now()

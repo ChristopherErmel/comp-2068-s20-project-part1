@@ -72,6 +72,10 @@ const UserSchema = new mongoose.Schema({
   myTrades: {
     type: Array,
     required: false,
+  },
+  myOffers: {
+    type: Array,
+    required: false,
   }
 },{
     timestamps: true,

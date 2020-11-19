@@ -42,11 +42,6 @@
         <% i = i+1; %>
 
         <hr />
-        
-        <% if (typeof trade.user !== 'undefined') {%>
-        <small style="font-weight: bold;">by <%= trade.user.userName %></small>
-        <% } %>
-        <small style="float: right;"><%= trade.updatedAt.toLocaleString("en-US") %></small>
 
         <% if(trade.console == "Xbox"){ %>
         <hr style="height: .1em; background-color: #107C10;">
