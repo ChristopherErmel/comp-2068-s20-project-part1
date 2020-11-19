@@ -20,6 +20,7 @@ const viewPath = ('trades');
 const Trade = require('../models/Trade');
 const User = require('../models/User');
 const PlayerInfo = require('../models/playerInfo');
+const mongoose = require('mongoose');
 
 //this is our player data
 const fs = require('fs');
@@ -549,14 +550,41 @@ exports.delete = async (req, res) => {
 
     //this will find the user and add to their trade amount.    
     if (typeof req.user.cardsOnBlock != "undefined") {
-      console.log(req.user.cardsOnBlock);
+      // console.log(req.user.cardsOnBlock);
       let userID = req.user._id;
       let numCards = req.user.cardsOnBlock - 1;
       //no '-' numbers 
       if (numCards < 0) { numCards = 0; }
       User.findByIdAndUpdate({ _id: userID }, { cardsOnBlock: numCards }, function (err, result) { });
-      console.log(req.user.cardsOnBlock);
+      // console.log(req.user.cardsOnBlock);
     }
+
+
+
+
+
+    // logic for removing from users myOffers, and current users myTrades...
+    // myTrades Logic for removal.
+    // This will search the specific user in their "myTrades" and remove 
+    // their offer if they match the deleted trade id.
+    await User.updateOne({_id: req.user._id}, {
+          "$pull": {
+            "myTrades": {
+              "tradeId": req.body.id
+            }
+          }
+        });
+      
+        // myOffers Logic for removal.
+        // This will search all users in their "myOffers" and remove 
+        // their offer if they match the deleted trade id.
+        await User.updateMany({}, {
+          "$pull": {
+            "myOffers": {
+              "tradeId": req.body.id
+            }
+          }
+        });
 
 
     //checks to see if the user who made the trade is the one trying to edit it
