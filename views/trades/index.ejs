@@ -76,8 +76,11 @@
           <% } %>
         <hr>
         <a class="btn btn-primary" href="/trades/<%= trade.id %>">View</a>
+
+
+
         <% if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
-        <form style="background: none; display: inline-block; float: right;" class="form-inline buttonOptionsTB" action="/trades/delete"
+        <form style="background: none; display: inline-block; float: right;" class="form-inline" action="/trades/delete"
           method="post"
           onsubmit="return confirm('Are you sure you want to delete this trade? This can not be undone!');">
           <input type="hidden" value="<%= trade.id %>" name="id">
@@ -88,6 +91,25 @@
             </a>
           </button>
         </form>
+
+
+
+
+
+
+
+        <!-- <% //if(authorized && (typeof trade.user === 'undefined' || trade.user.email === email)) { %>
+        <form style="background: none; display: inline-block; float: right;" class="form-inline buttonOptionsTB" action="/trades/delete"
+          method="post"
+          onsubmit="return confirm('Are you sure you want to delete this trade? This can not be undone!');">
+          <input type="hidden" value="<%= //trade.id %>" name="id">
+          <button type="submit" class="delete" style="border: none;
+                    background-color: white; size: 10%">
+            <a class="btn btn-danger" aria-label="Delete">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </button>
+        </form> -->
         <!-- <% //if(trade.tradeStatus == "Traded"){ %>
         <a class="btn btn-secondary btn-sm buttonOptionsTBc"
           style="text-decoration: line-through;"><i class="fa fa-check-circle-o" aria-hidden="true"></i></a>
