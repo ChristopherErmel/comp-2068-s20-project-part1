@@ -1,0 +1,67 @@
+<%- include ('../partials/header') %>
+<div class="container my-5">
+    <header class="homeHeader">
+        <h1>Information</h1>
+      <hr>
+      
+  </header>
+  
+
+
+  <div class="row homeOptionsOne">
+<div class="col-sm-6">
+    <div class="card">
+      <div class="card-body homeOptionCards">
+        <h5 class="card-title">Current Player Information Below:</h5>
+        <hr style="background-color: darkorange;">
+        <!-- this will show the amount of cards in the db -->
+        <p class="card-text">Amount of Players in Database:</p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= amountOfPlayers %></p>
+        <p class="card-text">Card Types:</p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;">
+            <!-- this will show all card types from the db -->
+        <%  for (card of playerInfosCardTypes) { %>
+       <a style="color: black;">|</a>  <%= card %> <a style="color: black;">|</a>
+  <%  }  %> 
+    </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body homeOptionCards">
+        <h5 class="card-title">Current User Information Below</h5>
+        <hr style="background-color: darkorange;">
+
+        <p class="card-text">Amount of Users in Database:</p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= amountOfUsers %></p>
+
+        <p class="card-text">Amount of 'PRO' Users in Database:</p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= amountOfProUsers %></p>
+                
+        <p class="card-text">Last User Created at:</p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= lastUserCreated[0].createdAt %></p>
+        
+        
+        
+    
+      </div>
+    </div>
+  </div>
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include ('../partials/footer') %>

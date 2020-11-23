@@ -4,7 +4,24 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const https = require('https');
 
+exports.console = async (req, res) => {
+    //for usertype tracking
+    let user = "undefined"
+    if (typeof req.user != "undefined") {
+      user = await User.findById(req.user);
+    }
 
+    //This will only allow the page to load if the user is a super user
+    if(user.userType === 'super'){
+        res.render('superUser/console', {
+            user: user
+        })
+    }else{
+        req.flash('danger', 'You need to login as a Super User to access that page.');
+      return res.redirect('/login');
+    }
+    
+};
 
 const sleep = async time => {
     return new Promise(resolve => {
@@ -12,16 +29,60 @@ const sleep = async time => {
     })
 }
 
-exports.index = async (req, res) => {
-    const playerInfos = await PlayerInfo.find();
-    res.render('playerInfo/index', {
-        pageTitle: 'PlayerInfo',
-        playerInfos
-    })
+exports.currentPlayers = async (req, res) => {
+     //for usertype tracking
+     let user = "undefined"
+     if (typeof req.user != "undefined") {
+       user = await User.findById(req.user);
+     }
+
+     const playerInfos = await PlayerInfo.find();
+     const allUsers = await User.find();
+     const allProUsers = await User.find({"userType": "pro"});
+     const lastUserCreated = await User.find().sort({"createdAt": -1}).limit(1);
+     
+     const playerInfosCardTypes = await PlayerInfo.distinct('card');
+
+     let amountOfPlayers = playerInfos.length;
+     let amountOfUsers = allUsers.length;
+     let amountOfProUsers = allProUsers.length;
+     
+     
+    //  console.log(playerInfosCardTypes);
+
+
+     //This will only allow the page to load if the user is a super user
+    if(user.userType === 'super'){
+        res.render('superUser/currentPlayers', {
+            playerInfos,
+            amountOfPlayers,
+            playerInfosCardTypes,
+            amountOfUsers,
+            lastUserCreated,
+            amountOfProUsers,
+            user: user
+        })
+    }else{
+        req.flash('danger', 'You need to login as a Super User to access that page.');
+      return res.redirect('/login');
+    }   
+    
 };
 
 exports.update = async (req, res) => {
-    const playerInfos = await scrapeIt('https://www.nhlhutbuilder.com/player-stats.php');
+
+    //for usertype tracking
+    let user = "undefined"
+    if (typeof req.user != "undefined") {
+      user = await User.findById(req.user);
+    }
+
+    //This will only allow the page to load if the user is a super user
+    if(user.userType === 'super'){
+
+    let pgNum = req.query.pageNumber - 1;
+
+    const playerInfos = await scrapeIt('https://www.nhlhutbuilder.com/player-stats.php', pgNum);
 
     for (let playerInfo of playerInfos) {
         //update our PlayerInfo model with the data
@@ -71,13 +132,20 @@ exports.update = async (req, res) => {
         )
     }
 
-    //  res.json(playerInfos);
 
-    res.redirect('/playerInfo');
+    res.redirect('/superUser/currentPlayers');
+   
+       
+    }else{
+        req.flash('danger', 'You need to login as a Super User to access that page.');
+      return res.redirect('/login');
+    }  
+
+    
 };
 
 
-async function scrapeIt(url) {
+async function scrapeIt(url, pageNumber) {
     const browser = await puppeteer.launch({ headless: false });
     const context = browser.defaultBrowserContext();
     await context.overridePermissions(url, ['geolocation']);
@@ -112,7 +180,9 @@ async function scrapeIt(url) {
     //array of all card info urls
     let playerInfoUrls = [];
 
-    const pageNumber = 1;
+
+
+    
     //this will run depending on the amourn of pages there are...
     for (let i = 0; i < pageNumber; i++) {
         const hrefs = await page.$$eval('.advanced-stats', elements => elements.map(el => el.href))

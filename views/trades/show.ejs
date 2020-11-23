@@ -821,7 +821,7 @@
 
 <!-- if 3 of the users own offers exsist then hide the create function -->
 <% if(typeof user != "undefined" && authorized){ %>
-  <% if(user.userType === "pro"){ %>
+  <% if(user.userType === "pro"  || user.userType === "super"){ %>
       <script>        
         if(document.getElementById("7")){
           document.getElementById("offerCardOnF").style.display = "none";

@@ -57,6 +57,9 @@
       <% if(user.userType === "pro"){ %>
       <button type="button" class="btn btn-warning" style="pointer-events: none; margin-right: 1em;">Pro</button>
       <% }%>
+      <% if(user.userType === "super"){ %>
+        <a href="/superUser/console"><button type="button" class="btn btn-danger" style="margin-right: 1em;">Super</button></a>
+      <% }%>
       <% if(user.userType === "normal"){ %>
         <a href="/upgrade"><button type="button" class="btn btn-info" style="margin-right: 1em;">Upgrade +</button></a>
         <% }%>

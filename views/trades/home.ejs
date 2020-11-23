@@ -5,7 +5,7 @@
     <h1>Home</h1>
     <!-- This will check the users type if they are logged in and there is a user type. -->
     <% if(typeof user != "undefined" && authorized){ %>
-    <% if(user.userType === "pro"){ %>
+    <% if(user.userType === "pro"  || user.userType === "super"){ %>
     <!-- hidden form to pass mode change to controller. -->
     <form id="form" style="visibility: hidden; display: none;"
       action="<%= (typeof actionPath === 'undefined') ? '/modeChange' : actionPath %>" , method="POST">
@@ -70,7 +70,7 @@
 
 
   <% if(typeof user != "undefined" && authorized){ %>
-  <% if(user.userType === "pro"){ %>
+  <% if(user.userType === "pro"  || user.userType === "super"){ %>
   <div class="numberOfTrades">
     <h2 class="numberOfTrades"><%= user.cardsOnBlock %> / 12 Total Cards on your block.</h2>
     <% if(user.cardsOnBlock >= 12){ %>
@@ -122,7 +122,7 @@
           <p class="card-text">Place a new card on the block.</p>
     <!-- checks to see if they can submit another card to the block. depending on level and amount on block currently. -->
     <% if(typeof user != "undefined" && authorized){ %>
-      <% if(user.userType === "pro"){ %>
+      <% if(user.userType === "pro"  || user.userType === "super"){ %>
           <% if(user.cardsOnBlock < 12){ %>
           <a href="/trades/new" class="btn btn-primary">New Trade</a>
           <% } else if(user.cardsOnBlock >= 12){ %>

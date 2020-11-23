@@ -1,0 +1,49 @@
+<!-- home after login template-->
+<%- include ('../partials/header') %>
+<div class="container my-5">
+  <header class="homeHeader">
+    <h1>Super User Console</h1>
+    <hr>
+    
+</header>
+
+
+
+
+  <div class="row homeOptionsOne">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body homeOptionCards">
+          <h5 class="card-title">Current Player/User Information:</h5>
+          <p class="card-text">View information on Player Cards that are in the database.</p>
+          <p class="card-text">View information on Users that are in the database.</p>
+          <a href="/superUser/currentPlayers" class="btn btn-primary" style="margin-bottom: 1em;">Info</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body homeOptionCards">
+          <h5 class="card-title">Update Players Database</h5>
+          <p class="card-text">Scan and update Player Cards database.</p>
+          <p class="card-text">Based on Page# from <a href="https://www.nhlhutbuilder.com/player-stats.php" target="_blank">HUTBuilder</a></p>
+          <!-- <a id="updateDB" class="btn btn-primary">Update Database!</a> -->
+         
+         <!-- this page number will be used to determine how many pages need to be mined/scraped -->
+          <form id="form" action="<%= (typeof actionPath === 'undefined') ? '/superUser/update' : actionPath %>" , method="GET">
+          <input style="float: right; width: 25%; margin-right: 15em;" name="pageNumber" id="pageNumber" value="1"></input>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit" form="form" value="Submit">Submit</button>
+            </div>
+          </form>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+
+  <%- include ('../partials/footer') %>

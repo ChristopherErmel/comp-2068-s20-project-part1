@@ -19,5 +19,5 @@ module.exports = router => {
   router.get('/upgrade', auth, upgrade);
   router.get('/upgradeProcess', auth, upgradeProcess);
   router.get('/upgradeSuccess', upgradeSuccess);
-  router.get('/upgradeError', upgradeError);
+  router.get('/upgradeError', upgradeError);  
 };
