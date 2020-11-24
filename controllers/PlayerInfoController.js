@@ -146,7 +146,7 @@ exports.update = async (req, res) => {
 
 
 async function scrapeIt(url, pageNumber) {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true, ignoreHTTPSErrors: true });
     const context = browser.defaultBrowserContext();
     await context.overridePermissions(url, ['geolocation']);
 
@@ -157,7 +157,8 @@ async function scrapeIt(url, pageNumber) {
         width: 1920,
         height: 1080
     });
-
+    await page.setDefaultNavigationTimeout(0); 
+    
     page.on('dialog', async dialog => await dialog.dismiss());
     page.on('console', msg => console.log(msg._text));
     //uses function in scrapper pages...
@@ -165,14 +166,18 @@ async function scrapeIt(url, pageNumber) {
 
 
     await page.goto(url);
-    await sleep(5);
+    await sleep(1);
     // await page.screenshot({ path: 'screenshots/check.png' });
     await page.evaluate(async () => {
         window.scrollBy(0, document.body.scrollWidth);
-        await sleep(2);
+        await sleep(.5);
         window.scrollBy(0, document.body.scrollHeight);
-        await sleep(2);
+        await sleep(.5);
     });
+
+
+    
+
 
     await page.waitForSelector(`[class="table display compact hover stripe dataTable"]`, { visible: true, timeout: 120 });
 
@@ -184,7 +189,11 @@ async function scrapeIt(url, pageNumber) {
 
     
     //this will run depending on the amourn of pages there are...
-    for (let i = 0; i < pageNumber; i++) {
+    for (let i = 0; i < pageNumber; i++) {  
+
+        // page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+        // await page.waitForSelector('#paginate_button current', {visible: true})
+        
         const hrefs = await page.$$eval('.advanced-stats', elements => elements.map(el => el.href))
         //const urls = hrefs.map(el => siteUrl + el)
 
@@ -197,9 +206,18 @@ async function scrapeIt(url, pageNumber) {
 
         await page.evaluate(async () => {
             const nextButton = document.querySelector('#players_table_next');
-            nextButton.click();
-            await sleep(2);
+            nextButton.click();                
+        await sleep(10);                   
         });
+
+        
+        // let t = i+1;
+        //wait for the current page to update. 
+        // await page.waitForFunction('document.getElementsByClassName("current")[0].innerText = '+t);
+        // await page.waitFor(() => );
+        
+        //tracking of pages
+        console.log("Page#:" + i);
     }
 
     //array of all cards and their infos...
@@ -210,11 +228,21 @@ async function scrapeIt(url, pageNumber) {
     //bringing in the download function for images...
     await page.exposeFunction('download', download);
 
+    //for tracking progess
+let x = 0;
+
+let uniqueplayerInfoUrls = [...new Set(playerInfoUrls)];
+
     for (const url of playerInfoUrls) {
+ //for tracking progess
+console.log(x + "/" + uniqueplayerInfoUrls.length);
+ //for tracking progess
+x++;
+
 
         //go to and load page first.
-        await page.goto(url);
-        await sleep(1);
+        await page.goto(url, {waitUntil: 'domcontentloaded'});
+        // await sleep(1);
 
         //grabbing all player info...
        let playerInfoB4 = await page.evaluate(async () => {            
@@ -363,7 +391,7 @@ exports.updateGoalies = async (req, res) => {
 
 
 async function scrapeItG(url, pageNumber) {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: false, ignoreHTTPSErrors: true });
     const context = browser.defaultBrowserContext();
     await context.overridePermissions(url, ['geolocation']);
 
@@ -375,20 +403,22 @@ async function scrapeItG(url, pageNumber) {
         height: 1080
     });
 
+    await page.setDefaultNavigationTimeout(0);
+
     page.on('dialog', async dialog => await dialog.dismiss());
     page.on('console', msg => console.log(msg._text));
     //uses function in scrapper pages...
     await page.exposeFunction('sleep', sleep);
 
 
-    await page.goto(url);
-    await sleep(5);
+    await page.goto(url, {waitUntil: 'domcontentloaded'});
+    // await sleep(1);
     // await page.screenshot({ path: 'screenshots/check.png' });
     await page.evaluate(async () => {
         window.scrollBy(0, document.body.scrollWidth);
-        await sleep(2);
+        await sleep(.5);
         window.scrollBy(0, document.body.scrollHeight);
-        await sleep(2);
+        await sleep(.5);
     });
 
     await page.waitForSelector(`[class="table display compact hover stripe dataTable"]`, { visible: true, timeout: 120 });
@@ -415,7 +445,7 @@ async function scrapeItG(url, pageNumber) {
         await page.evaluate(async () => {
             const nextButton = document.querySelector('#players_table_next');
             nextButton.click();
-            await sleep(2);
+            await sleep(1);
         });
     }
 

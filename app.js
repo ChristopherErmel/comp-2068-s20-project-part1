@@ -215,10 +215,7 @@ app.get("/search", async (req, res) => {
           "index": "playerNames",
           "autocomplete": {
             "query": `${req.query.term}`,
-            "path": "playerName",
-            "fuzzy": {
-              "maxEdits": 1
-            }
+            "path": "playerName"
           }
         }
       }
