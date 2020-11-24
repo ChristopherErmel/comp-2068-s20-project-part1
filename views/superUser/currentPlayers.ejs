@@ -17,6 +17,13 @@
         <!-- this will show the amount of cards in the db -->
         <p class="card-text">Amount of Players in Database:</p>
         <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= amountOfPlayers %></p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;">Goalies: <%= amountOfGoalies %> | Skaters: <%= amountOfSkaters %></p>
+
+        <p class="card-text">Last Player Created:</p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= moment(lastPlayerCreated[0].createdAt).format('hh:mm a MM/DD/YYYY');  %></p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= lastPlayerCreated[0].playerName + " | " + lastPlayerCreated[0].card + " | " + lastPlayerCreated[0].overall  %></p>
+
+
         <p class="card-text">Card Types:</p>
         <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;">
             <!-- this will show all card types from the db -->
@@ -39,8 +46,11 @@
         <p class="card-text">Amount of 'PRO' Users in Database:</p>
         <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= amountOfProUsers %></p>
                 
-        <p class="card-text">Last User Created at:</p>
-        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= lastUserCreated[0].createdAt %></p>
+        <p class="card-text">Last User Created:</p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= moment(lastUserCreated[0].createdAt).format('hh:mm a MM/DD/YYYY'); %></p>
+        <p class="card-text" style="text-align: center; font-weight: 600; color: darkorange;"><%= lastUserCreated[0].userName + " | " +  lastUserCreated[0].email + " | " +  lastUserCreated[0].userType  %></p>
+        
+
         
         
         

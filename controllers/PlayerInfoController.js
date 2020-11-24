@@ -3,6 +3,7 @@ const User = require('../models/User');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const https = require('https');
+const moment = require('moment');
 
 exports.console = async (req, res) => {
     //for usertype tracking
@@ -37,18 +38,23 @@ exports.currentPlayers = async (req, res) => {
      }
 
      const playerInfos = await PlayerInfo.find();
+     const playerInfosG = await PlayerInfo.find({"postition": "G"});
      const allUsers = await User.find();
      const allProUsers = await User.find({"userType": "pro"});
      const lastUserCreated = await User.find().sort({"createdAt": -1}).limit(1);
+     const lastPlayerCreated = await PlayerInfo.find().sort({"createdAt": -1}).limit(1);
      
      const playerInfosCardTypes = await PlayerInfo.distinct('card');
 
      let amountOfPlayers = playerInfos.length;
      let amountOfUsers = allUsers.length;
      let amountOfProUsers = allProUsers.length;
+     let amountOfGoalies = playerInfosG.length;
+
+     let amountOfSkaters = amountOfPlayers - amountOfGoalies;
      
      
-    //  console.log(playerInfosCardTypes);
+    // console.log(lastPlayerCreated);
 
 
      //This will only allow the page to load if the user is a super user
@@ -59,8 +65,12 @@ exports.currentPlayers = async (req, res) => {
             playerInfosCardTypes,
             amountOfUsers,
             lastUserCreated,
+            lastPlayerCreated,
             amountOfProUsers,
-            user: user
+            amountOfGoalies,
+            amountOfSkaters,
+            user: user,
+            moment: moment
         })
     }else{
         req.flash('danger', 'You need to login as a Super User to access that page.');
@@ -391,7 +401,7 @@ exports.updateGoalies = async (req, res) => {
 
 
 async function scrapeItG(url, pageNumber) {
-    const browser = await puppeteer.launch({ headless: false, ignoreHTTPSErrors: true });
+    const browser = await puppeteer.launch({ headless: true, ignoreHTTPSErrors: true });
     const context = browser.defaultBrowserContext();
     await context.overridePermissions(url, ['geolocation']);
 
@@ -445,8 +455,11 @@ async function scrapeItG(url, pageNumber) {
         await page.evaluate(async () => {
             const nextButton = document.querySelector('#players_table_next');
             nextButton.click();
-            await sleep(1);
+            await sleep(10);
         });
+
+        //tracking of pages
+        console.log("Page#:" + i);
     }
 
     //array of all cards and their infos...
@@ -457,11 +470,43 @@ async function scrapeItG(url, pageNumber) {
     //bringing in the download function for images...
     await page.exposeFunction('download', download);
 
-    for (const url of playerInfoUrls) {
+
+
+
+
+
+
+
+
+ 
 
         //go to and load page first.
-        await page.goto(url);
-        await sleep(1);
+        await page.goto(url, {waitUntil: 'domcontentloaded'});
+        // await sleep(1);
+
+
+
+
+
+        //for tracking progess
+        let x = 0;
+        
+        let uniqueplayerInfoUrls = [...new Set(playerInfoUrls)];
+        
+
+
+    for (const url of playerInfoUrls) {
+
+
+        //for tracking progess
+console.log(x + "/" + uniqueplayerInfoUrls.length);
+//for tracking progess
+        x++;
+
+
+
+        //go to and load page first.
+        await page.goto(url, {waitUntil: 'domcontentloaded'});
 
         //grabbing all player info...
        let playerInfoB4 = await page.evaluate(async () => {            
