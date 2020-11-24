@@ -299,20 +299,20 @@
             <button type="submit" class="delete" style="border: none;
                     background-color: white; size: 10%">
               <a class="btn btn-danger" aria-label="Delete">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                <i class="fa fa-trash-o" aria-hidden="true"> Remove Trade</i>
               </a>
             </button>
           </form>
-          <% if(trade.tradeStatus == "Traded"){ %>
+          <!-- <% //if(trade.tradeStatus == "Traded"){ %>
           <a class="btn btn-secondary btn-sm"
             style="display: inline-block; float: left; text-decoration: line-through;">Complete Trade</a>
-          <% } %>
-          <% if(trade.tradeStatus == "Available"){ %>
-          <a class="btn btn-success btn-sm" href="/trades/<%= trade.id %>/edit"
+          <%// } %> -->
+          <!-- <%// if(trade.tradeStatus == "Available"){ %>
+          <a class="btn btn-success btn-sm" href="/trades/<%= //trade.id %>/edit"
             style="display: inline-block; float: left; "
             onclick="return confirm('Only complete a trade if both parties have recived their cards! \nAre you sure you want to complete this trade?');">Complete
             Trade</a>
-          <% } %>
+          <%// } %> -->
           <% } %>
         </div>
       </div>

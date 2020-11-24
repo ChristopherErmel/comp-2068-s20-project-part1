@@ -235,10 +235,7 @@ app.get("/searchTrades", async (req, res) => {
           "index": "trades",
           "autocomplete": {
             "query": `${req.query.term}`,
-            "path": "playerName",
-            "fuzzy": {
-              "maxEdits": 1
-            }
+            "path": "playerName"
           }
         }
       }
