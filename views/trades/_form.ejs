@@ -61,6 +61,7 @@
     <label for="hutCard">
       <h5>HUT Card Information</h5>
     </label>
+    <div id="tableCardInfo" style="display: block;">
     <div class="row hutCard">
       <div class="col hutCardItem">Name:</div>
       <div class="col" id="cardName">---</div>
@@ -142,7 +143,82 @@
       <div class="col" id="cardSTR">---</div>
       <div class="col hutCardItem">DUR:</div>
       <div class="col" id="cardDUR">---</div>
-    </div>
+    </div>   
+      </div>
+
+
+
+
+      <!-- goalie table -->
+      <div id="tableCardInfoG" style="display: none;">
+        <div class="row hutCard">
+          <div class="col hutCardItem">Name:</div>
+          <div class="col" id="cardNameG">---</div>
+          <div class="col hutCardItem">OVR:</div>
+          <div class="col" id="cardOVRG">---</div>
+          <div class="col hutCardItem">CARD:</div>
+          <div class="col" id="cardCARDG">---</div>
+        </div>
+        <div class="row hutCard">
+          <div class="col hutCardItem">POS:</div>
+          <div class="col" id="cardPOSG">---</div>
+          <div class="col hutCardItem">AGR:</div>
+          <div class="col" id="cardAGRG">---</div>
+          <div class="col hutCardItem">AGI:</div>
+          <div class="col" id="cardAGIG">---</div>
+        </div>
+    
+        <div class="row hutCard">
+          <div class="col hutCardItem">HEIGHT:</div>
+          <div class="col" id="cardHEIGHT">---</div>
+          <div class="col hutCardItem">WEIGHT:</div>
+          <div class="col" id="cardWEIGHT">---</div>
+          <div class="col hutCardItem">SPD:</div>
+          <div class="col" id="cardSPDG">---</div>
+        </div>
+
+        <div class="row hutCard">         
+          <div class="col hutCardItem">BRK-AW:</div>
+          <div class="col" id="cardBRK-AW">---</div>
+          <div class="col hutCardItem">5H:</div>
+          <div class="col" id="card5H">---</div>
+          <div class="col hutCardItem">HND:</div>
+          <div class="col" id="cardHND">---</div>
+        </div>
+        <div class="row hutCard">
+          <div class="col hutCardItem">GLV-H:</div>
+          <div class="col" id="cardGLV-H">---</div>
+          <div class="col hutCardItem">GLV-L:</div>
+          <div class="col" id="cardGLV-L">---</div>
+          <div class="col hutCardItem">PASS:</div>
+          <div class="col" id="cardPASS">---</div>
+          
+        </div>
+        <div class="row hutCard">
+          <div class="col hutCardItem">PLYR:</div>
+          <div class="col" id="cardPLYR">---</div>
+          <div class="col hutCardItem">POKE:</div>
+          <div class="col" id="cardPOKE">---</div>
+          <div class="col hutCardItem">POST:</div>
+          <div class="col" id="cardPOSTG">---</div>
+        </div>       
+        <div class="row hutCard">
+          <div class="col hutCardItem">VIS:</div>
+          <div class="col" id="cardVIS">---</div>
+          <div class="col hutCardItem">RB-CON:</div>
+          <div class="col" id="cardRB-CON">---</div>
+          <div class="col hutCardItem">SHT-RE:</div>
+          <div class="col" id="cardSHT-RE">---</div>
+        </div>
+        <div class="row hutCard">
+          <div class="col hutCardItem">STK-H:</div>
+          <div class="col" id="cardSTK-H">---</div>
+          <div class="col hutCardItem">STK-L:</div>
+          <div class="col" id="cardSTK-L">---</div>
+          <div class="col hutCardItem">SYN:</div>
+          <div class="col" id="cardSYNG">---</div>
+        </div>   
+          </div>
   </div>
 
 
@@ -191,15 +267,6 @@
 
 
 
-
-
-
-
-
-
-  <!-- <input type="hidden" id="allCardIds" name="allCardIds" value=""> -->
-
-
   <input hidden name="cardId" id="cardId" value=""></input>
   <input hidden name="playerName" id="playerName" value=""></input>
   <input hidden name="playerCard" id="playerCard" value=""></input>
@@ -219,18 +286,37 @@
 
 <script>
   function updateHUTCard(ui) {
-    console.log(ui);
+
+    // If it isnt a goalie card, show the normal table.
+ if(ui.postition != "G"){
+
+  document.getElementById('tableCardInfo').style.display = "block";
+  document.getElementById('tableCardInfoG').style.display = "none";
+  
+ }  
+ if(ui.postition === "G"){
+ 
+  document.getElementById('tableCardInfo').style.display = "none";
+  document.getElementById('tableCardInfoG').style.display = "block";
+
+}
 
 
+
+
+
+  
+
+// add info to the page depending if its a goalie or not. just like above. they match their tables.
+ if(ui.postition != "G"){    
     document.getElementById('playerName').value = ui.playerName;    
     document.getElementById('playerCard').value = ui.card;    
     document.getElementById('playerOVR').value = ui.overall;
-
     document.getElementById('cardName').innerHTML = ui.playerName;
     document.getElementById('cardOVR').innerHTML = ui.overall;
-    document.getElementById('cardaOVR').innerHTML = ui.averageOverAll;
-    document.getElementById('cardCARD').innerHTML = ui.card;
-    document.getElementById('cardPOS').innerHTML = ui.postition;
+    document.getElementById('cardPOS').innerHTML = ui.postition; 
+    document.getElementById('cardCARD').innerHTML = ui.card; 
+    document.getElementById('cardaOVR').innerHTML = ui.averageOverAll;      
     document.getElementById('cardTYPE').innerHTML = ui.playerType;
     document.getElementById('cardHAND').innerHTML = ui.handedness;
     document.getElementById('cardDEK').innerHTML = ui.deking;
@@ -255,17 +341,56 @@
     document.getElementById('cardDUR').innerHTML = ui.durability;
     document.getElementById('cardFS').innerHTML = ui.fightingSkill;
     document.getElementById('cardSTR').innerHTML = ui.strength;
-
-
     document.getElementById('cardSYN').innerHTML = ui.synergies;
 
+  };
+
+
+  // if goalie card/table
+ if(ui.postition === "G"){        
+
+  document.getElementById('playerName').value = ui.playerName;    
+    document.getElementById('playerCard').value = ui.card;    
+    document.getElementById('playerOVR').value = ui.overall;
+    document.getElementById('cardNameG').innerHTML = ui.playerName;
+    document.getElementById('cardOVRG').innerHTML = ui.overall;
+    document.getElementById('cardPOSG').innerHTML = ui.postition; 
+    document.getElementById('cardCARDG').innerHTML = ui.card;          
+    document.getElementById('cardPLYR').innerHTML = ui.playerType;
+    document.getElementById('cardHND').innerHTML = ui.handedness;
+    document.getElementById('cardPASS').innerHTML = ui.passing;
+    document.getElementById('cardAGIG').innerHTML = ui.agility;
+    document.getElementById('cardSPDG').innerHTML = ui.speed;
+    document.getElementById('cardAGRG').innerHTML = ui.aggression;
+    document.getElementById('cardSTR').innerHTML = ui.strength;
+    document.getElementById('cardHEIGHT').innerHTML = ui.height;
+    document.getElementById('cardWEIGHT').innerHTML = ui.weight;
+    document.getElementById('cardBRK-AW').innerHTML = ui.breakaway;
+    document.getElementById('card5H').innerHTML = ui.fiveHole;
+    document.getElementById('cardGLV-H').innerHTML = ui.gloveHigh;
+    document.getElementById('cardGLV-L').innerHTML = ui.gloveLow;
+    document.getElementById('cardPOKE').innerHTML = ui.pokeCheck;
+    document.getElementById('cardPOSTG').innerHTML = ui.positioning;
+    document.getElementById('cardRB-CON').innerHTML = ui.reboundControll;
+    document.getElementById('cardSHT-RE').innerHTML = ui.shotRecovery;
+    document.getElementById('cardSTK-H').innerHTML = ui.stickHigh;
+    document.getElementById('cardSTK-L').innerHTML = ui.stickLow;
+    document.getElementById('cardVIS').innerHTML = ui.vision;
+
+    document.getElementById('cardSYNG').innerHTML = ui.synergies;
+
+  };
 
     
-  }  
+  
 
+  }
 
-
-
+        
+       
+  
+                         
+        
 
   document.getElementById('input-btn-bin').addEventListener('click', function () {
 			document.getElementById('input-txt-bin').classList.add('active');

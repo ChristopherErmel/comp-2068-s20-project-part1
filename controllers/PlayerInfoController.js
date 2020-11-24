@@ -490,7 +490,7 @@ async function scrapeItG(url, pageNumber) {
 
             //setting all the information to the playerInfos array.
             //sending data back
-           return playerInfoB4 = ({ cardID, imageURLId, synergies, playerName, card, postition, playerType, handedness, height, weight, overall, gloveHigh, stickHigh, gloveLow, stickLow, pokeCheck, passing, speed, vision, agility, positioning, fiveHole, breakaway, reboundControll, shotRecovery });
+           return playerInfoB4 = ({ cardID, imageURLId, aggression, synergies, playerName, card, postition, playerType, handedness, height, weight, overall, gloveHigh, stickHigh, gloveLow, stickLow, pokeCheck, passing, speed, vision, agility, positioning, fiveHole, breakaway, reboundControll, shotRecovery });
 
         });
         //push the player data into the array or all player data.
