@@ -146,6 +146,51 @@ const PlayerInfoSchema = new mongoose.Schema({
     strength: {
         type: String,
         required: true
+    },
+    // info for goalies...
+    gloveHigh: {
+        type: String,
+        required: true
+    },
+    stickHigh: {
+        type: String,
+        required: true
+    },
+    gloveLow: {
+        type: String,
+        required: true
+    },
+    stickLow: {
+        type: String,
+        required: true
+    },
+    pokeCheck: {
+        type: String,
+        required: true
+    },
+    vision: {
+        type: String,
+        required: true
+    },
+    positioning: {
+        type: String,
+        required: true
+    },
+    fiveHole: {
+        type: String,
+        required: true
+    },
+    breakaway: {
+        type: String,
+        required: true
+    },
+    reboundControll: {
+        type: String,
+        required: true
+    },
+    shotRecovery: {
+        type: String,
+        required: true
     }
 
 }, {

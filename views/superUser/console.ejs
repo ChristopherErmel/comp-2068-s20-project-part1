@@ -24,18 +24,27 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body homeOptionCards">
-          <h5 class="card-title">Update Players Database</h5>
+          <h5 class="card-title">Update Players/Goalies Database</h5>
           <p class="card-text">Scan and update Player Cards database.</p>
-          <p class="card-text">Based on Page# from <a href="https://www.nhlhutbuilder.com/player-stats.php" target="_blank">HUTBuilder</a></p>
+          <p class="card-text">Players Page# from <a href="https://www.nhlhutbuilder.com/player-stats.php" target="_blank">HUTBuilder</a></p>
           <!-- <a id="updateDB" class="btn btn-primary">Update Database!</a> -->
          
          <!-- this page number will be used to determine how many pages need to be mined/scraped -->
-          <form id="form" action="<%= (typeof actionPath === 'undefined') ? '/superUser/update' : actionPath %>" , method="GET">
-          <input style="float: right; width: 25%; margin-right: 15em;" name="pageNumber" id="pageNumber" value="1"></input>
+          <form style="text-align: center;" id="form" action="<%= (typeof actionPath === 'undefined') ? '/superUser/update' : actionPath %>" , method="GET">
+          <input name="pageNumber" id="pageNumber" placeholder="# of Pages"></input>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit" form="form" value="Submit">Submit</button>
+              <button class="btn btn-primary" type="submit" form="form" value="Submit">Update Players</button>
             </div>
           </form>
+          
+          <p class="card-text">Goalies Page# from <a href="https://www.nhlhutbuilder.com/goalie-stats.php" target="_blank">HUTBuilder</a></p>
+          <!-- this page number will be used to determine how many pages need to be mined/scraped -->
+          <form style="text-align: center;" id="formG" action="<%= (typeof actionPath === 'undefined') ? '/superUser/updateGoalies' : actionPath %>" , method="GET">
+            <input name="pageNumber" id="pageNumber" placeholder="# of Pages"></input>
+              <div class="form-group">
+                <button class="btn btn-primary" type="submit" form="formG" value="Submit">Update Goalies</button>
+              </div>
+            </form>
       
         </div>
       </div>

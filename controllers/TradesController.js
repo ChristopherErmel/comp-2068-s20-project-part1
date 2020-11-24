@@ -410,13 +410,14 @@ exports.create = async (req, res) => {
 
     if (typeof req.user.cardsOnBlock != "undefined") {
       //checks to make sure they are under the card amount.
-      if (req.user.userType === "pro") {
+      if (req.user.userType === "pro" || req.user.userType === "super") {
 
         if (req.user.cardsOnBlock >= 18) {
           req.flash('danger', 'You have reached your limit!(12) Card not posted.');
           res.redirect(`/trades/home`);
         } else {
 
+         
           
     const trade = await Trade.create({ user: user._id, ...req.body });
           //this will find the user and add to their trade amount.
@@ -606,7 +607,7 @@ exports.comment = async (req, res) => {
   try {
 
 
-    if (req.user.userType === "pro") {
+    if (req.user.userType === "pro" || req.user.userType === "super") {
       //this will check to make sure the user is not over the limit of trade offers able to be made.
       if (req.user.myTrades.length >= 8) {
         throw "You have reached the trade offer limit of 8!";
