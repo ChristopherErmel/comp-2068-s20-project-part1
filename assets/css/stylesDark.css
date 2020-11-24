@@ -77,3 +77,10 @@ body {
 .tradeTabs.tradeOfferCardsNamesButton:active{
   color: #e1e1e1!important;
 }
+
+.hutCardShort{
+  background-color: transparent;
+}
+.hutCardShortLr{
+  background-color: transparent;
+}

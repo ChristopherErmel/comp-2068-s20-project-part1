@@ -36,10 +36,21 @@
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= card[0].playerName%></div>
                 </div>
+
+
+                <% if(card[0].postition === "G"){ %> 
+                  <div class="row hutCardShort">
+                    <div class="col hutCardItem">AGR:</div>
+                    <div class="col" id="cardAGR"><%= card[0].aggression%></div>
+                  </div>
+                  <% }else{ %> 
                 <div class="row hutCardShort">
                   <div class="col hutCardItem">aOVR:</div>
                   <div class="col" id="cardaOVR"><%= card[0].averageOverAll%></div>
                 </div>
+                <% } %>
+
+
 
                 <div class="row hutCardShort">
                   <div class="col hutCardItem">POS:</div>
@@ -87,10 +98,20 @@
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= cardList1[0].playerName%></div>
                 </div>
-                <div class="row hutCardShortLr">
-                  <div class="col hutCardItem">aOVR:</div>
-                  <div class="col" id="cardaOVR"><%= cardList1[0].averageOverAll%></div>
-                </div>
+
+                <% if(cardList1[0].postition === "G"){ %> 
+                  <div class="row hutCardShortLr">
+                    <div class="col hutCardItem">AGR:</div>
+                    <div class="col" id="cardAGR"><%= cardList1[0].aggression%></div>
+                  </div>
+                  <% }else{ %> 
+                    <div class="row hutCardShortLr">
+                      <div class="col hutCardItem">aOVR:</div>
+                      <div class="col" id="cardaOVR"><%= cardList1[0].averageOverAll%></div>
+                    </div>
+                <% } %>
+
+                
                 <div class="row hutCardShortLr">
                   <div class="col hutCardItem">POS:</div>
                   <div class="col" id="cardPOS"><%= cardList1[0].postition%></div>
@@ -118,10 +139,24 @@
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= cardList2[0].playerName%></div>
                 </div>
-                <div class="row hutCardShortLr">
-                  <div class="col hutCardItem">aOVR:</div>
-                  <div class="col" id="cardaOVR"><%= cardList2[0].averageOverAll%></div>
-                </div>
+
+
+                <% if(cardList2[0].postition === "G"){ %> 
+                  <div class="row hutCardShortLr">
+                    <div class="col hutCardItem">AGR:</div>
+                    <div class="col" id="cardAGR"><%= cardList2[0].aggression%></div>
+                  </div>
+                  <% }else{ %> 
+                    <div class="row hutCardShortLr">
+                      <div class="col hutCardItem">aOVR:</div>
+                      <div class="col" id="cardaOVR"><%= cardList2[0].averageOverAll%></div>
+                    </div>
+                <% } %>
+                
+
+
+
+
                 <div class="row hutCardShortLr">
                   <div class="col hutCardItem">POS:</div>
                   <div class="col" id="cardPOS"><%= cardList2[0].postition%></div>
@@ -149,10 +184,23 @@
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= cardList3[0].playerName%></div>
                 </div>
-                <div class="row hutCardShortLr">
-                  <div class="col hutCardItem">aOVR:</div>
-                  <div class="col" id="cardaOVR"><%= cardList3[0].averageOverAll%></div>
-                </div>
+
+
+                <%if(cardList3[0].postition === "G"){ %> 
+                  <div class="row hutCardShortLr">
+                    <div class="col hutCardItem">AGR:</div>
+                    <div class="col" id="cardAGR"><%= cardList3[0].aggression%></div>
+                  </div>
+                  <% }else{ %> 
+                    <div class="row hutCardShortLr">
+                      <div class="col hutCardItem">aOVR:</div>
+                      <div class="col" id="cardaOVR"><%= cardList3[0].averageOverAll%></div>
+                    </div>
+                <% } %>
+
+
+
+                
                 <div class="row hutCardShortLr">
                   <div class="col hutCardItem">POS:</div>
                   <div class="col" id="cardPOS"><%= cardList3[0].postition%></div>
@@ -180,10 +228,30 @@
                   <div class="col hutCardItem">Name:</div>
                   <div class="col" id="cardName"><%= cardList4[0].playerName%></div>
                 </div>
-                <div class="row hutCardShortLr">
-                  <div class="col hutCardItem">aOVR:</div>
-                  <div class="col" id="cardaOVR"><%= cardList4[0].averageOverAll%></div>
-                </div>
+
+
+
+
+
+                <% if(cardList4[0].postition === "G"){ %> 
+                  <div class="row hutCardShortLr">
+                    <div class="col hutCardItem">AGR:</div>
+                    <div class="col" id="cardAGR"><%= cardList4[0].aggression%></div>
+                  </div>
+                  <% }else{ %> 
+                    <div class="row hutCardShortLr">
+                      <div class="col hutCardItem">aOVR:</div>
+                      <div class="col" id="cardaOVR"><%= cardList4[0].averageOverAll%></div>
+                    </div>
+                <% } %>
+
+               
+
+
+
+
+
+
                 <div class="row hutCardShortLr">
                   <div class="col hutCardItem">POS:</div>
                   <div class="col" id="cardPOS"><%= cardList4[0].postition%></div>
@@ -390,10 +458,23 @@
                         <div class="col hutCardItem">Name:</div>
                         <div class="col" id="cardName"><%= cardOffers["CardsO1" + iioi][0].playerName%></div>
                       </div>
-                      <div class="row hutCardShortL">
-                        <div class="col hutCardItem">aOVR:</div>
-                        <div class="col" id="cardaOVR"><%= cardOffers["CardsO1" + iioi][0].averageOverAll%></div>
-                      </div>
+
+
+
+                      <% if(cardOffers["CardsO1" + iioi][0].postition === "G"){ %> 
+                        <div class="row hutCardShortL">
+                          <div class="col hutCardItem">AGR:</div>
+                          <div class="col" id="cardAGR"><%= cardOffers["CardsO1" + iioi][0].aggression%></div>
+                        </div>
+                        <% }else{ %> 
+                          <div class="row hutCardShortL">
+                            <div class="col hutCardItem">aOVR:</div>
+                            <div class="col" id="cardaOVR"><%= cardOffers["CardsO1" + iioi][0].averageOverAll%></div>
+                          </div>
+                      <% } %>
+
+
+                      
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">POS:</div>
                         <div class="col" id="cardPOS"><%= cardOffers["CardsO1" + iioi][0].postition%></div>
@@ -437,10 +518,26 @@
                         <div class="col hutCardItem">Name:</div>
                         <div class="col" id="cardName"><%= cardOffers["CardsO2" + iioi][0].playerName%></div>
                       </div>
-                      <div class="row hutCardShortL">
-                        <div class="col hutCardItem">aOVR:</div>
-                        <div class="col" id="cardaOVR"><%= cardOffers["CardsO2" + iioi][0].averageOverAll%></div>
-                      </div>
+
+
+
+
+                      <% if(cardOffers["CardsO2" + iioi][0].postition === "G"){ %> 
+                        <div class="row hutCardShortL">
+                          <div class="col hutCardItem">AGR:</div>
+                          <div class="col" id="cardAGR"><%= cardOffers["CardsO2" + iioi][0].aggression%></div>
+                        </div>
+                        <% }else{ %> 
+                          <div class="row hutCardShortL">
+                            <div class="col hutCardItem">aOVR:</div>
+                            <div class="col" id="cardaOVR"><%= cardOffers["CardsO2" + iioi][0].averageOverAll%></div>
+                          </div>
+                      <% } %>
+
+
+
+
+                      
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">POS:</div>
                         <div class="col" id="cardPOS"><%= cardOffers["CardsO2" + iioi][0].postition%></div>
@@ -484,10 +581,24 @@
                         <div class="col hutCardItem">Name:</div>
                         <div class="col" id="cardName"><%= cardOffers["CardsO3" + iioi][0].playerName%></div>
                       </div>
-                      <div class="row hutCardShortL">
-                        <div class="col hutCardItem">aOVR:</div>
-                        <div class="col" id="cardaOVR"><%= cardOffers["CardsO3" + iioi][0].averageOverAll%></div>
-                      </div>
+
+
+                      <% if(cardOffers["CardsO3" + iioi][0].postition === "G"){ %> 
+                        <div class="row hutCardShortL">
+                          <div class="col hutCardItem">AGR:</div>
+                          <div class="col" id="cardAGR"><%= cardOffers["CardsO3" + iioi][0].aggression%></div>
+                        </div>
+                        <% }else{ %> 
+                          <div class="row hutCardShortL">
+                            <div class="col hutCardItem">aOVR:</div>
+                            <div class="col" id="cardaOVR"><%= cardOffers["CardsO3" + iioi][0].averageOverAll%></div>
+                          </div>
+                      <% } %>
+
+                     
+
+
+
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">POS:</div>
                         <div class="col" id="cardPOS"><%= cardOffers["CardsO3" + iioi][0].postition%></div>
@@ -531,10 +642,24 @@
                         <div class="col hutCardItem">Name:</div>
                         <div class="col" id="cardName"><%= cardOffers["CardsO4" + iioi][0].playerName%></div>
                       </div>
-                      <div class="row hutCardShortL">
-                        <div class="col hutCardItem">aOVR:</div>
-                        <div class="col" id="cardaOVR"><%= cardOffers["CardsO4" + iioi][0].averageOverAll%></div>
-                      </div>
+
+
+
+                      <% if(cardOffers["CardsO4" + iioi][0].postition === "G"){ %> 
+                        <div class="row hutCardShortL">
+                          <div class="col hutCardItem">AGR:</div>
+                          <div class="col" id="cardAGR"><%= cardOffers["CardsO4" + iioi][0].aggression%></div>
+                        </div>
+                        <% }else{ %> 
+                          <div class="row hutCardShortL">
+                            <div class="col hutCardItem">aOVR:</div>
+                            <div class="col" id="cardaOVR"><%= cardOffers["CardsO4" + iioi][0].averageOverAll%></div>
+                          </div>
+                      <% } %>
+
+
+
+                      
                       <div class="row hutCardShortL">
                         <div class="col hutCardItem">POS:</div>
                         <div class="col" id="cardPOS"><%= cardOffers["CardsO4" + iioi][0].postition%></div>
@@ -904,10 +1029,24 @@
                 <div class="col hutCardItem">Name:</div>
                 <div class="col" id="cardName"><%= cardOffers["CardsO1" + ii][0].playerName%></div>
               </div>
-              <div class="row hutCardShortL">
-                <div class="col hutCardItem">aOVR:</div>
-                <div class="col" id="cardaOVR"><%= cardOffers["CardsO1" + ii][0].averageOverAll%></div>
-              </div>
+
+
+              <% if(cardOffers["CardsO1" + ii][0].postition === "G"){ %> 
+                <div class="row hutCardShortL">
+                  <div class="col hutCardItem">AGR:</div>
+                  <div class="col" id="cardAGR"><%= cardOffers["CardsO1" + ii][0].aggression%></div>
+                </div>
+                <% }else{ %> 
+                  <div class="row hutCardShortL">
+                    <div class="col hutCardItem">aOVR:</div>
+                    <div class="col" id="cardaOVR"><%= cardOffers["CardsO1" + ii][0].averageOverAll%></div>
+                  </div>
+              <% } %>
+
+              
+
+
+
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">POS:</div>
                 <div class="col" id="cardPOS"><%= cardOffers["CardsO1" + ii][0].postition%></div>
@@ -950,10 +1089,22 @@
                 <div class="col hutCardItem">Name:</div>
                 <div class="col" id="cardName"><%= cardOffers["CardsO2" + ii][0].playerName%></div>
               </div>
-              <div class="row hutCardShortL">
-                <div class="col hutCardItem">aOVR:</div>
-                <div class="col" id="cardaOVR"><%= cardOffers["CardsO2" + ii][0].averageOverAll%></div>
-              </div>
+
+
+              <% if(cardOffers["CardsO2" + ii][0].postition === "G"){ %> 
+                <div class="row hutCardShortL">
+                  <div class="col hutCardItem">AGR:</div>
+                  <div class="col" id="cardAGR"><%= cardOffers["CardsO2" + ii][0].aggression%></div>
+                </div>
+                <% }else{ %> 
+                  <div class="row hutCardShortL">
+                    <div class="col hutCardItem">aOVR:</div>
+                    <div class="col" id="cardaOVR"><%= cardOffers["CardsO2" + ii][0].averageOverAll%></div>
+                  </div>
+              <% } %>
+
+
+              
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">POS:</div>
                 <div class="col" id="cardPOS"><%= cardOffers["CardsO2" + ii][0].postition%></div>
@@ -997,10 +1148,24 @@
                 <div class="col hutCardItem">Name:</div>
                 <div class="col" id="cardName"><%= cardOffers["CardsO3" + ii][0].playerName%></div>
               </div>
-              <div class="row hutCardShortL">
-                <div class="col hutCardItem">aOVR:</div>
-                <div class="col" id="cardaOVR"><%= cardOffers["CardsO3" + ii][0].averageOverAll%></div>
-              </div>
+
+
+
+
+              <% if(cardOffers["CardsO3" + ii][0].postition === "G"){ %> 
+                <div class="row hutCardShortL">
+                  <div class="col hutCardItem">AGR:</div>
+                  <div class="col" id="cardAGR"><%= cardOffers["CardsO3" + ii][0].aggression%></div>
+                </div>
+                <% }else{ %> 
+                  <div class="row hutCardShortL">
+                    <div class="col hutCardItem">aOVR:</div>
+                    <div class="col" id="cardaOVR"><%= cardOffers["CardsO3" + ii][0].averageOverAll%></div>
+                  </div>
+              <% } %>
+
+
+              
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">POS:</div>
                 <div class="col" id="cardPOS"><%= cardOffers["CardsO3" + ii][0].postition%></div>
@@ -1043,10 +1208,21 @@
                 <div class="col hutCardItem">Name:</div>
                 <div class="col" id="cardName"><%= cardOffers["CardsO4" + ii][0].playerName%></div>
               </div>
-              <div class="row hutCardShortL">
-                <div class="col hutCardItem">aOVR:</div>
-                <div class="col" id="cardaOVR"><%= cardOffers["CardsO4" + ii][0].averageOverAll%></div>
-              </div>
+
+              <% if(cardOffers["CardsO4" + ii][0].postition === "G"){ %> 
+                <div class="row hutCardShortL">
+                  <div class="col hutCardItem">AGR:</div>
+                  <div class="col" id="cardAGR"><%= cardOffers["CardsO4" + ii][0].aggression%></div>
+                </div>
+                <% }else{ %> 
+                  <div class="row hutCardShortL">
+                    <div class="col hutCardItem">aOVR:</div>
+                    <div class="col" id="cardaOVR"><%= cardOffers["CardsO4" + ii][0].averageOverAll%></div>
+                  </div>
+              <% } %>
+
+
+             
               <div class="row hutCardShortL">
                 <div class="col hutCardItem">POS:</div>
                 <div class="col" id="cardPOS"><%= cardOffers["CardsO4" + ii][0].postition%></div>
