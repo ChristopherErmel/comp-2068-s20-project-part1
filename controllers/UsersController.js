@@ -68,7 +68,7 @@ try {
 },
 "transactions": [{
 "amount": {
-"total": 6.99,
+"total": 1.99,
 "currency": "CAD"
 },
 "description": "Upgrade for NHLHUTTrader"
@@ -103,8 +103,15 @@ createPay( payment )
 exports.upgrade = async (req, res) => {
 //app.get('/success' , (req ,res ) => {
   try {
+    //for usertype tracking
+    let user = "undefined"
+  if(typeof req.user != "undefined"){
+    user = await User.findById(req.user);
+  }
     //console.log(req.query); 
-    res.render(`${viewPath}/upgrade`); 
+    res.render(`${viewPath}/upgrade`, { 
+      user: user
+    }); 
   } catch (error) {
     console.log(error);
   }
@@ -115,6 +122,11 @@ exports.upgrade = async (req, res) => {
 exports.upgradeSuccess = async (req, res) => {
 //app.get('/success' , (req ,res ) => {
   try {
+    //for usertype tracking
+    let user = "undefined"
+  if(typeof req.user != "undefined"){
+    user = await User.findById(req.user);
+  }
 
     //grabbing all payment information after successful payment and user who upgraded 
     let userID = req.user._id;
@@ -141,7 +153,7 @@ exports.upgradeSuccess = async (req, res) => {
     //console.log(req.query);     
     res.render(`${viewPath}/upgradeSuccess`, {
       paymentDetails: req.query,
-      user: req.user
+      user: user
     }); 
   } catch (error) {
     req.flash('danger', `There was an error upgrading your account: ${error}`);
@@ -153,9 +165,16 @@ exports.upgradeSuccess = async (req, res) => {
 
 // error page 
 exports.upgradeError = async (req, res) => {
+  let user = "undefined"
+  if(typeof req.user != "undefined"){
+    user = await User.findById(req.user);
+  }
+
 //app.get('/err' , (req , res) => {
     //console.log(req.query); 
-    res.render(`${viewPath}/upgradeError`); 
+    res.render(`${viewPath}/upgradeError`, {
+      user: user
+    }); 
 };
 
 

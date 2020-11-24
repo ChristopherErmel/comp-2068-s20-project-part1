@@ -10,22 +10,22 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/trades/results/1">The Block</a>
+        <a class="nav-link navPage" href="/trades/results/1">The Block</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/XboxTrades/results/1">Xbox</a>
+        <a class="nav-link navPage" href="/XboxTrades/results/1">Xbox</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/PSTrades/results/1">PS</a>
+        <a class="nav-link navPage" href="/PSTrades/results/1">PS</a>
       </li>
       <% if (authorized){ %>
         
       <li class="nav-item" >
-        <a class="nav-link" style="pointer-events: none;">
+        <a class="nav-link navPage" style="pointer-events: none;">
          |
         </a> 
       </li>
-      <li class="nav-item" >
+      <li class="nav-item navPage" >
         <a href="/trades/home" class="nav-link">
          Home
         </a> 
@@ -36,14 +36,14 @@
 
     <ul class="navbar-nav">
       <% if (!authorized) { %>
-      <li class="nav-item">
+      <li class="nav-item navPage">
         <a href="/users/new" class="nav-link">
           <i class="fa fa-user-plus"></i>
           Register
         </a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item navPage">
         <a href="/login" class="nav-link">
           <i class="fa fa-sign-in"></i>
           Login
@@ -55,17 +55,23 @@
       <!-- This will check the users type if they are logged in and there is a user type. -->
       <% if(typeof user != "undefined" && authorized){ %>
       <% if(user.userType === "pro"){ %>
+        <li class="nav-item navPage">
       <button type="button" class="btn btn-warning" style="pointer-events: none; margin-right: 1em;">Pro</button>
+    </li>
       <% }%>
       <% if(user.userType === "super"){ %>
+        <li class="nav-item navPage">
         <a href="/superUser/console"><button type="button" class="btn btn-danger" style="margin-right: 1em;">Super</button></a>
+      </li>
       <% }%>
       <% if(user.userType === "normal"){ %>
+        <li class="nav-item navPage">
         <a href="/upgrade"><button type="button" class="btn btn-info" style="margin-right: 1em;">Upgrade +</button></a>
+      </li>
         <% }%>
       <% }%>
       <!-- Default dropleft button -->
-      <li class="nav-item">
+      <li class="nav-item navPage">
         <div class="btn-group dropleft">
           <button type="button" class="btn btn-secondary dropdown-toggle extraLinks" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -85,5 +91,5 @@
       <% } %>
     </ul>
   </div>
-  <div> <% //console.log(userAccountLevel) %> </div>
+  <!-- <div> <% //console.log(userAccountLevel) %> </div> -->
 </nav>
