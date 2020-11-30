@@ -157,22 +157,10 @@
 
 
     <%- include ('../partials/footer') %>
-    <!-- 
-<script>
-  function myTrade(){ 
-   const myT = document.getElementById("myTrades"); 
-   myT.style.cursor = "pointer";
-   if(myTrades == false){ 
-     myT.style["color"] = "lightgrey"; 
-     myT.style["float"] = "right";
-     myTrades = true;
-     
-   }else{
-     myTrades = false;
-     myT.style["color"] = "black"; 
-     myT.style["float"] = "right";
-
-   }
+    <script>
    
-}; 
-</script> -->
+      //  this will fix footer stylings on this page...
+          const footerChange = document.getElementById("contentWrapper"); 
+         
+         footerChange.style.margin = 0;
+       </script>
