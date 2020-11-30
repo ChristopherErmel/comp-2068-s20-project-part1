@@ -1,14 +1,5 @@
 <form action="<%= (typeof action === 'undefined') ? '/users' : action %>" method="post">
-  <div class="form-group">
-    <label for="firstName">First Name:</label>
-    <input class="form-control" type="text" name="firstName" required value="<%= formData.firstName %>">
-  </div>
   
-  <div class="form-group">
-    <label for="lastName">Last Name:</label>
-    <input class="form-control" type="text" name="lastName" required value="<%= formData.lastName %>">
-  </div>
-
   <div class="form-group">
     <label for="userName">User Name:</label>
     <input class="form-control" type="text" name="userName" maxlength="10" required value="<%= formData.userName %>">

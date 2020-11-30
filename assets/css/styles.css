@@ -930,10 +930,14 @@ input:checked + .sliderHome:before {
 .footer{
   width: 100vw;
   height: 125px;
-  text-align: center; 
-  background-color: #2c2c2c; 
+  text-align: center;   
+  background-color: #eaeaea; 
   font-size: 10px; 
-  color: white;
+  color: black;
+}
+
+.bg-light{
+  background-color: #eaeaea!important; 
 }
 
 .push{
