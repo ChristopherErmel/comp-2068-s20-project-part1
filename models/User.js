@@ -59,16 +59,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
-  successfulTrades: {
-    type: Number,
-    required: true,
-    default: 0
-  },
-  unSuccessfulTrades: {
-    type: Number,
-    required: true,
-    default: 0
-  },
   myTrades: {
     type: Array,
     required: false,

@@ -32,7 +32,7 @@
          <!-- this page number will be used to determine how many pages need to be mined/scraped -->
           <form style="text-align: center;" id="form" action="<%= (typeof actionPath === 'undefined') ? '/superUser/update' : actionPath %>" , method="GET">
           <input name="pageNumber" id="pageNumber" placeholder="# of Pages"></input>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 1em;">
               <button class="btn btn-primary" type="submit" form="form" value="Submit">Update Players</button>
             </div>
           </form>
@@ -41,7 +41,7 @@
           <!-- this page number will be used to determine how many pages need to be mined/scraped -->
           <form style="text-align: center;" id="formG" action="<%= (typeof actionPath === 'undefined') ? '/superUser/updateGoalies' : actionPath %>" , method="GET">
             <input name="pageNumber" id="pageNumber" placeholder="# of Pages"></input>
-              <div class="form-group">
+              <div class="form-group" style="margin-top: 1em;">
                 <button class="btn btn-primary" type="submit" form="formG" value="Submit">Update Goalies</button>
               </div>
             </form>

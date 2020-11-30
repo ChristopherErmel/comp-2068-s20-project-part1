@@ -362,7 +362,7 @@
               <div class="card tradeOfferCardsNamesMy">   
                           
               <button class="tradeTabs tradeOfferCardsNamesButton" id="temp" onclick="showOffer(this.id)"
-                value="<%= tradeOffer %>">My Offer (#<%= iioi + 1 %>)</button>
+                value="<%= tradeOffer %>">My Offer</button>
                 
 
               
@@ -731,8 +731,46 @@
   
   
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- Delete my offer button -->
   
-  
+          <% //if(authorized && (typeof tradeOffer.user === 'undefined' || tradeOffer.user.email === email)) { %>
+            <hr />
+            <form style="background: none; display: inline-block; float: right;" class="form-inline"
+              action="/trades/deleteMyOffer" method="post"
+              onsubmit="return confirm('Are you sure you want to delete this offer? This can not be undone!');">
+              <input type="hidden" value="<%= trade %>" name="trade">
+              <input type="hidden" value="<%= trade._id %>" name="tradeId">
+              <input type="hidden" value="<%= tradeOffer.tradeId %>" name="tradeOfferId">
+              <input type="hidden" value="<%= user._id %>" name="userId">
+              <input type="hidden" value="<%= user %>" name="user">
+              <button type="submit" class="delete" style="border: none;
+                      background-color: white; size: 10%">
+                <a class="btn btn-danger" aria-label="Delete">
+                  <i class="fa fa-trash-o" aria-hidden="true">Remove Offer</i>
+                </a>
+              </button>
+            </form>
+            
+            <% //} %>
   
         
         
@@ -944,24 +982,24 @@
 
       <% } %>
 
-<!-- if 3 of the users own offers exsist then hide the create function -->
+<!-- if the user has an offer then hide the create offer function...-->
 <% if(typeof user != "undefined" && authorized){ %>
-  <% if(user.userType === "pro"  || user.userType === "super"){ %>
+  <%// if(user.userType === "pro"  || user.userType === "super"){ %>
       <script>        
-        if(document.getElementById("7")){
+        if(document.getElementById("0")){
           document.getElementById("offerCardOnF").style.display = "none";
           document.getElementById("offerCardOnF").style.visibility = "hidden";
         }
         </script>
-  <% } %>
-    <% if(user.userType === "normal"){ %>
+  <% //} %>
+    <!-- <% //if(user.userType === "normal"){ %>
       <script>        
         if(document.getElementById("2")){
           document.getElementById("offerCardOnF").style.display = "none";
           document.getElementById("offerCardOnF").style.visibility = "hidden";
         }
         </script>
-  <% } %>
+  <% //} %> -->
   <% } %>
 
 
@@ -1292,7 +1330,22 @@
 
 
 
-
+        <hr />
+        <form style="background: none; display: inline-block; float: right;" class="form-inline"
+          action="/trades/deleteMyOffer" method="post"
+          onsubmit="return confirm('Are you sure you want to delete this offer? This can not be undone!');">
+          <input type="hidden" value="<%= trade %>" name="trade">
+          <input type="hidden" value="<%= tradeOffer.id %>" name="tradeId">
+          <input type="hidden" value="<%= tradeOffer.tradeId %>" name="tradeOfferId">
+          <input type="hidden" value="<%= tradeOffer.offerUserID  %>" name="userId">
+          <!-- <input type="hidden" value="<%= //user %>" name="user"> -->
+          <button type="submit" class="delete" style="border: none;
+                  background-color: white; size: 10%">
+            <a class="btn btn-danger" aria-label="Delete">
+              <i class="fa fa-trash-o" aria-hidden="true">Remove Offer</i>
+            </a>
+          </button>
+        </form>
 
 
 

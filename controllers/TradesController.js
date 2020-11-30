@@ -46,17 +46,22 @@ const playerData = fs.createReadStream('./assets/players/players.csv')
 exports.home = async (req, res) => {
   try {
     //for usertype tracking
-    let user = "undefined"
+    let user = "undefined";
+    let userOffersAmount = 0;
     if (typeof req.user != "undefined") {
       user = await User.findById(req.user);
 
       // numberOfTrades = user.myTrades.length;
+      
+    //amount of offers
+    userOffersAmount = user.myOffers.length;
     }
     const trades = await Trade.find().populate('user').sort({ updatedAt: 'desc' });
     res.render(`${viewPath}/home`, {
       pageTitle: 'Active Trades',
       trades: trades,
-      user: user
+      user: user,
+      userOffersAmount
       //numberOfTrades
       // myTrades: false
     });
@@ -92,6 +97,7 @@ exports.index = async (req, res) => {
     //page and limit 
     let perPage = 8;
     let page = req.params.page || 1;
+
 
 
 
@@ -609,13 +615,13 @@ exports.comment = async (req, res) => {
 
     if (req.user.userType === "pro" || req.user.userType === "super") {
       //this will check to make sure the user is not over the limit of trade offers able to be made.
-      if (req.user.myTrades.length >= 8) {
+      if (req.user.myOffers.length >= 8) {
         throw "You have reached the trade offer limit of 8!";
       }
     }
     if (req.user.userType === "normal") {
       //this will check to make sure the user is not over the limit of trade offers able to be made.
-      if (req.user.myTrades.length >= 3) {
+      if (req.user.myOffers.length >= 3) {
         throw "You have reached the trade offer limit of 3!";
       }
     }
@@ -655,12 +661,14 @@ exports.comment = async (req, res) => {
         $push: {
           "myOffers": {
             tradeId: req.body.id,
+            tradeOfferId: req.body.tradeId,
             //adding the trade time.date in here so when views on myOffers page we can view by date...
             tradeDate: Date.now()
           }
         }
       });
 
+          
 
     }
 
@@ -671,6 +679,139 @@ exports.comment = async (req, res) => {
     res.redirect(`/trades/${req.body.id}`);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.deleteMyOffer = async (req, res) => {
+  try {
+
+    // console.log("tradeOfferId:");
+    // console.log(req.body.tradeOfferId);
+    // console.log("trade:");
+    // console.log(req.body.trade);
+    // console.log("tradeId:");
+    // console.log(req.body.tradeId);
+    // console.log("User:");
+    // ObjectId = require('mongodb').ObjectID;
+    // console.log(req.body.userId.toString().trim());
+
+    // const { user: email } = req.session.passport;
+    const trade = await Trade.findById(req.body.tradeId);
+    const user = await User.findById(req.body.userId.toString().trim());
+  //  console.log(typeof user.offersMade);
+    //this will find the user and remove the offer count   
+    // if (typeof user.offersMade != "undefined") {
+    //   // console.log(req.user.cardsOnBlock);
+    //  // let userID = req.body.userId.toString().trim();
+    //   let numCards = user.offersMade - 1;
+    //   //no '-' numbers 
+    //   if (numCards < 0) { numCards = 0; }
+    //   User.findByIdAndUpdate({ _id: req.body.userId.toString().trim() }, { offersMade: numCards }, function (err, result) { });
+    //   // console.log(req.user.cardsOnBlock);
+    // }
+    //  console.log("hit");
+
+
+// console.log(req.body.userId);
+// console.log(req.body.tradeOfferId);
+// console.log(req.body.tradeId);
+
+  //this will find the user and removed the offer based on the offerid
+    await User.updateOne({_id: req.body.userId.toString().trim()}, {
+          "$pull": {
+            "myOffers": {
+              "tradeOfferId": req.body.tradeOfferId
+            }
+          }
+        });
+
+        await Trade.updateOne({_id: req.body.tradeId}, {
+          "$pull": {
+            "tradeOffers": {
+              "tradeId": req.body.tradeOfferId
+            }
+          }
+        });
+         console.log("hit");
+
+
+
+    
+    req.flash('success', 'Your offer was deleted!');
+     res.redirect(`/trades/${req.body.tradeId}`);
+    // }else{
+    // throw new Error('You do not have permission to Delete that trade.');
+    // }    
+  } catch (error) {
+    req.flash('danger', `There was an error deleting this offer: ${error}`);
+    res.redirect(`/trades/${req.body.tradeId}`);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
