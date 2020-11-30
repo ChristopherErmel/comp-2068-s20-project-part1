@@ -43,4 +43,14 @@
   
   <body>
     <%- include ('../partials/nav') %>
+
+    <% if(typeof user != "undefined" && authorized){ %>       
+      <% if(user.userType === "pro" || user.userType === "super"){ %>
+        
+       <% }else {%>
+        <%- include ('../partials/adSpace') %>
+      <% }%>    
+      <% }%>    
+
+
     <%- include ('../partials/flash') %>

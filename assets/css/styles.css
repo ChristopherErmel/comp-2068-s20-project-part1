@@ -906,3 +906,15 @@ input:checked + .sliderHome:before {
   text-align: center;
   justify-content: center;
 } */
+
+
+/* For the ad spaces at the top and bottom of the pages. */
+.adSpaceDiv{
+  height: 100px;
+  width: 100vw;
+  /* background-color: green; */
+  text-align: center;
+  clear: both;
+  position: relative;
+  display: block;
+}
