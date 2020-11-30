@@ -32,54 +32,49 @@
 <div class="container text-center text-md-left">
 
   <!-- Grid row -->
-  <div class="row">
+  <div class="row" style="text-align: center; margin-left: 4em;">
 
     <!-- Grid column -->
-    <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+    <div class="col-md-3 col-lg-3 mr-auto my-md-3 my-0 mt-3 mb-1 footerChangeBox">
 
       <!-- Content -->
-      <h5 class="font-weight-bold text-uppercase mb-4">NHL Hut Trader:</h5>
-        <p>blah blah blah!</p>
+      <p class="font-weight-bold text-uppercase mb-3 footerChange">NHL Hut Trader:</p>
+        <p class="footerChange">blah blah blah!</p>
 
     </div>
     <!-- Grid column -->
 
     <hr class="clearfix w-100 d-md-none">
 
-    <!-- Grid column -->
-    <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
-
-      <!-- Links -->
-      <h5 class="font-weight-bold text-uppercase mb-4">Useful links</h5>
-      <% if(typeof user != "undefined" && authorized){ %>
-        <% if(user.userType === "pro" || user.userType === "super"){ %>
-          <p>
-            <a style="text-decoration: line-through; color: grey;">Upgrade!</a>
-          </p>
-         <% } else {%>
-      <p>
-        <a href="#!">Upgrade!</a>
-      </p>
-      <% } %>
-      <% } %>
-      
-      <p>
-        <a href="#!">Hut Builder</a>
-      </p>
-    </div>
-    <!-- Grid column -->
-
-    <hr class="clearfix w-100 d-md-none">
-
-    <!-- Grid column -->
-    <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+     <!-- Grid column -->
+     <div class="col-md-3 col-lg-3 mx-auto my-md-3 my-0 mt-3 mb-1 footerChangeBox">
 
       <!-- Contact details -->
-      <h5 class="font-weight-bold text-uppercase mb-4">Contact</h5>
+      <p class="font-weight-bold text-uppercase mb-4 footerChange">Help/Report an Issue:</p>
       <ul class="list-unstyled">
         <li>
-          <p>
-            <a href="#!">ddd@d.com</a>
+          <p class="footerChange">
+            <a href="#!">issueReports@nhlhuttrader.com</a>
+          </p>
+        </li>
+      </ul>
+        
+      </div>
+
+   
+    <!-- Grid column -->
+
+    <hr class="clearfix w-100 d-md-none">
+
+    <!-- Grid column -->
+    <div class="col-md-3 col-lg-3 mx-auto my-md-3 my-0 mt-3 mb-1 footerChangeBox">
+
+      <!-- Contact details -->
+      <p class="font-weight-bold text-uppercase mb-3 footerChange">Contact:</p>
+      <ul class="list-unstyled">
+        <li>
+          <p class="footerChange">
+            <a href="#!">contact@nhlhuttrader.com</a>
           </p>
         </li>
       </ul>
@@ -107,7 +102,7 @@
     <!-- Grid column -->
     <div class="col-md-12 col-lg-12" >
 
-      <p class="text-center" style="font-size: 8px;">© 2020 Copyright:
+      <p class="text-center footerChange" style="font-size: 8px;">© 2020 Copyright:
         <a href=".">
           <strong> NHLHUTTrader.com</strong>
         </a>

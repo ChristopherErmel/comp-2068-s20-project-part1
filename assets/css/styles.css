@@ -929,17 +929,15 @@ input:checked + .sliderHome:before {
 }
 .footer{
   width: 100vw;
-  height: 250px;
+  height: 125px;
   text-align: center; 
   background-color: #2c2c2c; 
   font-size: 10px; 
   color: white;
-
-
 }
 
 .push{
-  height: 250px;
+  height: 125px;
 }
 
 
@@ -947,7 +945,16 @@ input:checked + .sliderHome:before {
   min-height: 100%;
   height: auto!important;
   height: 100;
-  margin: 0 auto -250px;
+  margin: 0 auto -125px;
   overflow: hidden;
   display: block;
+}
+
+.footerChange{
+  margin-bottom: 0!important;  
+}
+.footerChangeBox{
+  margin-top: .5rem!important;
+  margin-bottom: 0!important;  
+  height: 32px;
 }
