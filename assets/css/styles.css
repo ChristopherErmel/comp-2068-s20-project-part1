@@ -34,6 +34,38 @@ header:not(.home-cta), .alert {
   margin-top: 80px;
 }
 
+
+.navbar-brand{
+  background-image: url('/images/nhlhuttraderlogo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 2em;
+  width: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x:hidden!important;
+  overflow-y:hidden!important;
+}
+
+.footerLogo{
+  background-image: url('/images/nhlhuttraderlogoLarge.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x:hidden!important;
+  overflow-y:hidden!important;
+}
+
+
+
+
 .home-cta {
   background: url('/images/background.jpg');
   background-size: cover;
@@ -964,7 +996,7 @@ input:checked + .sliderHome:before {
 }
 .footer{
   width: 100vw;
-  height: 125px;
+  height: 115px;
   text-align: center;   
   background-color: #eaeaea; 
   font-size: 10px; 
@@ -976,7 +1008,7 @@ input:checked + .sliderHome:before {
 }
 
 .push{
-  height: 125px;
+  height: 115px;
 }
 
 
@@ -984,7 +1016,7 @@ input:checked + .sliderHome:before {
   min-height: 100%;
   height: auto!important;
   height: 100;
-  margin: 0 auto -125px;
+  margin: 0 auto -115px;
   overflow: hidden;
   display: block;
 }
