@@ -119,9 +119,18 @@ header:not(.home-cta), .alert {
 
 .card-body.homeOptionCards{
   min-height: 8vh;
+  background-color: #ededed;
 }
 
 
+.card-body{
+  background-color: #ededed;
+}
+
+
+.card{  
+   background-color: #ededed;
+}
 
 /* All player search bars styles below  */
 #playerNames.searchBar{
@@ -486,6 +495,8 @@ hr.playerNamesInfohr{
   margin-top: 1em; 
   display:inline-block;
   max-width: 30%;
+  min-width: 30%;
+  background-color: #ededed;
 }
 
 
@@ -498,6 +509,8 @@ hr.playerNamesInfohr{
 /* Card name and ovr and type on show pages */
 .showCardName{
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 /* styles for the requested cards name ovr and type on show pages */
@@ -715,13 +728,58 @@ hr.playerNamesInfohr{
 
 
 .card.fullTradeCards{
+  max-width: 45%;
+  min-width: 45%;
+  width: 45%;
   width: auto;
-  max-width: none;
 }
 
 
+/* cards on home page, when on phone */
+.homeOptionsOne .col-sm-6{
+  flex: none;
+  margin-top: 2em;
+  max-width: 100%;
+  font-size: 25px!important;
+}
 
+.homeOptionsTwo .col-sm-6{
+  flex: none;
+  margin-top: 2em;
+  max-width: 100%;
+  font-size: 25px!important;
+}
 
+.homeOptionCards h5{
+  font-size: 25px!important;
+}
+
+.numberOfTrades{
+  font-size: 20px!important;
+}
+
+/* upgrade pages */
+.card.upgradeAccountHeaders{
+  width: 100%;
+  margin-bottom: 2em;
+  font-size: 25px!important;
+  margin-right: 0em!important;
+}
+
+/* upgrade pages */
+.upgradeAccountHeaders h3{
+  font-size: 30px!important;
+}
+.upgradeAccountHeaders h5{
+  font-size: 30px!important;
+}
+.upgradeAccountHeaders h6{
+  font-size: 30px!important;
+}
+
+.card.upgradeAccountHeadersSuccess{
+  font-size: 25px!important;
+}
 
 
   
