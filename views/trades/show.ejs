@@ -1011,6 +1011,18 @@
       <div class="card tradeOfferCardsNames">
         <h5 class="card-title-tradeOffers"><label for="comment" style="margin: 1em;">Trade Offers:</label></h5>
         <div class="card tradeSideCards">
+          
+             <!-- if its a new offer and has no trade offers yet. -->
+        <% if(trade.tradeOffers === undefined || trade.tradeOffers.length == 0) {%>
+      
+         
+            <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This trade has no active
+                offers at the moment.</label></h5>
+            <p style="margin-left: 1em;">Please come back later...</p>
+          
+          
+          <% } %>
+          
           <ul class="nav nav-pills">
             <script> let i = 0; let tradeOfferInfo; let tab;</script>
             <% let ii = 0; %>
@@ -1024,16 +1036,8 @@
 
             <% } %>
         </div>
-        <!-- if its a new offer and has no trade offers yet. -->
-        <% if(trade.tradeOffers === undefined || trade.tradeOffers.length == 0) {%>
       </div>
-      <div class="card tradeSideCards">
-        <h5 class="card-title" style="height: 3em;"><label for="comment" style="margin: 1em;">This trade has no active
-            offers at the moment.</label></h5>
-        <p style="margin-left: 1em;">Please come back later...</p>
-      </div>
-      
-      <% } %>
+       
 
     </div>
       <!-- going through all trade offers -->

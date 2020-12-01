@@ -7,6 +7,29 @@ body {
   overflow-x: hidden;
 }
 
+/* Scrollbar below */
+/* The emerging W3C standard
+   that is currently Firefox-only */
+   * {
+    scrollbar-width: thin;
+    scrollbar-color:  #c1c1c1 #eaeaea;
+  }
+  
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+  *::-webkit-scrollbar-track {
+    /* background:   rgba(0, 0, 0, 0.0) ; */
+    background:   #eaeaea ;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 20px;
+    border: 3px solid  #eaeaea;
+  }
+
+
 header:not(.home-cta), .alert {
   margin-top: 80px;
 }
@@ -426,11 +449,11 @@ hr.playerNamesInfohr{
 .card.fullTradeCards{
   vertical-align: top;
    height: auto;
-  width: auto;
+  width: 30%;
  /* margin: auto; */
   margin-top: 1em; 
   display:inline-block;
-  /* max-width: 30%; */
+  max-width: 30%;
 }
 
 
@@ -657,6 +680,18 @@ hr.playerNamesInfohr{
 
 
 
+
+
+.card.fullTradeCards{
+  width: auto;
+  max-width: none;
+}
+
+
+
+
+
+
   
 }
 
@@ -873,7 +908,7 @@ input:checked + .sliderHome:before {
 .homeHeader{
   display: inline-block;
   width: 100%;
-  margin-top: 1em!important;
+  margin-top: 3em!important;
 }
 
 /* Styles for pagination */

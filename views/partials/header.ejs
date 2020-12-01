@@ -23,7 +23,6 @@
     <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
 
 
-
     
 
 
@@ -36,6 +35,7 @@
        <% }%>
       <% }%>
 
+      
 
 
   </head>
@@ -48,6 +48,8 @@
       <% if(user.userType === "pro" || user.userType === "super"){ %>
         
        <% }else {%>
+        <!-- Push the add under the nav... -->
+        <div style="height: 40px;"></div>
         <%- include ('../partials/adSpace') %>
       <% }%>    
       <% }%>    

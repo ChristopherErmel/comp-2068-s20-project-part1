@@ -17,6 +17,29 @@ body {
   color: #e1e1e1;
 }
 
+/* Scrollbar below */
+/* The emerging W3C standard
+   that is currently Firefox-only */
+   * {
+    scrollbar-width: thin;
+    scrollbar-color:  #c1c1c1 #414141;
+  }
+  
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+  *::-webkit-scrollbar-track {
+    /* background:   rgba(0, 0, 0, 0.0) ; */
+    background:   #414141 ;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #313131;
+    border-radius: 20px;
+    border: 3px solid  #414141;
+  }
+
+
 .home-cta {
   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('/images/background.jpg');
   background-size: cover;
@@ -88,3 +111,5 @@ body {
   background-color: #2c2c2c; 
   color: white;
 }
+
+
