@@ -113,6 +113,9 @@ app.use('/', (req, res, next) => {
   //search terms
   res.locals.searchTerms = [];
 
+  //locals for secrect keys for reCaptcha
+  res.locals.reCaptchaKey = "6LcRiD0aAAAAAIXk62I1S5jvE1MgwvmEKP5kesNZ";
+
   //this will jump to the next middleware now
   next();
 });

@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const request = require('request');
 // Setting up paypal...
 let paypal = require('paypal-rest-sdk');
 const viewPath = 'users';
@@ -20,13 +21,38 @@ exports.create = async (req, res) => {
   // req.session.flash = {};
   
   try {
+
+ //this is server side auth for the captcha
+ const captcha = req.body['g-recaptcha-response'];
+ if(!captcha){
+   req.flash("error", "Please select captcha");
+   return res.redirect(`${viewPath}/new`);
+ }
+
+ // Verify URL
+ var verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${res.locals.reCaptchaKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
+
+
+ //api call to google for auth
+ request(verifyURL, (err, response, body) => {
+
+   
+   // if not successful
+   if(body.success !== undefined && !body.success || body.success === false){
+     req.flash("error", "Captcha Failed!");
+     return res.redirect(`${viewPath}/new`);
+   }
+
+  });
+
+
     // Step 1: Create the new user and register them with Passport
     const user = new User(req.body);
     await User.register(user, req.body.password);
 
-
     req.flash('success', 'The user was successfully created');
     res.redirect(`/login`);
+
   } catch (error) {
     console.log(error);
     req.flash('danger', error.message);
