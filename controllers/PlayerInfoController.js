@@ -437,7 +437,7 @@ async function scrapeItG(url, pageNumber) {
     //array of all card info urls
     let playerInfoUrls = [];
 
-
+//l
 
     
     //this will run depending on the amourn of pages there are...
